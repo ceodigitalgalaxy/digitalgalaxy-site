@@ -1,5 +1,13 @@
+# Sistema
 .DS_Store
 Thumbs.db
-*.zip
+desktop.ini
+
+# Editores
 .vscode/
 .idea/
+*.swp
+
+# Pacotes gerados para upload
+*.zip
+dist/
