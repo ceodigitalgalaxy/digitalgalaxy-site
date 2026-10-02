@@ -32,6 +32,7 @@
 
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/responsive.css">
+  <script src="js/vendor/lenis.min.js" defer></script>
   <script src="js/main.js" defer></script>
 </head>
 <body>
@@ -39,294 +40,274 @@
 
   <!-- ============ HEADER ============ -->
   <header class="header" id="topo">
-    <div class="container header__inner">
-      <a class="brand" href="#topo" aria-label="Digital Galaxy, voltar ao início">
-        <img class="brand__mark" src="images/logo/logo-digital-galaxy-mark.svg" alt="" width="32" height="32">
-        <span class="brand__name">Digital Galaxy</span>
+    <div class="header__inner">
+      <a class="brand brand--mark" href="#topo" aria-label="Digital Galaxy, voltar ao início">
+        <svg class="brand__mark" viewBox="92 100 265 265" fill="currentColor" aria-hidden="true">
+          <path fill-rule="evenodd" d="M356.00 232.50A131.5 131.5 0 1 0 93.00 232.50A131.5 131.5 0 1 0 356.00 232.50ZM307.60 315.30A117.1 77.2 45.0 1 0 142.00 149.70A117.1 77.2 45.0 1 0 307.60 315.30Z"/>
+          <path class="brand__star" d="M224.80 198.50C224.80 222.22 237.58 235.00 261.30 235.00C237.58 235.00 224.80 247.78 224.80 271.50C224.80 247.78 212.03 235.00 188.30 235.00C212.03 235.00 224.80 222.22 224.80 198.50Z" stroke="currentColor" stroke-width="16" stroke-linejoin="round"/>
+        </svg>
       </a>
 
-      <nav class="nav" id="menu" aria-label="Navegação principal">
-        <ul class="nav__list">
-          <li><a class="nav__link" href="#servicos">Serviços</a></li>
-          <li><a class="nav__link" href="#planos">Planos</a></li>
-          <li><a class="nav__link" href="#como-funciona">Como funciona</a></li>
-          <li><a class="nav__link" href="#quem-somos">Quem somos</a></li>
-          <li><a class="nav__link" href="#faq">Dúvidas</a></li>
-        </ul>
-        <a class="btn btn--primary btn--sm nav__cta" href="https://diagnostico.digitalgalaxy.com.br/?utm_source=site&amp;utm_medium=header">Agendar conversa</a>
-      </nav>
-
-      <button class="menu-toggle" type="button" aria-controls="menu" aria-expanded="false" aria-label="Abrir menu">
-        <span class="menu-toggle__bar"></span>
-        <span class="menu-toggle__bar"></span>
-      </button>
+      <div class="header__actions">
+        <a class="btn btn--primary btn--sm header__cta" href="https://diagnostico.digitalgalaxy.com.br/?utm_source=site&amp;utm_medium=header"><span class="btn__text">Agendar conversa</span><span class="btn__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M14 6l6 6-6 6"/></svg></span></a>
+        <button class="menu-toggle" type="button" aria-controls="menu" aria-expanded="false" aria-label="Abrir menu">
+          <span class="menu-toggle__bar"></span>
+          <span class="menu-toggle__bar"></span>
+          <span class="menu-toggle__bar"></span>
+        </button>
+      </div>
     </div>
   </header>
+
+  <!-- Menu lateral: desliza da direita; o fundo desfoca a página (js/main.js) -->
+  <div class="menu-overlay" aria-hidden="true"></div>
+  <nav class="nav" id="menu" aria-label="Navegação principal" inert>
+    <ul class="nav__list">
+      <li><a class="nav__link" href="#topo">Início</a></li>
+      <li><a class="nav__link" href="#servicos">Serviços</a></li>
+      <li><a class="nav__link" href="#faq">Dúvidas</a></li>
+    </ul>
+    <div class="nav__footer">
+      <a class="btn btn--primary nav__cta" href="https://diagnostico.digitalgalaxy.com.br/?utm_source=site&amp;utm_medium=menu"><span class="btn__text">Agendar conversa</span><span class="btn__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M14 6l6 6-6 6"/></svg></span></a>
+    </div>
+  </nav>
 
   <main id="conteudo">
 
     <!-- ============ HERO ============ -->
     <section class="hero" aria-labelledby="hero-title">
-      <div class="starfield" aria-hidden="true"></div>
-      <div class="container hero__grid">
-        <div class="hero__content">
-          <p class="eyebrow">Consultoria de marketing</p>
-          <h1 class="hero__title" id="hero-title">Estratégia e execução de marketing no mesmo lugar</h1>
-          <p class="hero__lead">Marketing para negócios locais e médias empresas. Você fala direto com quem decide e com quem executa, sem camadas de atendimento: da forma como a sua marca é vista até o momento em que a atenção vira cliente.</p>
-          <div class="hero__actions">
-            <a class="btn btn--primary" href="https://diagnostico.digitalgalaxy.com.br/?utm_source=site&amp;utm_medium=hero">Agendar uma conversa</a>
-            <a class="btn btn--ghost" href="#planos">Ver planos</a>
-          </div>
-          <ul class="hero__proof" aria-label="Como trabalhamos">
-            <li>1º mês sem fidelidade</li>
-            <li>Meta mensurável desde o início</li>
-            <li>Verba de anúncios paga direto por você</li>
-          </ul>
-        </div>
-
-        <!-- Visual: o funil de ponta a ponta -->
-        <div class="funnel reveal" role="img" aria-label="Funil de marketing: no topo, marca e conteúdo com Vitor; no meio e no fundo, tráfego pago e funil de vendas com Felipe, até a atenção virar cliente.">
-          <p class="funnel__title">O funil de ponta a ponta</p>
-          <div class="funnel__layer funnel__layer--top">
-            <span class="funnel__stage">Topo</span>
-            <span class="funnel__label">Como a marca é vista e lembrada</span>
-            <span class="funnel__owner">Vitor · marca e conteúdo</span>
-          </div>
-          <div class="funnel__layer funnel__layer--mid">
-            <span class="funnel__stage">Meio</span>
-            <span class="funnel__label">Anúncios que geram demanda</span>
-            <span class="funnel__owner">Felipe · tráfego pago</span>
-          </div>
-          <div class="funnel__layer funnel__layer--bottom">
-            <span class="funnel__stage">Fundo</span>
-            <span class="funnel__label">A atenção vira cliente</span>
-            <span class="funnel__owner">Felipe · funil de vendas</span>
-          </div>
-          <img class="funnel__star" src="images/logo/logo-digital-galaxy-mark.svg" alt="" width="40" height="40">
+      <!-- Galáxia espiral animada (fundo): .blackhole define o centro escuro; o canvas é desenhado por js/main.js -->
+      <div class="blackhole" aria-hidden="true"></div>
+      <canvas class="blackhole-canvas" aria-hidden="true"></canvas>
+      <div class="container hero__content">
+        <p class="eyebrow">Marketing de ponta a ponta</p>
+        <h1 class="hero__title" id="hero-title">Tudo gira em torno da sua marca</h1>
+        <p class="hero__lead">Estratégia e execução lado a lado, para negócios que querem ser vistos, lembrados e escolhidos.</p>
+        <div class="hero__actions">
+          <a class="btn btn--primary" href="https://diagnostico.digitalgalaxy.com.br/?utm_source=site&amp;utm_medium=hero"><span class="btn__text">Agendar uma conversa</span><span class="btn__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M14 6l6 6-6 6"/></svg></span></a>
+          <a class="btn btn--glow" href="#servicos"><span class="btn__label">Ver serviços</span></a>
         </div>
       </div>
     </section>
 
-    <!-- ============ NÚMEROS / PROPOSTA ============ -->
-    <section class="facts" aria-label="Destaques da consultoria">
-      <div class="container facts__grid">
-        <div class="fact reveal">
-          <p class="fact__number">2</p>
-          <p class="fact__text">especialistas cobrindo o funil inteiro, do posicionamento à venda</p>
+    <!-- ============ FORMA DE TRABALHAR ============ -->
+    <section class="manifesto" id="principios" aria-labelledby="principios-title">
+      <div class="container manifesto__inner">
+        <div class="manifesto__top">
+          <div class="manifesto__heading">
+            <p class="eyebrow">Nossa forma de trabalhar</p>
+            <h2 class="manifesto__title" id="principios-title">Nenhum cliente recebe um pacote genérico.</h2>
+          </div>
+          <div class="manifesto__side">
+            <p class="manifesto__lead">Três princípios valem para todos os planos, do primeiro ao último mês.</p>
+            <div class="manifesto__actions">
+              <a class="btn btn--primary btn--sm" href="https://diagnostico.digitalgalaxy.com.br/?utm_source=site&amp;utm_medium=principios"><span class="btn__text">Agendar conversa</span><span class="btn__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M14 6l6 6-6 6"/></svg></span></a>
+              <a class="btn btn--glow btn--sm" href="#servicos"><span class="btn__label">Ver serviços</span></a>
+            </div>
+          </div>
         </div>
-        <div class="fact reveal">
-          <p class="fact__number">12</p>
-          <p class="fact__text">clientes atendidos, no máximo, ao mesmo tempo</p>
-        </div>
-        <div class="fact reveal">
-          <p class="fact__number">1º mês</p>
-          <p class="fact__text">como mês teste, sem fidelidade</p>
-        </div>
-        <div class="fact reveal">
-          <p class="fact__number">5 dias</p>
-          <p class="fact__text">úteis para receber uma proposta sob medida no plano Personalizado</p>
-        </div>
-      </div>
-    </section>
 
-    <!-- ============ PROBLEMA ============ -->
-    <section class="section" id="desafios" aria-labelledby="desafios-title">
-      <div class="container">
-        <header class="section__header">
-          <p class="eyebrow">O desafio</p>
-          <h2 class="section__title" id="desafios-title">Você se identifica com algum destes pontos?</h2>
-          <p class="section__lead">São as dificuldades mais comuns de quem cuida do marketing de um negócio sozinho, ou sem estratégia.</p>
-        </header>
-        <ul class="pains">
-          <li class="pain reveal">Não consigo postar com frequência</li>
-          <li class="pain reveal">Minhas redes não passam uma imagem profissional</li>
-          <li class="pain reveal">Tenho seguidores, mas eles não viram clientes</li>
-          <li class="pain reveal">Já anunciei e não tive retorno</li>
-          <li class="pain reveal">Não apareço no Google quando me procuram</li>
-          <li class="pain reveal">Não sei o que funciona nem como medir resultados</li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- ============ SOLUÇÃO / PRINCÍPIOS ============ -->
-    <section class="section section--alt" id="principios" aria-labelledby="principios-title">
-      <div class="container">
-        <header class="section__header">
-          <p class="eyebrow">Nossa forma de trabalhar</p>
-          <h2 class="section__title" id="principios-title">Nenhum cliente recebe um pacote genérico</h2>
-          <p class="section__lead">Três princípios valem para todos os planos, do primeiro ao último mês.</p>
-        </header>
-        <div class="cards cards--3">
-          <article class="card reveal">
-            <span class="card__index">01</span>
-            <h3 class="card__title">Diagnóstico antes de tudo</h3>
-            <p class="card__text">Todo plano começa com um diagnóstico do seu negócio. É ele que define o que fazer e o peso de cada canal.</p>
-          </article>
-          <article class="card reveal">
-            <span class="card__index">02</span>
-            <h3 class="card__title">Meta mensurável no 1º mês</h3>
-            <p class="card__text">Definimos uma meta clara logo no início: leads, ligações, rotas no Maps ou vendas. E acompanhamos todo mês.</p>
-          </article>
-          <article class="card reveal">
-            <span class="card__index">03</span>
-            <h3 class="card__title">Sua verba, seu controle</h3>
-            <p class="card__text">A verba de anúncios é separada e paga por você direto às plataformas, no seu cartão. Nunca intermediamos esse dinheiro.</p>
-          </article>
-        </div>
+        <ol class="manifesto__principles">
+          <li class="principle reveal">
+            <span class="principle__index">01</span>
+            <h3 class="principle__title">Diagnóstico antes de tudo</h3>
+            <p class="principle__text">Todo plano começa com um diagnóstico do seu negócio. É ele que define o que fazer e o peso de cada canal.</p>
+          </li>
+          <li class="principle reveal">
+            <span class="principle__index">02</span>
+            <h3 class="principle__title">Meta mensurável no 1º mês</h3>
+            <p class="principle__text">Definimos uma meta clara logo no início: leads, ligações, rotas no Maps ou vendas. E acompanhamos todo mês.</p>
+          </li>
+          <li class="principle reveal">
+            <span class="principle__index">03</span>
+            <h3 class="principle__title">Sua verba, seu controle</h3>
+            <p class="principle__text">A verba de anúncios é separada e paga por você direto às plataformas, no seu cartão. Nunca intermediamos esse dinheiro.</p>
+          </li>
+        </ol>
       </div>
     </section>
 
     <!-- ============ SERVIÇOS ============ -->
-    <section class="section" id="servicos" aria-labelledby="servicos-title">
-      <div class="container">
-        <header class="section__header">
+    <section class="section section--services" id="servicos" aria-labelledby="servicos-title">
+      <div class="services">
+        <header class="services__header">
           <p class="eyebrow">Serviços</p>
-          <h2 class="section__title" id="servicos-title">Tudo o que o seu marketing precisa, com uma única equipe</h2>
+          <h2 class="section__title" id="servicos-title">Tudo o que o seu marketing precisa</h2>
+          <p class="section__lead">8 serviços com uma única equipe, da estratégia até a venda.</p>
+          <a class="btn btn--glow services__cta" href="#projetos"><span class="btn__label">Ver projetos</span></a>
         </header>
-        <div class="cards cards--4">
-          <article class="card card--service reveal">
-            <svg class="card__icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5"/></svg>
-            <h3 class="card__title">Estratégia e posicionamento</h3>
-            <p class="card__text">Público, tom de voz, oferta principal e linha editorial definidos para a marca comunicar com clareza.</p>
-          </article>
-          <article class="card card--service reveal">
-            <svg class="card__icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8"/></svg>
-            <h3 class="card__title">Gestão de redes sociais</h3>
-            <p class="card__text">Calendário mensal, posts com design e legenda para Instagram, Facebook e TikTok e programação semanal de stories.</p>
-          </article>
-          <article class="card card--service reveal">
-            <svg class="card__icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="m10 9 5 3-5 3z"/></svg>
-            <h3 class="card__title">Criação de conteúdo</h3>
-            <p class="card__text">Imagens, carrosséis e reels intercalados conforme o seu negócio e a estratégia definida.</p>
-          </article>
-          <article class="card card--service reveal">
-            <svg class="card__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11v2a1 1 0 0 0 1 1h2l5 4V6L6 10H4a1 1 0 0 0-1 1z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg>
-            <h3 class="card__title">Tráfego pago</h3>
-            <p class="card__text">Campanhas no Meta Ads, Google Ads, LinkedIn e TikTok, com criativos próprios e otimização contínua.</p>
-          </article>
-          <article class="card card--service reveal">
-            <svg class="card__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
-            <h3 class="card__title">SEO e Google Meu Negócio</h3>
-            <p class="card__text">Perfil do Google otimizado, avaliações e SEO local para você aparecer quando procuram pelo seu negócio.</p>
-          </article>
-          <article class="card card--service reveal">
-            <svg class="card__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18c1.1 0 1.6-.8 1.6-1.6 0-.5-.2-.9-.5-1.2-.3-.3-.5-.7-.5-1.2 0-.9.7-1.6 1.6-1.6H16a5 5 0 0 0 5-5C21 6.6 17 3 12 3z"/><circle cx="7.5" cy="11" r="1"/><circle cx="10" cy="7" r="1"/><circle cx="15" cy="7.5" r="1"/></svg>
-            <h3 class="card__title">Branding</h3>
-            <p class="card__text">Identidade visual com logo, cores, fontes e aplicações, ou branding completo com estratégia e manual da marca.</p>
-          </article>
-          <article class="card card--service reveal">
-            <svg class="card__icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M3 9h18M7 13h6M7 16h4"/></svg>
-            <h3 class="card__title">Sites e landing pages</h3>
-            <p class="card__text">Páginas focadas em conversão, com botão de WhatsApp ou formulário e rastreamento dos anúncios.</p>
-          </article>
-          <article class="card card--service reveal">
-            <svg class="card__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18l-7 8v5l-4 2v-7z"/></svg>
-            <h3 class="card__title">Funil de vendas e CRM</h3>
-            <p class="card__text">Estrutura de funil, CRM e automação para que nenhum contato gerado se perca até virar venda.</p>
-          </article>
+        <div class="services__carousel" role="group" aria-roledescription="carrossel" aria-label="Serviços">
+          <div class="services__bar">
+            <div class="services__nav">
+              <button class="services__arrow services__arrow--prev" type="button" aria-label="Serviços anteriores"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
+              <button class="services__arrow services__arrow--next" type="button" aria-label="Próximos serviços"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+            </div>
+          </div>
+          <ul class="services__track">
+            <li class="service">
+              <div class="service__inner">
+                <div class="service__face service__face--front">
+                  <img class="service__media" src="images/servicos/conteudo.webp" alt="" loading="lazy" decoding="async" style="object-position: 54% 50%">
+                  <div class="service__body">
+                    <span class="service__tag">Serviço</span>
+                    <h3 class="service__title">Conteúdo</h3>
+                    <p class="service__text">Imagens, carrosséis e reels</p>
+                    <button class="service__link service__flip" type="button" aria-label="Saiba mais sobre Conteúdo">Saiba mais<svg class="service__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></button>
+                  </div>
+                </div>
+                <div class="service__face service__face--back" inert>
+                  <button class="service__back service__flip" type="button" aria-label="Voltar para a frente do card"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+                  <span class="service__tag">Serviço</span>
+                  <p class="service__back-title">Conteúdo</p>
+                  <p class="service__desc">Imagens, carrosséis e reels intercalados conforme o seu negócio e a estratégia definida.</p>
+                  <a class="service__cta" href="https://diagnostico.digitalgalaxy.com.br/?utm_source=site&amp;utm_medium=servicos">Agendar conversa<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a>
+                </div>
+              </div>
+            </li>
+            <li class="service">
+              <div class="service__inner">
+                <div class="service__face service__face--front">
+                  <img class="service__media" src="images/servicos/trafego-pago.webp" alt="" loading="lazy" decoding="async" style="object-position: 50% 50%">
+                  <div class="service__body">
+                    <span class="service__tag">Serviço</span>
+                    <h3 class="service__title">Tráfego pago</h3>
+                    <p class="service__text">Meta Ads e Google Ads</p>
+                    <button class="service__link service__flip" type="button" aria-label="Saiba mais sobre Tráfego pago">Saiba mais<svg class="service__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></button>
+                  </div>
+                </div>
+                <div class="service__face service__face--back" inert>
+                  <button class="service__back service__flip" type="button" aria-label="Voltar para a frente do card"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+                  <span class="service__tag">Serviço</span>
+                  <p class="service__back-title">Tráfego pago</p>
+                  <p class="service__desc">Campanhas no Meta Ads, Google Ads, LinkedIn e TikTok, com criativos próprios e otimização contínua.</p>
+                  <a class="service__cta" href="https://diagnostico.digitalgalaxy.com.br/?utm_source=site&amp;utm_medium=servicos">Agendar conversa<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a>
+                </div>
+              </div>
+            </li>
+            <li class="service">
+              <div class="service__inner">
+                <div class="service__face service__face--front">
+                  <img class="service__media" src="images/servicos/seo-local.webp" alt="" loading="lazy" decoding="async" style="object-position: 49% 50%">
+                  <div class="service__body">
+                    <span class="service__tag">Serviço</span>
+                    <h3 class="service__title">SEO local</h3>
+                    <p class="service__text">Google, Maps e avaliações</p>
+                    <button class="service__link service__flip" type="button" aria-label="Saiba mais sobre SEO local">Saiba mais<svg class="service__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></button>
+                  </div>
+                </div>
+                <div class="service__face service__face--back" inert>
+                  <button class="service__back service__flip" type="button" aria-label="Voltar para a frente do card"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+                  <span class="service__tag">Serviço</span>
+                  <p class="service__back-title">SEO local</p>
+                  <p class="service__desc">Perfil do Google otimizado, avaliações e SEO local para você aparecer quando procuram pelo seu negócio.</p>
+                  <a class="service__cta" href="https://diagnostico.digitalgalaxy.com.br/?utm_source=site&amp;utm_medium=servicos">Agendar conversa<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a>
+                </div>
+              </div>
+            </li>
+            <li class="service">
+              <div class="service__inner">
+                <div class="service__face service__face--front">
+                  <img class="service__media" src="images/servicos/estrategia.webp" alt="" loading="lazy" decoding="async">
+                  <div class="service__body">
+                    <span class="service__tag">Serviço</span>
+                    <h3 class="service__title">Posicionamento</h3>
+                    <p class="service__text">Público, voz e oferta</p>
+                    <button class="service__link service__flip" type="button" aria-label="Saiba mais sobre Posicionamento">Saiba mais<svg class="service__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></button>
+                  </div>
+                </div>
+                <div class="service__face service__face--back" inert>
+                  <button class="service__back service__flip" type="button" aria-label="Voltar para a frente do card"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+                  <span class="service__tag">Serviço</span>
+                  <p class="service__back-title">Posicionamento</p>
+                  <p class="service__desc">Público, tom de voz, oferta principal e linha editorial definidos para a marca comunicar com clareza.</p>
+                  <a class="service__cta" href="https://diagnostico.digitalgalaxy.com.br/?utm_source=site&amp;utm_medium=servicos">Agendar conversa<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a>
+                </div>
+              </div>
+            </li>
+            <li class="service">
+              <div class="service__inner">
+                <div class="service__face service__face--front">
+                  <!-- IMAGEM: trocar o svg abaixo por <img class="service__media" src="images/servicos/..." alt="" loading="lazy"> -->
+              <svg class="service__placeholder" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8"/></svg>
+                  <div class="service__body">
+                    <span class="service__tag">Serviço</span>
+                    <h3 class="service__title">Redes sociais</h3>
+                    <p class="service__text">Calendário, posts e stories</p>
+                    <button class="service__link service__flip" type="button" aria-label="Saiba mais sobre Redes sociais">Saiba mais<svg class="service__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></button>
+                  </div>
+                </div>
+                <div class="service__face service__face--back" inert>
+                  <button class="service__back service__flip" type="button" aria-label="Voltar para a frente do card"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+                  <span class="service__tag">Serviço</span>
+                  <p class="service__back-title">Redes sociais</p>
+                  <p class="service__desc">Calendário mensal, posts com design e legenda para Instagram, Facebook e TikTok e programação semanal de stories.</p>
+                  <a class="service__cta" href="https://diagnostico.digitalgalaxy.com.br/?utm_source=site&amp;utm_medium=servicos">Agendar conversa<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a>
+                </div>
+              </div>
+            </li>
+            <li class="service">
+              <div class="service__inner">
+                <div class="service__face service__face--front">
+                  <img class="service__media" src="images/servicos/branding.webp" alt="" loading="lazy" decoding="async" style="object-position: 47% 50%">
+                  <div class="service__body">
+                    <span class="service__tag">Serviço</span>
+                    <h3 class="service__title">Branding</h3>
+                    <p class="service__text">Identidade visual e manual</p>
+                    <button class="service__link service__flip" type="button" aria-label="Saiba mais sobre Branding">Saiba mais<svg class="service__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></button>
+                  </div>
+                </div>
+                <div class="service__face service__face--back" inert>
+                  <button class="service__back service__flip" type="button" aria-label="Voltar para a frente do card"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+                  <span class="service__tag">Serviço</span>
+                  <p class="service__back-title">Branding</p>
+                  <p class="service__desc">Identidade visual com logo, cores, fontes e aplicações, ou branding completo com estratégia e manual da marca.</p>
+                  <a class="service__cta" href="https://diagnostico.digitalgalaxy.com.br/?utm_source=site&amp;utm_medium=servicos">Agendar conversa<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a>
+                </div>
+              </div>
+            </li>
+            <li class="service">
+              <div class="service__inner">
+                <div class="service__face service__face--front">
+                  <!-- IMAGEM: trocar o svg abaixo por <img class="service__media" src="images/servicos/..." alt="" loading="lazy"> -->
+              <svg class="service__placeholder" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M3 9h18M7 13h6M7 16h4"/></svg>
+                  <div class="service__body">
+                    <span class="service__tag">Serviço</span>
+                    <h3 class="service__title">Sites</h3>
+                    <p class="service__text">Páginas que convertem</p>
+                    <button class="service__link service__flip" type="button" aria-label="Saiba mais sobre Sites">Saiba mais<svg class="service__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></button>
+                  </div>
+                </div>
+                <div class="service__face service__face--back" inert>
+                  <button class="service__back service__flip" type="button" aria-label="Voltar para a frente do card"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+                  <span class="service__tag">Serviço</span>
+                  <p class="service__back-title">Sites</p>
+                  <p class="service__desc">Páginas focadas em conversão, com botão de WhatsApp ou formulário e rastreamento dos anúncios.</p>
+                  <a class="service__cta" href="https://diagnostico.digitalgalaxy.com.br/?utm_source=site&amp;utm_medium=servicos">Agendar conversa<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a>
+                </div>
+              </div>
+            </li>
+            <li class="service">
+              <div class="service__inner">
+                <div class="service__face service__face--front">
+                  <img class="service__media" src="images/servicos/funil-crm.webp" alt="" loading="lazy" decoding="async" style="object-position: 50% 50%">
+                  <div class="service__body">
+                    <span class="service__tag">Serviço</span>
+                    <h3 class="service__title">Funil e CRM</h3>
+                    <p class="service__text">Do contato até a venda</p>
+                    <button class="service__link service__flip" type="button" aria-label="Saiba mais sobre Funil e CRM">Saiba mais<svg class="service__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></button>
+                  </div>
+                </div>
+                <div class="service__face service__face--back" inert>
+                  <button class="service__back service__flip" type="button" aria-label="Voltar para a frente do card"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+                  <span class="service__tag">Serviço</span>
+                  <p class="service__back-title">Funil e CRM</p>
+                  <p class="service__desc">Estrutura de funil, CRM e automação para que nenhum contato gerado se perca até virar venda.</p>
+                  <a class="service__cta" href="https://diagnostico.digitalgalaxy.com.br/?utm_source=site&amp;utm_medium=servicos">Agendar conversa<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a>
+                </div>
+              </div>
+            </li>
+          </ul>
         </div>
-      </div>
-    </section>
-
-    <!-- ============ SEGMENTOS (benefícios / diferencial) ============ -->
-    <section class="section section--alt" id="segmentos" aria-labelledby="segmentos-title">
-      <div class="container">
-        <header class="section__header">
-          <p class="eyebrow">Para cada negócio</p>
-          <h2 class="section__title" id="segmentos-title">O mesmo escopo, com o peso certo em cada canal</h2>
-          <p class="section__lead">Somos uma consultoria generalista: o que muda de um cliente para outro é o objetivo, não o segmento. No diagnóstico do primeiro mês definimos onde concentrar esforço.</p>
-        </header>
-        <div class="cards cards--4">
-          <article class="card card--segment reveal">
-            <h3 class="card__title">Negócios de bairro</h3>
-            <p class="card__meta">Clínicas, restaurantes, salões e lojas</p>
-            <p class="card__text">Mais peso em Google Meu Negócio, avaliações e Meta Ads com raio local.</p>
-          </article>
-          <article class="card card--segment reveal">
-            <h3 class="card__title">Serviços profissionais</h3>
-            <p class="card__meta">Advocacia, contabilidade e arquitetura</p>
-            <p class="card__text">Mais peso em Google Ads de pesquisa, SEO e autoridade de marca.</p>
-          </article>
-          <article class="card card--segment reveal">
-            <h3 class="card__title">Varejo e e-commerce</h3>
-            <p class="card__meta">Lojas físicas e virtuais</p>
-            <p class="card__text">Mais peso em Meta Ads, catálogo e conteúdo de produto.</p>
-          </article>
-          <article class="card card--segment reveal">
-            <h3 class="card__title">B2B e indústria</h3>
-            <p class="card__meta">Vendas para outras empresas</p>
-            <p class="card__text">Mais peso em LinkedIn, landing pages de captação e funil integrado ao time comercial.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ PLANOS ============ -->
-    <section class="section" id="planos" aria-labelledby="planos-title">
-      <div class="container">
-        <header class="section__header section__header--center">
-          <p class="eyebrow">Planos mensais</p>
-          <h2 class="section__title" id="planos-title">Um plano para cada momento do seu negócio</h2>
-          <p class="section__lead">Comece pelas redes sociais, some anúncios quando quiser captar clientes e ganhe um plano sob medida quando a necessidade crescer.</p>
-        </header>
-
-        <div class="plans">
-          <article class="plan reveal" aria-labelledby="plano-presenca">
-            <h3 class="plan__name" id="plano-presenca">Presença</h3>
-            <p class="plan__goal">Para começar a se posicionar com redes sociais profissionais e consistentes.</p>
-            <p class="plan__price"><span class="plan__currency">R$</span> 800<span class="plan__period">/mês</span></p>
-            <p class="plan__for"><strong>Ideal para:</strong> negócios locais, autônomos e profissionais liberais que postam pouco, sem padrão visual ou sem estratégia.</p>
-            <ul class="plan__list">
-              <li>Posicionamento no 1º mês: público, tom de voz, linha editorial, bio e destaques</li>
-              <li>Calendário mensal de conteúdo aprovado por você</li>
-              <li>8 posts por mês com design e legenda (Instagram, Facebook e TikTok)</li>
-              <li>Programação semanal de stories</li>
-              <li>Agendamento de todos os posts</li>
-              <li>Relatório mensal e reunião online de 30 minutos</li>
-            </ul>
-            <p class="plan__note">Não inclui anúncios.</p>
-            <a class="btn btn--ghost btn--block" href="https://diagnostico.digitalgalaxy.com.br/?utm_source=site&amp;utm_medium=plano-presenca">Quero o Presença</a>
-          </article>
-
-          <article class="plan plan--featured reveal" aria-labelledby="plano-crescimento">
-            <p class="plan__badge">Plano principal</p>
-            <h3 class="plan__name" id="plano-crescimento">Crescimento</h3>
-            <p class="plan__goal">Para captar novos clientes e expandir o negócio com redes sociais e anúncios.</p>
-            <p class="plan__price"><span class="plan__currency">R$</span> 2.400<span class="plan__period">/mês</span></p>
-            <p class="plan__for"><strong>Ideal para:</strong> negócios locais que já têm alguma presença, pequenas empresas de serviços e clientes do Presença prontos para vender mais.</p>
-            <ul class="plan__list">
-              <li>Estratégia de posicionamento, público e oferta, revisada a cada trimestre</li>
-              <li>12 posts por mês com design e legenda (Instagram, Facebook e TikTok)</li>
-              <li>Programação semanal de stories</li>
-              <li>Meta Ads: até 3 campanhas ativas, criativos próprios e otimização semanal</li>
-              <li>Campanhas de mensagem no WhatsApp ou formulário, com público local e remarketing</li>
-              <li>1 landing page com a sua oferta principal</li>
-              <li>Otimização inicial do Google Meu Negócio</li>
-              <li>Relatório com contatos gerados e custo por contato, e reunião mensal de 1 hora</li>
-            </ul>
-            <p class="plan__note">Verba de anúncios recomendada: R$ 1.000 a R$ 5.000 por mês, paga por você direto às plataformas.</p>
-            <a class="btn btn--primary btn--block" href="https://diagnostico.digitalgalaxy.com.br/?utm_source=site&amp;utm_medium=plano-crescimento">Quero o Crescimento</a>
-          </article>
-
-          <article class="plan reveal" aria-labelledby="plano-personalizado">
-            <h3 class="plan__name" id="plano-personalizado">Personalizado</h3>
-            <p class="plan__goal">Para empresas com necessidades específicas ou maiores do que os planos fixos.</p>
-            <p class="plan__price plan__price--text">Sob consulta</p>
-            <p class="plan__for"><strong>Ideal para:</strong> médias empresas, negócios com várias unidades, B2B, e-commerces e empresas com equipe interna de marketing.</p>
-            <ul class="plan__list">
-              <li>Reunião de descoberta gratuita de 1 hora</li>
-              <li>Diagnóstico das suas redes, site, Google e anúncios atuais</li>
-              <li>Proposta exclusiva em até 5 dias úteis, com escopo, entregas e metas</li>
-              <li>Anúncios em Meta, Google, LinkedIn e TikTok, conforme o objetivo</li>
-              <li>SEO, site, funil de vendas e CRM, se fizer sentido para você</li>
-              <li>Execução pela consultoria ou formato consultivo para a sua equipe</li>
-              <li>Reuniões a combinar, até semanais</li>
-            </ul>
-            <a class="btn btn--ghost btn--block" href="https://diagnostico.digitalgalaxy.com.br/?utm_source=site&amp;utm_medium=plano-personalizado">Agendar reunião de descoberta</a>
-          </article>
-        </div>
-
-        <p class="plans__footnote">Módulos como Google Ads, SEO local, resposta a mensagens, redes sociais adicionais e gestão contínua do Google Meu Negócio podem ser adicionados aos planos Presença e Crescimento.</p>
       </div>
     </section>
 
@@ -336,87 +317,37 @@
         <header class="section__header projects__header">
           <p class="eyebrow">Projetos pontuais</p>
           <h2 class="section__title" id="projetos-title">Ainda não quer mensalidade?</h2>
-          <p class="section__lead">Contrate um projeto avulso para dar o primeiro passo, ou para ir além do seu plano. Clientes com plano ativo têm 15% de desconto.</p>
-          <a class="btn btn--ghost" href="https://diagnostico.digitalgalaxy.com.br/?utm_source=site&amp;utm_medium=projetos">Solicitar orçamento</a>
+          <p class="section__lead">Contrate um projeto avulso para dar o primeiro passo, ou para ir além do seu plano. Clientes com plano ativo têm <strong class="discount">15% de desconto</strong>.</p>
+          <a class="btn btn--glow" href="https://diagnostico.digitalgalaxy.com.br/?utm_source=site&amp;utm_medium=projetos"><span class="btn__label">Solicitar orçamento</span></a>
         </header>
         <ul class="projects__list">
-          <li class="project reveal"><span class="project__name">Diagnóstico e posicionamento</span><span class="project__time">2 semanas</span></li>
-          <li class="project reveal"><span class="project__name">Setup de Google Meu Negócio</span><span class="project__time">1 semana</span></li>
-          <li class="project reveal"><span class="project__name">Identidade visual <small>logo, cores, fontes e aplicações</small></span><span class="project__time">3 a 4 semanas</span></li>
-          <li class="project reveal"><span class="project__name">Branding completo <small>estratégia, identidade e manual</small></span><span class="project__time">6 a 8 semanas</span></li>
-          <li class="project reveal"><span class="project__name">Landing page</span><span class="project__time">2 semanas</span></li>
-          <li class="project reveal"><span class="project__name">Site institucional</span><span class="project__time">4 a 6 semanas</span></li>
+          <li class="project reveal" tabindex="0">
+            <div class="project__head"><span class="project__name">Diagnóstico e posicionamento</span></div>
+            <div class="project__more"><div class="project__more-inner"><p class="project__text">Análise da sua presença digital, dos concorrentes e do seu público. Você recebe um posicionamento claro e os próximos passos em ordem de prioridade.</p></div></div>
+          </li>
+          <li class="project reveal" tabindex="0">
+            <div class="project__head"><span class="project__name">Setup de Google Meu Negócio</span></div>
+            <div class="project__more"><div class="project__more-inner"><p class="project__text">Criação ou otimização do perfil, com categorias, serviços, fotos e descrição, para o seu negócio aparecer nas buscas locais e no Maps.</p></div></div>
+          </li>
+          <li class="project reveal" tabindex="0">
+            <div class="project__head"><span class="project__name">Identidade visual</span></div>
+            <div class="project__more"><div class="project__more-inner"><p class="project__text">Logo, paleta de cores, tipografia e aplicações prontas para redes sociais e materiais, para a marca ter a mesma cara em todo lugar.</p></div></div>
+          </li>
+          <li class="project reveal" tabindex="0">
+            <div class="project__head"><span class="project__name">Branding completo</span></div>
+            <div class="project__more"><div class="project__more-inner"><p class="project__text">Estratégia de marca, identidade visual e manual de uso: o que a marca defende, como ela fala e como ela aparece.</p></div></div>
+          </li>
+          <li class="project reveal" tabindex="0">
+            <div class="project__head"><span class="project__name">Landing page</span></div>
+            <div class="project__more"><div class="project__more-inner"><p class="project__text">Uma página com um único objetivo: texto, design e chamada para contato pensados para transformar visitas em conversas.</p></div></div>
+          </li>
+          <li class="project reveal" tabindex="0">
+            <div class="project__head"><span class="project__name">Site institucional</span></div>
+            <div class="project__more"><div class="project__more-inner"><p class="project__text">Site com várias páginas, adaptado ao celular e preparado para o Google, apresentando a empresa, os serviços e os canais de contato.</p></div></div>
+          </li>
         </ul>
       </div>
     </section>
-
-    <!-- ============ COMO FUNCIONA ============ -->
-    <section class="section" id="como-funciona" aria-labelledby="como-title">
-      <div class="container">
-        <header class="section__header">
-          <p class="eyebrow">Como funciona</p>
-          <h2 class="section__title" id="como-title">Você arrisca pouco e já começa com um diagnóstico</h2>
-        </header>
-        <ol class="steps">
-          <li class="step reveal">
-            <span class="step__number">1</span>
-            <h3 class="step__title">Conversa inicial</h3>
-            <p class="step__text">Você responde um questionário rápido e marcamos uma conversa para entender o negócio, os objetivos e o que já foi feito.</p>
-          </li>
-          <li class="step reveal">
-            <span class="step__number">2</span>
-            <h3 class="step__title">Mês teste, sem fidelidade</h3>
-            <p class="step__text">O primeiro mês é o mais trabalhoso: diagnóstico, configuração das contas, posicionamento e definição da meta.</p>
-          </li>
-          <li class="step reveal">
-            <span class="step__number">3</span>
-            <h3 class="step__title">Resultados e plano</h3>
-            <p class="step__text">No fim do mês teste, apresentamos os resultados e o plano dos próximos 6 meses.</p>
-          </li>
-          <li class="step reveal">
-            <span class="step__number">4</span>
-            <h3 class="step__title">Contrato de 6 meses</h3>
-            <p class="step__text">A partir do 2º mês. Tráfego e SEO levam em média 3 meses para amadurecer, e esse prazo dá tempo de mostrar resultado.</p>
-          </li>
-        </ol>
-      </div>
-    </section>
-
-    <!-- ============ QUEM SOMOS ============ -->
-    <section class="section section--alt" id="quem-somos" aria-labelledby="quem-title">
-      <div class="container about">
-        <header class="section__header about__header">
-          <p class="eyebrow">Quem somos</p>
-          <h2 class="section__title" id="quem-title">Uma dupla que cobre o funil de ponta a ponta</h2>
-          <p class="section__lead">Na Digital Galaxy, estratégia e execução acontecem no mesmo lugar. Você fala com quem decide e com quem executa, e atendemos no máximo 12 clientes ao mesmo tempo.</p>
-        </header>
-        <div class="team">
-          <!-- PLACEHOLDER: substituir o monograma por uma foto em images/photos/ (ex.: team-vitor.webp) -->
-          <article class="member reveal">
-            <span class="member__avatar" aria-hidden="true">V</span>
-            <div>
-              <h3 class="member__name">Vitor</h3>
-              <p class="member__role">Design, estratégia de marca, comunicação e conteúdo</p>
-              <p class="member__text">O topo do funil: como a sua marca é vista e lembrada.</p>
-            </div>
-          </article>
-          <!-- PLACEHOLDER: substituir o monograma por uma foto em images/photos/ (ex.: team-felipe.webp) -->
-          <article class="member reveal">
-            <span class="member__avatar" aria-hidden="true">F</span>
-            <div>
-              <h3 class="member__name">Felipe <span class="member__tag">CEO</span></h3>
-              <p class="member__role">Tráfego pago, funil de vendas e geração de demanda</p>
-              <p class="member__text">O meio e o fundo do funil: como a atenção vira cliente.</p>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!--
-      PROVA SOCIAL: o documento não traz depoimentos, cases nem logos de clientes.
-      Quando existirem, adicionar uma seção aqui (antes do FAQ).
-    -->
 
     <!-- ============ FAQ ============ -->
     <section class="section" id="faq" aria-labelledby="faq-title">
@@ -427,16 +358,12 @@
         </header>
         <div class="faq__list">
           <details class="faq__item">
-            <summary class="faq__question">A verba dos anúncios está inclusa no plano?</summary>
-            <div class="faq__answer"><p>Não. A verba de anúncios é separada e paga por você direto às plataformas, como Meta e Google, no seu cartão. A consultoria nunca intermedia esse dinheiro. No plano Crescimento, a verba recomendada é de R$ 1.000 a R$ 5.000 por mês.</p></div>
+            <summary class="faq__question">A verba dos anúncios está inclusa?</summary>
+            <div class="faq__answer"><p>Não. A verba de anúncios é separada e paga por você direto às plataformas, como Meta e Google, no seu cartão. A consultoria nunca intermedia esse dinheiro. A verba recomendada costuma ficar entre R$ 1.000 e R$ 5.000 por mês.</p></div>
           </details>
           <details class="faq__item">
             <summary class="faq__question">Existe fidelidade?</summary>
             <div class="faq__answer"><p>O primeiro mês é um mês teste, sem fidelidade. Ao final dele, apresentamos os resultados e o plano dos próximos 6 meses. A partir do segundo mês, o contrato é de 6 meses, com renovação automática.</p></div>
-          </details>
-          <details class="faq__item">
-            <summary class="faq__question">Por que o contrato é de 6 meses?</summary>
-            <div class="faq__answer"><p>Porque tráfego pago e SEO levam em média 3 meses para amadurecer. Esse prazo dá tempo de ajustar as campanhas e mostrar resultado.</p></div>
           </details>
           <details class="faq__item">
             <summary class="faq__question">Em quanto tempo vejo resultados?</summary>
@@ -447,20 +374,12 @@
             <div class="faq__answer"><p>A consultoria é generalista e atende negócios locais e médias empresas: negócios de bairro, serviços profissionais, varejo e e-commerce, B2B e indústria. O escopo é o mesmo, e o peso de cada canal é definido no diagnóstico.</p></div>
           </details>
           <details class="faq__item">
-            <summary class="faq__question">Posso trocar de plano depois?</summary>
-            <div class="faq__answer"><p>Sim. Subir de plano pode ser feito a qualquer momento. Descer de plano, na renovação do contrato.</p></div>
-          </details>
-          <details class="faq__item">
-            <summary class="faq__question">O que não está incluso nos planos fixos?</summary>
-            <div class="faq__answer"><p>O Presença não inclui anúncios, resposta a mensagens e comentários, gravação de vídeo nem Google Meu Negócio. O Crescimento não inclui Google Ads, site completo, resposta a mensagens nem gestão contínua do Google Meu Negócio. Todos esses itens podem ser adicionados como módulos.</p></div>
-          </details>
-          <details class="faq__item">
             <summary class="faq__question">Quem produz as fotos e os vídeos dos stories?</summary>
             <div class="faq__answer"><p>Você envia as fotos e os vídeos do dia a dia do negócio, e nós planejamos a sequência, escrevemos os textos e cuidamos do agendamento.</p></div>
           </details>
           <details class="faq__item">
             <summary class="faq__question">Minha empresa já tem equipe de marketing. Faz sentido contratar?</summary>
-            <div class="faq__answer"><p>Sim. No plano Personalizado, o trabalho pode ser entregue em formato consultivo, orientando a sua equipe interna.</p></div>
+            <div class="faq__answer"><p>Sim. O trabalho pode ser entregue em formato consultivo, orientando a sua equipe interna.</p></div>
           </details>
         </div>
       </div>
@@ -474,9 +393,9 @@
         <h2 class="cta__title" id="cta-title">Vamos entender o seu negócio?</h2>
         <p class="cta__text">Responda 10 perguntas rápidas, em cerca de 5 minutos. Assim chegamos à conversa já conhecendo o seu cenário.</p>
         <div class="cta__actions">
-          <a class="btn btn--primary" href="https://diagnostico.digitalgalaxy.com.br/?utm_source=site&amp;utm_medium=cta-final">Começar agora</a>
+          <a class="btn btn--primary" href="https://diagnostico.digitalgalaxy.com.br/?utm_source=site&amp;utm_medium=cta-final"><span class="btn__text">Começar agora</span><span class="btn__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M14 6l6 6-6 6"/></svg></span></a>
           <!-- WhatsApp: o botão aparece quando o número for configurado em js/main.js -->
-          <a class="btn btn--ghost js-whatsapp" href="#" target="_blank" rel="noopener" hidden>Falar no WhatsApp</a>
+          <a class="btn btn--glow js-whatsapp" href="#" target="_blank" rel="noopener" hidden><span class="btn__label">Falar no WhatsApp</span></a>
         </div>
       </div>
     </section>
@@ -497,9 +416,6 @@
         <p class="footer__heading">Navegação</p>
         <ul>
           <li><a href="#servicos">Serviços</a></li>
-          <li><a href="#planos">Planos</a></li>
-          <li><a href="#como-funciona">Como funciona</a></li>
-          <li><a href="#quem-somos">Quem somos</a></li>
           <li><a href="#faq">Dúvidas</a></li>
         </ul>
       </nav>
