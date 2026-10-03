@@ -2,36 +2,23 @@
    Digital Galaxy — interações da landing page
    ========================================================================== */
 
-/* Prova social
-   --------------------------------------------------------------------------
-   Mostra a faixa de prova (abaixo do hero), a seção "Resultados" e os links
-   "Resultados" do menu e do rodapé. Deixe false até os dados reais estarem
-   preenchidos no index.html.
-*/
-const SHOW_PROOF = false;
-
 /* Configuração de contato
    --------------------------------------------------------------------------
-   PLACEHOLDER: preencha para ativar os botões de WhatsApp (hero, CTA final,
-   botão flutuante no celular e rodapé) e o e-mail no rodapé.
+   PLACEHOLDER: preencha para ativar os botões de WhatsApp e o e-mail no rodapé.
    Enquanto estiverem vazios, esses links ficam ocultos na página.
    whatsapp: só números, com DDI e DDD. Ex.: "5511912345678"
 */
 const CONFIG = {
-  whatsapp: "5551989970010",
-  whatsappMessage: "Olá! Vim pelo site e quero entender como a Digital Galaxy pode ajudar meu negócio.",
+  whatsapp: "",
+  whatsappMessage: "Olá! Vim pelo site da Digital Galaxy e quero entender como vocês podem ajudar o meu negócio.",
   email: ""
 };
 
 document.documentElement.classList.add("js");
 
 document.addEventListener("DOMContentLoaded", () => {
-  setupProof();
-  setupPlaceholders();
   setupSmoothScroll();
   setupContactLinks();
-  setupTracking();
-  setupWhatsAppFloat();
   setupHeader();
   setupLogoSpin();
   setupMobileMenu();
@@ -39,6 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setupStarfields();
   setupGalaxy();
   setupHeroFold();
+  setupServicesCarousel();
   setupServiceFlip();
   setupYear();
 });
@@ -82,7 +70,6 @@ function setupContactLinks() {
       link.hidden = false;
     });
     document.querySelectorAll(".js-whatsapp-item").forEach((item) => { item.hidden = false; });
-    document.querySelectorAll(".js-whatsapp-label").forEach((link) => { link.textContent = `WhatsApp ${formatPhone(CONFIG.whatsapp)}`; });
   }
 
   if (CONFIG.email) {
@@ -92,65 +79,6 @@ function setupContactLinks() {
     });
     document.querySelectorAll(".js-email-item").forEach((item) => { item.hidden = false; });
   }
-}
-
-// "5511912345678" → "(11) 91234-5678"
-function formatPhone(digits) {
-  const m = digits.replace(/\D/g, "").replace(/^55(?=\d{10,11}$)/, "").match(/^(\d{2})(\d{4,5})(\d{4})$/);
-  return m ? `(${m[1]}) ${m[2]}-${m[3]}` : digits;
-}
-
-/* Prova social (SHOW_PROOF) -------------------------------------------- */
-function setupProof() {
-  if (!SHOW_PROOF) return;
-  document.querySelectorAll("[data-proof]").forEach((el) => { el.hidden = false; });
-}
-
-/* Campos a preencher ----------------------------------------------------
-   Elementos com data-fill começam ocultos no HTML e só aparecem quando o
-   texto não tem mais [colchetes] (ex.: preços, perguntas do FAQ, CNPJ).
-*/
-function setupPlaceholders() {
-  document.querySelectorAll("[data-fill]").forEach((el) => {
-    const text = el.textContent.trim();
-    el.hidden = !text || /\[[^\]]*\]/.test(text);
-  });
-}
-
-/* Rastreamento de cliques ----------------------------------------------
-   Links com data-track enviam o evento para o GA4 (gtag ou dataLayer) e
-   para o Meta Pixel, se estiverem instalados. Sem eles, não faz nada.
-   cta_quiz leva a seção de origem em data-origin.
-*/
-function setupTracking() {
-  document.addEventListener("click", (event) => {
-    const link = event.target.closest("[data-track]");
-    if (!link) return;
-    const name = link.dataset.track;
-    const params = { origem: link.dataset.origin || "", link_url: link.href || "" };
-    if (typeof window.gtag === "function") window.gtag("event", name, params);
-    else if (Array.isArray(window.dataLayer)) window.dataLayer.push({ event: name, ...params });
-    if (typeof window.fbq === "function") window.fbq("trackCustom", name, params);
-  });
-}
-
-/* WhatsApp flutuante (só celular) --------------------------------------
-   Some enquanto o hero, o CTA final ou o rodapé estão na tela, para não
-   cobrir botões nem o rodapé (essas áreas já têm o próprio WhatsApp).
-*/
-function setupWhatsAppFloat() {
-  const button = document.querySelector(".wa-float");
-  if (!button || button.hidden || !("IntersectionObserver" in window)) return;
-  const hero = document.querySelector(".hero");
-  const visible = new Set([hero]);
-  const update = () => button.classList.toggle("is-visible", visible.size === 0);
-  // O hero é sticky: continua "na tela" por baixo das seções, então vale o aviso da dobra
-  hero.addEventListener("hero:covered", (event) => { visible[event.detail ? "delete" : "add"](hero); update(); });
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => visible[entry.isIntersecting ? "add" : "delete"](entry.target));
-    update();
-  });
-  [".cta", ".footer"].forEach((s) => { const zone = document.querySelector(s); if (zone) observer.observe(zone); });
 }
 
 /* Header com fundo ao rolar ------------------------------------------- */
@@ -508,9 +436,7 @@ function setupGalaxy() {
 */
 function setupHeroFold() {
   const hero = document.querySelector(".hero");
-  // Primeira seção visível depois do hero (a faixa de prova pode estar oculta)
-  let next = hero && hero.nextElementSibling;
-  while (next && next.hidden) next = next.nextElementSibling;
+  const next = hero && hero.nextElementSibling;
   if (!next) return;
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const clamp = (v) => Math.min(Math.max(v, 0), 1);
@@ -540,6 +466,69 @@ function setupHeroFold() {
   update();
   window.addEventListener("scroll", request, { passive: true });
   window.addEventListener("resize", () => { setTop(); request(); });
+}
+
+/* Carrossel de serviços ------------------------------------------------
+   Rolagem horizontal nativa (arrasto e toque) com snap; as setas avançam um
+   card com uma animação suave e apagam quando não há mais para onde ir.
+*/
+function setupServicesCarousel() {
+  const carousel = document.querySelector(".services__carousel");
+  if (!carousel) return;
+  const track = carousel.querySelector(".services__track");
+  const cards = Array.from(track.children);
+  const prev = carousel.querySelector(".services__arrow--prev");
+  const next = carousel.querySelector(".services__arrow--next");
+
+  const step = () => cards[1].offsetLeft - cards[0].offsetLeft;
+  const maxScroll = () => track.scrollWidth - track.clientWidth;
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // Animação própria das setas: mais longa e com desaceleração suave. O snap
+  // fica desligado enquanto ela roda, para não brigar com o movimento.
+  const DURATION = 1000;
+  const ease = (t) => 1 - Math.pow(1 - t, 4);
+  let animation = 0, targetLeft = 0;
+  const stopAnimation = () => {
+    if (!animation) return;
+    cancelAnimationFrame(animation);
+    animation = 0;
+    track.style.scrollSnapType = "";
+  };
+  const animateTo = (left) => {
+    if (reduceMotion) { track.scrollLeft = left; return; }
+    cancelAnimationFrame(animation);
+    const from = track.scrollLeft;
+    const start = performance.now();
+    track.style.scrollSnapType = "none";
+    const tick = (now) => {
+      const t = Math.min((now - start) / DURATION, 1);
+      track.scrollLeft = from + (left - from) * ease(t);
+      if (t < 1) { animation = requestAnimationFrame(tick); return; }
+      animation = 0;
+      track.style.scrollSnapType = "";
+    };
+    animation = requestAnimationFrame(tick);
+  };
+  const move = (direction) => {
+    // Cliques seguidos somam: parte do destino atual, não de onde a animação está
+    const base = animation ? targetLeft : track.scrollLeft;
+    const index = Math.round(base / step()) + direction;
+    targetLeft = Math.min(Math.max(index * step(), 0), maxScroll());
+    animateTo(targetLeft);
+  };
+  prev.addEventListener("click", () => move(-1));
+  next.addEventListener("click", () => move(1));
+  // Se a pessoa arrastar ou rolar por conta própria, a animação cede
+  ["pointerdown", "wheel", "touchstart"].forEach((type) => track.addEventListener(type, stopAnimation, { passive: true }));
+
+  const update = () => {
+    prev.disabled = track.scrollLeft <= 2;
+    next.disabled = track.scrollLeft >= maxScroll() - 2;
+  };
+  track.addEventListener("scroll", update, { passive: true });
+  window.addEventListener("resize", update);
+  update();
 }
 
 /* Cards de serviço que viram --------------------------------------------
