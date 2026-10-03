@@ -37,10 +37,8 @@
   .services__grid::-webkit-scrollbar { display: none; }
   .service { flex: 0 0 clamp(260px, 40vw, 320px); scroll-snap-align: start; }
 
-  .pain__grid { grid-template-columns: 1fr; }
-  .offer { grid-template-columns: 1fr; gap: var(--space-6); padding: var(--space-7) var(--space-6); }
-  .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: var(--space-7); }
-  .steps::before { display: none; }
+  .pain__grid { grid-template-columns: 1fr; row-gap: var(--space-5); }
+  .pain .pain__header { margin-bottom: 0; }
 
 
   .projects { grid-template-columns: 1fr; gap: var(--space-6); }
@@ -69,26 +67,10 @@
   /* Cards de serviço maiores: um por vez, com o próximo aparecendo na borda */
   .service { flex-basis: min(78vw, 340px); }
 
-  /* Como funciona: passos empilhados, ligados por uma linha vertical */
-  .steps { grid-template-columns: 1fr; row-gap: var(--space-5); }
-  .steps::before {
-    display: block;
-    top: 28px;
-    bottom: 28px;
-    left: 27px;
-    right: auto;
-    width: 1px;
-    height: auto;
-    background: linear-gradient(180deg, rgba(183, 148, 255, 0.7), rgba(183, 148, 255, 0.1));
-  }
-  .step { display: grid; grid-template-columns: 56px 1fr; column-gap: var(--space-4); }
-  .step__index { grid-row: span 2; }
-  .step__title { margin-top: 0; align-self: end; }
   .section__actions { margin-top: var(--space-6); }
 
   .fit { grid-template-columns: 1fr; }
   .fit__col { padding: var(--space-5); }
-  .pain__closing { padding: var(--space-4) var(--space-5); }
 
   /* WhatsApp flutuante: canto inferior direito, aparece fora do hero, do CTA final e do rodapé */
   .wa-float {
@@ -143,7 +125,6 @@
   /* Botões com texto longo quebram linha em vez de vazar da tela */
   .btn { white-space: normal; text-align: center; line-height: 1.25; padding-block: 12px; }
   .section__actions .btn,
-  .offer__cta,
   .manifesto__actions .btn { width: 100%; }
 
   .hero .eyebrow { display: block; font-size: 0.6875rem; letter-spacing: 0.1em; text-align: center; }
@@ -163,6 +144,8 @@
 
 
   .service__title { font-size: 1.25rem; }
+  .ship { width: 42px; height: 21px; }
+  .ship__trail { width: 100px; }
   /* Verso do card mais compacto */
   .service__face--back { padding: var(--space-4); }
   .service__back-title { font-size: 1.5rem; padding-right: var(--space-6); }
@@ -175,8 +158,6 @@
 
   .project__head { flex-wrap: wrap; gap: 4px var(--space-3); }
   .project__price { order: 4; width: 100%; }
-  .offer { padding: var(--space-6) var(--space-4); border-radius: 22px; }
-  .offer__side { padding: var(--space-4); }
   .proof__list { flex-direction: column; align-items: center; }
   .proof__list li + li::before { display: none; }
   .project__name { font-size: 1.125rem; }
