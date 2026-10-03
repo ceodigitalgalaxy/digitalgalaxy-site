@@ -20,10 +20,32 @@
   .manifesto__side { padding-top: 0; }
   .manifesto__principles { margin-top: var(--space-8); gap: var(--space-5); }
 
-  .services { grid-template-columns: 1fr; gap: var(--space-6); padding-left: var(--container-padding); }
-  .services__header { padding: 0 var(--container-padding) 0 0; }
-  .services__cta { margin-top: var(--space-5); }
-  .service { flex-basis: clamp(300px, 46vw, 400px); }
+  /* Serviços: texto do bloco em cima; cards em fila com rolagem lateral (arrasto/toque) */
+  .service-groups { gap: var(--space-7); }
+  .service-group,
+  .service-group--wide { grid-template-columns: minmax(0, 1fr); gap: var(--space-5); }
+  .service-group--wide .service-group__head { display: block; }
+  .service-group--wide .service-group__title { margin-top: var(--space-2); }
+  .service-group--wide .service-group__text { margin-top: var(--space-2); }
+  .service-group__cards,
+  .service-group--wide .service-group__cards {
+    display: flex;
+    gap: var(--space-3);
+    overflow-x: auto;
+    margin: 0 calc(var(--container-padding) * -1);
+    padding: 0 var(--container-padding);
+    scroll-padding-left: var(--container-padding);
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    overscroll-behavior-x: contain;
+  }
+  .service-group__cards::-webkit-scrollbar { display: none; }
+  .service { flex: 0 0 clamp(260px, 40vw, 320px); scroll-snap-align: start; }
+
+  .pain__grid { grid-template-columns: 1fr; }
+  .offer { grid-template-columns: 1fr; gap: var(--space-6); padding: var(--space-7) var(--space-6); }
+  .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: var(--space-7); }
+  .steps::before { display: none; }
 
 
   .projects { grid-template-columns: 1fr; gap: var(--space-6); }
@@ -41,7 +63,50 @@
   .hero__actions .btn { width: 100%; }
 
   /* Cards de serviço maiores: um por vez, com o próximo aparecendo na borda */
-  .service { flex-basis: min(84vw, 420px); }
+  .service { flex-basis: min(78vw, 340px); }
+
+  /* Como funciona: passos empilhados, ligados por uma linha vertical */
+  .steps { grid-template-columns: 1fr; row-gap: var(--space-5); }
+  .steps::before {
+    display: block;
+    top: 28px;
+    bottom: 28px;
+    left: 27px;
+    right: auto;
+    width: 1px;
+    height: auto;
+    background: linear-gradient(180deg, rgba(183, 148, 255, 0.7), rgba(183, 148, 255, 0.1));
+  }
+  .step { display: grid; grid-template-columns: 56px 1fr; column-gap: var(--space-4); }
+  .step__index { grid-row: span 2; }
+  .step__title { margin-top: 0; align-self: end; }
+  .section__actions { margin-top: var(--space-6); }
+
+  .fit { grid-template-columns: 1fr; }
+  .fit__col { padding: var(--space-5); }
+  .pain__closing { padding: var(--space-4) var(--space-5); }
+
+  /* WhatsApp flutuante: canto inferior direito, aparece fora do hero, do CTA final e do rodapé */
+  .wa-float {
+    position: fixed;
+    right: 16px;
+    bottom: calc(16px + env(safe-area-inset-bottom));
+    z-index: 50;
+    display: grid;
+    place-items: center;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    color: #fff;
+    background: #25D366;
+    box-shadow: 0 10px 30px -8px rgba(0, 0, 0, 0.6), 0 0 0 4px rgba(37, 211, 102, 0.15);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(12px) scale(0.9);
+    transition: opacity 300ms var(--ease), transform 300ms var(--ease), visibility 0s linear 300ms;
+  }
+  .wa-float.is-visible { opacity: 1; visibility: visible; transform: none; transition: opacity 300ms var(--ease), transform 300ms var(--ease), visibility 0s; }
+  .wa-float svg { width: 28px; height: 28px; }
 
   /* Princípios empilhados: número ao lado do texto */
   .manifesto__principles { grid-template-columns: 1fr; gap: 0; margin-top: var(--space-7); }
@@ -69,6 +134,18 @@
   /* O painel cobre a tela inteira: a logo escurece para aparecer sobre o fundo claro */
   .header.menu-open .brand--mark { color: var(--color-primary); }
 
+  /* Botões com texto longo quebram linha em vez de vazar da tela */
+  .btn { white-space: normal; text-align: center; line-height: 1.25; padding-block: 12px; }
+  .section__actions .btn,
+  .offer__cta,
+  .manifesto__actions .btn { width: 100%; }
+
+  .hero .eyebrow { display: block; font-size: 0.6875rem; letter-spacing: 0.1em; text-align: center; }
+  .hero .eyebrow::before { display: inline-block; margin-right: 6px; vertical-align: -1px; width: 10px; height: 10px; }
+
+  /* Microcopy empilhada: sem os pontos separadores no começo das linhas */
+  .microcopy { flex-direction: column; align-items: center; gap: 2px; }
+  .microcopy li + li::before { display: none; }
   .hero__title { font-size: clamp(2.125rem, 9vw, 2.5rem); line-height: 1.1; }
   .hero__lead { font-size: 1.0625rem; }
   .hero__actions { margin-top: var(--space-5); }
@@ -85,7 +162,11 @@
   .card:hover { transform: none; }
 
 
-  .project__head { align-items: flex-start; }
+  .project__head { flex-direction: column; align-items: flex-start; gap: 2px; }
+  .offer { padding: var(--space-6) var(--space-4); border-radius: 22px; }
+  .offer__side { padding: var(--space-4); }
+  .proof__list { flex-direction: column; align-items: center; }
+  .proof__list li + li::before { display: none; }
   .project__name { font-size: 1.125rem; }
 
 

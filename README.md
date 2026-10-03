@@ -1,6 +1,6 @@
 # Digital Galaxy — Landing page
 
-Landing page institucional da **Digital Galaxy**, consultoria de marketing para negócios locais e médias empresas. Apresenta a proposta de valor, os serviços, os planos mensais, os projetos avulsos, o modelo de trabalho e a equipe, e leva o visitante ao formulário pré-reunião em [diagnostico.digitalgalaxy.com.br](https://diagnostico.digitalgalaxy.com.br).
+Landing page institucional da **Digital Galaxy**, consultoria de marketing para negócios locais e médias empresas. Segue o modelo AIDA (hero, dor, método, como funciona, serviços, resultados, oferta do mês teste, para quem é, projetos avulsos, FAQ e CTA final) e leva o visitante ao formulário pré-reunião em [diagnostico.digitalgalaxy.com.br](https://diagnostico.digitalgalaxy.com.br).
 
 O conteúdo foi extraído do documento *Estratégia e Planos da Consultoria de Marketing*. Informações internas do documento (faturamento, capacidade financeira, preços de referência de módulos e projetos, pesquisa de mercado e próximos passos) **não** foram publicadas.
 
@@ -50,8 +50,7 @@ Também dá para abrir o `index.html` direto no navegador, mas um servidor local
 
 | O quê | Onde |
 |---|---|
-| **Textos** | `index.html`. Cada seção está marcada com um comentário (`<!-- ============ PLANOS ============ -->` etc.) |
-| **Preços e itens dos planos** | `index.html`, seção `PLANOS` |
+| **Textos** | `index.html`. Cada seção está marcada com um comentário (`<!-- ============ 4. DOR (Interesse) ============ -->` etc.) |
 | **Perguntas frequentes** | `index.html`, seção `FAQ` (cada pergunta é um `<details>`) |
 | **Cores** | `css/style.css`, bloco `:root` (`--color-primary`, `--color-secondary`, `--color-background`…) |
 | **Espaçamentos e largura** | `css/style.css`, bloco `:root` (`--container-width`, `--space-*`) |
@@ -65,13 +64,24 @@ Também dá para abrir o `index.html` direto no navegador, mas um servidor local
 
 ### Placeholders a completar
 
-Estes itens não constam no documento de origem e estão marcados no código:
+Os textos entre `[colchetes]` ficam **ocultos no site** até serem preenchidos:
 
-- **WhatsApp e e-mail:** `js/main.js` → `CONFIG`
-- **Fotos da equipe:** `index.html`, seção `QUEM SOMOS`. Hoje aparecem monogramas (V e F). Salve as fotos em `images/photos/` (ex.: `team-vitor.webp`)
-- **Depoimentos, cases e logos de clientes:** `index.html`, comentário `PROVA SOCIAL` antes do FAQ
-- **Política de privacidade:** `index.html`, rodapé
+| O quê | Onde | Como aparece |
+|---|---|---|
+| **WhatsApp e e-mail** | `js/main.js` → `CONFIG` | Preenchido o número, aparecem o botão do hero, o link do CTA final, o botão flutuante (celular) e o contato no rodapé |
+| **Faixa de prova e seção Resultados** | `index.html` (seções `FAIXA DE PROVA` e `RESULTADOS`) | Mude `SHOW_PROOF` para `true` em `js/main.js`. Também mostra o link "Resultados" no menu e no rodapé |
+| **Preços dos projetos avulsos** | `index.html`, `a partir de R$ [valor]` | Aparece quando o valor não tem colchetes. Para não exibir, apague o texto |
+| **Perguntas do FAQ** (preço do plano, responsável pela conta, relatório) | `index.html`, seção `FAQ` | Aparece quando a resposta não tem colchetes |
+| **Cidade/UF e CNPJ** | `index.html`, rodapé | Aparece quando não tem colchetes |
+| **Escassez no CTA final** | `index.html`, comentário em `CTA FINAL` | Descomente só se for verdade |
+| **Política de privacidade** | `index.html`, rodapé | — |
+
+Qualquer elemento com o atributo `data-fill` segue essa regra (`setupPlaceholders` em `js/main.js`).
+
+### Rastreamento
+
+Os botões têm `data-track` (`cta_quiz`, `cta_whatsapp`, `cta_orcamento`) e `data-origin` (seção de origem). Se o GA4 (`gtag` ou `dataLayer`) ou o Meta Pixel (`fbq`) estiverem instalados no `<head>`, o clique vira evento. Sem eles, nada acontece.
 
 ## Qualidade
 
-Testado em 375, 390, 430, 768, 1024, 1280, 1440 e 1920 px: sem rolagem horizontal, console sem erros, links internos válidos, um único H1, todas as imagens com `alt` e animações desativadas para quem usa "reduzir movimento".
+Testado em 375, 768 e 1440 px: sem rolagem horizontal, console sem erros, links internos válidos, um único H1, todas as imagens com `alt` e animações desativadas para quem usa "reduzir movimento".
