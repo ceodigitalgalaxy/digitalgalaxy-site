@@ -1032,44 +1032,47 @@ body {
   color: var(--color-subtle);
 }
 
-/* Nave: anda conforme a página rola (js/main.js, setupSpaceship). Parada, ela
-   fica onde está; o motor e o rastro acendem só enquanto ela se move (--thrust).
+/* Jornada: progresso da página na borda de baixo do menu fixo. A linha cresce
+   conforme a rolagem e a nave da marca vai na ponta; o motor (a estrela) acende
+   só enquanto a página se move (--thrust). Não cobre o conteúdo.
    ========================================================================== */
-.ship {
+.journey {
+  --progress: 0;
   --thrust: 0;
-  position: fixed;
-  top: 0;
+  position: absolute;
   left: 0;
-  z-index: 40;
-  display: none;
-  width: 64px;
-  height: 32px;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
   pointer-events: none;
   opacity: 0;
-  will-change: transform;
+  transition: opacity 400ms var(--ease);
 }
-.js .ship { display: block; }
-.ship__craft { position: relative; width: 100%; height: 100%; overflow: visible; filter: drop-shadow(0 0 6px rgba(183, 148, 255, 0.6)); }
-/* Estrela do motor: cresce e brilha com o movimento */
-.ship__flare {
-  transform-box: fill-box;
-  transform-origin: center;
-  transform: scale(calc(0.35 + var(--thrust) * 0.75));
-  opacity: calc(0.35 + var(--thrust) * 0.65);
+.header.is-scrolled .journey { opacity: 1; }
+.header.menu-open .journey { opacity: 0; }
+.journey__fill {
+  position: absolute;
+  inset: 0;
+  transform: scaleX(var(--progress));
+  transform-origin: left center;
+  background: linear-gradient(90deg, rgba(90, 26, 199, 0.15), rgba(143, 91, 255, 0.7) 70%, #d4c2ff);
+  box-shadow: 0 0 8px rgba(143, 91, 255, 0.5);
 }
-/* Rastro de luz: aparece só em movimento */
-.ship__trail {
+.journey__ship {
   position: absolute;
   top: 50%;
-  right: 86%;
-  width: 150px;
-  height: 2px;
-  margin-top: -1px;
-  border-radius: 2px;
-  background: linear-gradient(90deg, rgba(143, 91, 255, 0), rgba(183, 148, 255, 0.35) 60%, rgba(236, 228, 255, 0.85));
-  opacity: var(--thrust);
-  transform: scaleX(calc(0.3 + var(--thrust) * 0.7));
-  transform-origin: right center;
+  left: 0;
+  width: 34px;
+  height: 17px;
+  margin-top: -8.5px;
+  will-change: transform;
+}
+.journey__craft { display: block; width: 100%; height: 100%; overflow: visible; filter: drop-shadow(0 0 5px rgba(183, 148, 255, 0.7)); }
+.journey__flare {
+  transform-box: fill-box;
+  transform-origin: center;
+  transform: scale(calc(0.3 + var(--thrust) * 0.9));
+  opacity: calc(0.3 + var(--thrust) * 0.7);
 }
 
 /* Animations (reveal no scroll — ativado por js/main.js)
