@@ -31,10 +31,10 @@
   <link rel="preload" href="fonts/sora-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/orbitron-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
 
-  <link rel="stylesheet" href="css/style.css?v=6">
-  <link rel="stylesheet" href="css/responsive.css?v=6">
-  <script src="js/vendor/lenis.min.js?v=6" defer></script>
-  <script src="js/main.js?v=6" defer></script>
+  <link rel="stylesheet" href="css/style.css?v=7">
+  <link rel="stylesheet" href="css/responsive.css?v=7">
+  <script src="js/vendor/lenis.min.js?v=7" defer></script>
+  <script src="js/main.js?v=7" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
@@ -401,27 +401,18 @@
     </section>
   </main>
 
-  <!-- ============ NAVE (decorativa): cruza a tela de vez em quando, animada por js/main.js ============ -->
+  <!-- ============ NAVE (decorativa): anda conforme a página rola, animada por js/main.js ============
+       Desenho no padrão do logo: corpo branco, cabine vazada com a estrela e a estrela da marca no motor -->
   <div class="ship" aria-hidden="true">
     <span class="ship__trail"></span>
-    <svg class="ship__craft" viewBox="0 0 64 32">
-      <defs>
-        <linearGradient id="ship-body" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0" stop-color="#8f5bff"/>
-          <stop offset="0.6" stop-color="#d9caff"/>
-          <stop offset="1" stop-color="#ffffff"/>
-        </linearGradient>
-        <radialGradient id="ship-flame">
-          <stop offset="0" stop-color="#ffffff"/>
-          <stop offset="0.35" stop-color="#d4c2ff"/>
-          <stop offset="1" stop-color="#8f5bff" stop-opacity="0"/>
-        </radialGradient>
-      </defs>
-      <ellipse class="ship__flame" cx="7" cy="16" rx="7" ry="4" fill="url(#ship-flame)"/>
-      <path d="M20 11 12 3h6l12 7.5ZM20 21 12 29h6l12-7.5Z" fill="#8f5bff" stroke="#d4c2ff" stroke-width="0.8" stroke-linejoin="round"/>
-      <path d="M8 16c6-6 22-8.5 40-6.5 7 .8 12 3.6 14 6.5-2 2.9-7 5.7-14 6.5-18 2-34-.5-40-6.5Z" fill="url(#ship-body)"/>
-      <ellipse cx="46" cy="14.6" rx="6" ry="2.6" fill="#3B008E" opacity="0.85"/>
-      <path d="M14 16h20" stroke="#5A1AC7" stroke-width="1" stroke-linecap="round" opacity="0.5"/>
+    <svg class="ship__craft" viewBox="0 0 80 40">
+      <g class="ship__flare">
+        <path transform="translate(10 20) scale(0.24) translate(-224.8 -235)" d="M224.80 198.50C224.80 222.22 237.58 235.00 261.30 235.00C237.58 235.00 224.80 247.78 224.80 271.50C224.80 247.78 212.03 235.00 188.30 235.00C212.03 235.00 224.80 222.22 224.80 198.50Z" fill="#d4c2ff" stroke="#d4c2ff" stroke-width="10" stroke-linejoin="round"/>
+      </g>
+      <path d="M31 12.6 24 4.5h7.5L42 11.6ZM31 27.4 24 35.5h7.5L42 28.4Z" fill="#fff"/>
+      <path fill="#fff" fill-rule="evenodd" d="M19 20c3.5-6 20-8.6 38.5-7.6C68 13 75.5 16.6 78 20c-2.5 3.4-10 7-20.5 7.6C39 28.6 22.5 26 19 20ZM65.5 18.6a7 3.1 0 1 0-14 0 7 3.1 0 1 0 14 0Z"/>
+      <path transform="translate(58.5 18.6) scale(0.05) translate(-224.8 -235)" d="M224.80 198.50C224.80 222.22 237.58 235.00 261.30 235.00C237.58 235.00 224.80 247.78 224.80 271.50C224.80 247.78 212.03 235.00 188.30 235.00C212.03 235.00 224.80 222.22 224.80 198.50Z" fill="#fff"/>
+      <path d="M27 20h22" stroke="#B794FF" stroke-width="1.4" stroke-linecap="round"/>
     </svg>
   </div>
 

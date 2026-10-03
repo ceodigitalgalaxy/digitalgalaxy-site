@@ -470,7 +470,7 @@ body {
 .hero__title {
   font-family: var(--font-display);
   /* Duas linhas: cada frase numa linha, com o tamanho acompanhando a largura da tela */
-  font-size: clamp(1.5rem, calc((100vw - 48px) / 12.6), 3.25rem);
+  font-size: clamp(1.5rem, calc((100vw - 48px) / 12.6), 2.5rem);   /* cabe no miolo escuro da galáxia */
   font-weight: 600;
   line-height: 1.15;
   letter-spacing: -0.01em;
@@ -478,7 +478,7 @@ body {
 .hero__line { display: block; white-space: nowrap; }
 .hero__lead {
   margin-top: var(--space-4);
-  max-width: 560px;
+  max-width: 500px;
   font-size: 1.1875rem;
   color: var(--color-muted);
   text-wrap: pretty;
@@ -1013,35 +1013,45 @@ body {
   color: var(--color-subtle);
 }
 
-/* Nave: cruza a tela devagar de tempos em tempos (js/main.js, setupSpaceship)
+/* Nave: anda conforme a página rola (js/main.js, setupSpaceship). Parada, ela
+   fica onde está; o motor e o rastro acendem só enquanto ela se move (--thrust).
    ========================================================================== */
 .ship {
+  --thrust: 0;
   position: fixed;
   top: 0;
   left: 0;
   z-index: 40;
   display: none;
-  width: 56px;
-  height: 28px;
+  width: 64px;
+  height: 32px;
   pointer-events: none;
   opacity: 0;
-  will-change: transform, opacity;
+  will-change: transform;
 }
 .js .ship { display: block; }
-.ship__craft { position: relative; width: 100%; height: 100%; overflow: visible; filter: drop-shadow(0 0 6px rgba(183, 148, 255, 0.55)); }
-/* Rastro de luz atrás da nave */
+.ship__craft { position: relative; width: 100%; height: 100%; overflow: visible; filter: drop-shadow(0 0 6px rgba(183, 148, 255, 0.6)); }
+/* Estrela do motor: cresce e brilha com o movimento */
+.ship__flare {
+  transform-box: fill-box;
+  transform-origin: center;
+  transform: scale(calc(0.35 + var(--thrust) * 0.75));
+  opacity: calc(0.35 + var(--thrust) * 0.65);
+}
+/* Rastro de luz: aparece só em movimento */
 .ship__trail {
   position: absolute;
   top: 50%;
-  right: 88%;
-  width: 140px;
+  right: 86%;
+  width: 150px;
   height: 2px;
   margin-top: -1px;
   border-radius: 2px;
   background: linear-gradient(90deg, rgba(143, 91, 255, 0), rgba(183, 148, 255, 0.35) 60%, rgba(236, 228, 255, 0.85));
+  opacity: var(--thrust);
+  transform: scaleX(calc(0.3 + var(--thrust) * 0.7));
+  transform-origin: right center;
 }
-.ship__flame { transform-box: fill-box; transform-origin: right center; animation: ship-flame 180ms ease-in-out infinite alternate; }
-@keyframes ship-flame { from { transform: scaleX(0.75); opacity: 0.8; } to { transform: scaleX(1.15); opacity: 1; } }
 
 /* Animations (reveal no scroll — ativado por js/main.js)
    ========================================================================== */
