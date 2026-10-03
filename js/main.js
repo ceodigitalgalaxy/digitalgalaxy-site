@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setupHeadline();
   setupServicesCarousel();
   setupServiceFlip();
-  setupSpaceship();
+  setupJourney();
   setupYear();
 });
 
@@ -651,74 +651,39 @@ function setupServiceFlip() {
   });
 }
 
-/* Nave ------------------------------------------------------------------
-   A nave anda conforme a página rola: descendo, ela avança da esquerda para a
-   direita fazendo uma curva suave; subindo, ela volta. Parada, fica parada. O
-   motor e o rastro acendem com a velocidade. Desligada para quem prefere
-   menos movimento.
+/* Jornada --------------------------------------------------------------
+   A nave da marca percorre a borda do menu conforme a página rola, como um
+   indicador de progresso: no topo ela está à esquerda, no fim da página, à
+   direita. Rolando para cima, ela vira. O motor acende com a velocidade e
+   apaga quando a página para.
 */
-function setupSpaceship() {
-  const ship = document.querySelector(".ship");
-  if (!ship || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
-  const CROSSING = 1.6;      // telas de rolagem para a nave cruzar a tela uma vez
-  const MARGIN = 120;        // começa e termina fora da tela
-  let x = -MARGIN, y = 0, angle = 0, thrust = 0, facing = 1;
-  let lastScroll = window.scrollY, running = false;
-
-  // Posição alvo para um ponto da rolagem
-  const target = (scroll) => {
-    const vw = window.innerWidth, vh = window.innerHeight;
-    const p = scroll / (vh * CROSSING);
-    const lap = p - Math.floor(p);
-    return {
-      x: -MARGIN + lap * (vw + MARGIN * 2),
-      // curva mais baixa em telas estreitas, para a nave não subir na diagonal
-      y: vh * 0.5 + Math.min(vh * 0.3, vw * 0.22) * Math.sin(p * Math.PI * 1.3),
-      lap
-    };
-  };
-
-  const render = () => {
-    ship.style.transform = `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, 0) translate(-50%, -50%) rotate(${angle.toFixed(1)}deg)`;
-    ship.style.setProperty("--thrust", thrust.toFixed(3));
-    // Só aparece depois que a página começa a rolar
-    ship.style.opacity = window.scrollY > 40 ? "1" : "0";
-  };
+function setupJourney() {
+  const journey = document.querySelector(".journey");
+  if (!journey) return;
+  const ship = journey.querySelector(".journey__ship");
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let lastScroll = window.scrollY, thrust = 0, facing = 1, running = false;
 
   const tick = () => {
     const scroll = window.scrollY;
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = max > 0 ? Math.min(Math.max(scroll / max, 0), 1) : 0;
     const delta = scroll - lastScroll;
     lastScroll = scroll;
-    const t = target(scroll);
-
-    // Ao dar a volta (sai de um lado e entra do outro), pula direto, sem atravessar a tela
-    if (Math.abs(t.x - x) > window.innerWidth * 0.6) { x = t.x; y = t.y; }
-    const dx = t.x - x, dy = t.y - y;
-    x += dx * 0.18;
-    y += dy * 0.18;
-
     if (Math.abs(delta) > 0.5) facing = delta > 0 ? 1 : -1;
-    const ahead = target(scroll + facing * 40);
-    const goal = Math.atan2(ahead.y - t.y, Math.abs(ahead.x - t.x) * facing) * 180 / Math.PI;
-    let turn = ((goal - angle + 540) % 360) - 180;
-    angle += turn * 0.15;
+    if (!reduceMotion) thrust += (Math.min(Math.abs(delta) / 20, 1) - thrust) * 0.15;
 
-    thrust += (Math.min(Math.abs(delta) / 25, 1) - thrust) * 0.12;
-    render();
+    const travel = journey.clientWidth - ship.offsetWidth;
+    ship.style.transform = `translateX(${(progress * travel).toFixed(1)}px) scaleX(${facing})`;
+    journey.style.setProperty("--progress", progress.toFixed(4));
+    journey.style.setProperty("--thrust", thrust.toFixed(3));
 
-    // Continua animando enquanto há movimento; parada, a nave dorme
-    if (Math.abs(dx) > 0.3 || Math.abs(dy) > 0.3 || Math.abs(turn) > 0.3 || thrust > 0.01 || Math.abs(delta) > 0) {
-      requestAnimationFrame(tick);
-    } else {
-      thrust = 0; render(); running = false;
-    }
+    // Continua só enquanto o motor ainda está apagando; parada, a nave dorme
+    if (thrust > 0.01 || Math.abs(delta) > 0) requestAnimationFrame(tick);
+    else { thrust = 0; journey.style.setProperty("--thrust", "0"); running = false; }
   };
   const wake = () => { if (!running) { running = true; requestAnimationFrame(tick); } };
-
-  const start = target(window.scrollY);
-  x = start.x; y = start.y;
-  render();
+  wake();
   window.addEventListener("scroll", wake, { passive: true });
   window.addEventListener("resize", wake);
 }
