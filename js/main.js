@@ -40,6 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setupGalaxy();
   setupHeroFold();
   setupServiceFlip();
+  setupSpaceship();
   setupYear();
 });
 
@@ -590,6 +591,50 @@ function setupServiceFlip() {
       });
     });
   });
+}
+
+/* Nave ------------------------------------------------------------------
+   De tempos em tempos uma nave cruza a tela devagar, numa curva suave e numa
+   altura aleatória, de um lado para o outro. Decorativa: não recebe cliques,
+   pausa com a aba em segundo plano e fica desligada para quem prefere menos
+   movimento.
+*/
+function setupSpaceship() {
+  const ship = document.querySelector(".ship");
+  if (!ship || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const rand = (min, max) => min + Math.random() * (max - min);
+  const ease = (t) => t * t * (3 - 2 * t);    // começa e termina mais devagar
+
+  const fly = () => {
+    if (document.hidden) { schedule(); return; }
+    const vw = window.innerWidth, vh = window.innerHeight;
+    const ltr = Math.random() < 0.65;
+    const margin = 180;
+    const x0 = ltr ? -margin : vw + margin, x1 = ltr ? vw + margin : -margin;
+    const y0 = vh * rand(0.2, 0.8);
+    const y1 = Math.min(Math.max(y0 + vh * rand(-0.2, 0.2), vh * 0.12), vh * 0.88);
+    const wave = rand(18, 36), waves = rand(0.6, 1.2);
+    const duration = rand(16000, 22000) * Math.max(vw / 1440, 0.55);   // mesma velocidade aparente no celular
+    const start = performance.now();
+
+    const pos = (t) => {
+      const k = ease(t);
+      return [x0 + (x1 - x0) * k, y0 + (y1 - y0) * k + Math.sin(t * Math.PI * 2 * waves) * wave];
+    };
+    const frame = (now) => {
+      const t = Math.min((now - start) / duration, 1);
+      const [x, y] = pos(t);
+      const [nx, ny] = pos(Math.min(t + 0.002, 1));
+      const angle = Math.atan2(ny - y, nx - x) * 180 / Math.PI;
+      ship.style.transform = `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, 0) translate(-50%, -50%) rotate(${angle.toFixed(1)}deg)`;
+      ship.style.opacity = String(Math.min(t / 0.08, (1 - t) / 0.08, 0.9));
+      if (t < 1) requestAnimationFrame(frame);
+      else { ship.style.opacity = "0"; schedule(); }
+    };
+    requestAnimationFrame(frame);
+  };
+  const schedule = (delay = rand(10000, 20000)) => setTimeout(fly, delay);
+  schedule(rand(3000, 6000));
 }
 
 /* Ano atual no rodapé ------------------------------------------------- */
