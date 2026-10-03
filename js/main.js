@@ -18,7 +18,7 @@ const SHOW_PROOF = false;
    whatsapp: só números, com DDI e DDD. Ex.: "5511912345678"
 */
 const CONFIG = {
-  whatsapp: "",
+  whatsapp: "5551989970010",
   whatsappMessage: "Olá! Vim pelo site e quero entender como a Digital Galaxy pode ajudar meu negócio.",
   email: ""
 };
