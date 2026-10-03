@@ -39,7 +39,6 @@
 
   .pain__grid { grid-template-columns: 1fr; row-gap: var(--space-5); }
   .pain .pain__header { margin-bottom: 0; }
-  .offer { grid-template-columns: 1fr; gap: var(--space-6); padding: var(--space-7) var(--space-6); }
 
 
   .projects { grid-template-columns: 1fr; gap: var(--space-6); }
@@ -126,7 +125,6 @@
   /* Botões com texto longo quebram linha em vez de vazar da tela */
   .btn { white-space: normal; text-align: center; line-height: 1.25; padding-block: 12px; }
   .section__actions .btn,
-  .offer__cta,
   .manifesto__actions .btn { width: 100%; }
 
   .hero .eyebrow { display: block; font-size: 0.6875rem; letter-spacing: 0.1em; text-align: center; }
@@ -160,8 +158,6 @@
 
   .project__head { flex-wrap: wrap; gap: 4px var(--space-3); }
   .project__price { order: 4; width: 100%; }
-  .offer { padding: var(--space-6) var(--space-4); border-radius: 22px; }
-  .offer__side { padding: var(--space-4); }
   .proof__list { flex-direction: column; align-items: center; }
   .proof__list li + li::before { display: none; }
   .project__name { font-size: 1.125rem; }
