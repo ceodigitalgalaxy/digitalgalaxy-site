@@ -566,47 +566,75 @@ function setupServiceFlip() {
 }
 
 /* Nave ------------------------------------------------------------------
-   De tempos em tempos uma nave cruza a tela devagar, numa curva suave e numa
-   altura aleatória, de um lado para o outro. Decorativa: não recebe cliques,
-   pausa com a aba em segundo plano e fica desligada para quem prefere menos
-   movimento.
+   A nave anda conforme a página rola: descendo, ela avança da esquerda para a
+   direita fazendo uma curva suave; subindo, ela volta. Parada, fica parada. O
+   motor e o rastro acendem com a velocidade. Desligada para quem prefere
+   menos movimento.
 */
 function setupSpaceship() {
   const ship = document.querySelector(".ship");
   if (!ship || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-  const rand = (min, max) => min + Math.random() * (max - min);
-  const ease = (t) => t * t * (3 - 2 * t);    // começa e termina mais devagar
 
-  const fly = () => {
-    if (document.hidden) { schedule(); return; }
+  const CROSSING = 1.6;      // telas de rolagem para a nave cruzar a tela uma vez
+  const MARGIN = 120;        // começa e termina fora da tela
+  let x = -MARGIN, y = 0, angle = 0, thrust = 0, facing = 1;
+  let lastScroll = window.scrollY, running = false;
+
+  // Posição alvo para um ponto da rolagem
+  const target = (scroll) => {
     const vw = window.innerWidth, vh = window.innerHeight;
-    const ltr = Math.random() < 0.65;
-    const margin = 180;
-    const x0 = ltr ? -margin : vw + margin, x1 = ltr ? vw + margin : -margin;
-    const y0 = vh * rand(0.2, 0.8);
-    const y1 = Math.min(Math.max(y0 + vh * rand(-0.2, 0.2), vh * 0.12), vh * 0.88);
-    const wave = rand(18, 36), waves = rand(0.6, 1.2);
-    const duration = rand(16000, 22000) * Math.max(vw / 1440, 0.55);   // mesma velocidade aparente no celular
-    const start = performance.now();
-
-    const pos = (t) => {
-      const k = ease(t);
-      return [x0 + (x1 - x0) * k, y0 + (y1 - y0) * k + Math.sin(t * Math.PI * 2 * waves) * wave];
+    const p = scroll / (vh * CROSSING);
+    const lap = p - Math.floor(p);
+    return {
+      x: -MARGIN + lap * (vw + MARGIN * 2),
+      // curva mais baixa em telas estreitas, para a nave não subir na diagonal
+      y: vh * 0.5 + Math.min(vh * 0.3, vw * 0.22) * Math.sin(p * Math.PI * 1.3),
+      lap
     };
-    const frame = (now) => {
-      const t = Math.min((now - start) / duration, 1);
-      const [x, y] = pos(t);
-      const [nx, ny] = pos(Math.min(t + 0.002, 1));
-      const angle = Math.atan2(ny - y, nx - x) * 180 / Math.PI;
-      ship.style.transform = `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, 0) translate(-50%, -50%) rotate(${angle.toFixed(1)}deg)`;
-      ship.style.opacity = String(Math.min(t / 0.08, (1 - t) / 0.08, 0.9));
-      if (t < 1) requestAnimationFrame(frame);
-      else { ship.style.opacity = "0"; schedule(); }
-    };
-    requestAnimationFrame(frame);
   };
-  const schedule = (delay = rand(10000, 20000)) => setTimeout(fly, delay);
-  schedule(rand(3000, 6000));
+
+  const render = () => {
+    ship.style.transform = `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, 0) translate(-50%, -50%) rotate(${angle.toFixed(1)}deg)`;
+    ship.style.setProperty("--thrust", thrust.toFixed(3));
+    // Só aparece depois que a página começa a rolar
+    ship.style.opacity = window.scrollY > 40 ? "1" : "0";
+  };
+
+  const tick = () => {
+    const scroll = window.scrollY;
+    const delta = scroll - lastScroll;
+    lastScroll = scroll;
+    const t = target(scroll);
+
+    // Ao dar a volta (sai de um lado e entra do outro), pula direto, sem atravessar a tela
+    if (Math.abs(t.x - x) > window.innerWidth * 0.6) { x = t.x; y = t.y; }
+    const dx = t.x - x, dy = t.y - y;
+    x += dx * 0.18;
+    y += dy * 0.18;
+
+    if (Math.abs(delta) > 0.5) facing = delta > 0 ? 1 : -1;
+    const ahead = target(scroll + facing * 40);
+    const goal = Math.atan2(ahead.y - t.y, Math.abs(ahead.x - t.x) * facing) * 180 / Math.PI;
+    let turn = ((goal - angle + 540) % 360) - 180;
+    angle += turn * 0.15;
+
+    thrust += (Math.min(Math.abs(delta) / 25, 1) - thrust) * 0.12;
+    render();
+
+    // Continua animando enquanto há movimento; parada, a nave dorme
+    if (Math.abs(dx) > 0.3 || Math.abs(dy) > 0.3 || Math.abs(turn) > 0.3 || thrust > 0.01 || Math.abs(delta) > 0) {
+      requestAnimationFrame(tick);
+    } else {
+      thrust = 0; render(); running = false;
+    }
+  };
+  const wake = () => { if (!running) { running = true; requestAnimationFrame(tick); } };
+
+  const start = target(window.scrollY);
+  x = start.x; y = start.y;
+  render();
+  window.addEventListener("scroll", wake, { passive: true });
+  window.addEventListener("resize", wake);
 }
 
 /* Ano atual no rodapé ------------------------------------------------- */
