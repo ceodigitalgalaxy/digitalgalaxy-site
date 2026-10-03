@@ -26,6 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setupStarfields();
   setupGalaxy();
   setupHeroFold();
+  setupHeadline();
   setupServicesCarousel();
   setupServiceFlip();
   setupSpaceship();
@@ -409,13 +410,18 @@ function setupGalaxy() {
     ctx.fillRect(cx - R * 1.2, cy - R * 1.2, R * 2.4, R * 2.4);
   };
 
+  // warp: aceleração temporária do giro (clique no título, "galaxy:pulse")
+  let warp = 0;
   const loop = (now) => {
-    if (!start) start = now - time * 1000;
-    time = (now - start) / 1000;
+    const dt = start ? Math.min((now - start) / 1000, 0.05) : 0;
+    start = now;
+    warp *= Math.exp(-dt * 1.4);
+    time += dt * (1 + warp * 16);
     draw(time);
     frame = requestAnimationFrame(loop);
   };
   const play = () => { if (!running) { running = true; start = 0; frame = requestAnimationFrame(loop); } };
+  hero.addEventListener("galaxy:pulse", () => { warp = 1; });
   const pause = () => { running = false; cancelAnimationFrame(frame); };
 
   measure();
@@ -429,6 +435,86 @@ function setupGalaxy() {
   hero.addEventListener("hero:covered", (event) => { covered = event.detail; sync(); });
   // Com o menu aberto a página fica desfocada: pausar deixa a animação do menu mais leve
   document.addEventListener("menu:toggle", (event) => { menuOpen = event.detail; sync(); });
+}
+
+/* Título do hero que troca de frase ------------------------------------
+   No clique, as letras viram pontos de luz e são sugadas em espiral para o
+   centro da galáxia (que acelera o giro); depois as letras da outra frase
+   surgem das estrelas em volta e se encaixam. Clicando de novo, volta.
+*/
+function setupHeadline() {
+  const button = document.querySelector(".hero__swap");
+  if (!button) return;
+  const hero = button.closest(".hero");
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const lines = (text) => text.split("|");
+  const phrases = [
+    [...button.querySelectorAll(".hero__line")].map((line) => line.textContent),
+    lines(button.dataset.alt)
+  ];
+  let current = 0, busy = false;
+
+  // Cada letra num <span>, para animar uma a uma
+  const render = (index) => {
+    button.classList.toggle("is-alt", index === 1);
+    button.innerHTML = phrases[index].map((line) =>
+      `<span class="hero__line">${[...line].map((ch) => `<span class="hero__char">${ch}</span>`).join("")}</span>`
+    ).join(" ");
+    button.setAttribute("aria-label", `${phrases[index].join(" ")}. Clique para ver a outra frase.`);
+  };
+  render(0);
+
+  const glow = "0 0 10px rgba(236, 228, 255, 0.95), 0 0 24px rgba(143, 91, 255, 0.9)";
+  const center = () => {
+    const r = button.getBoundingClientRect();
+    return [r.left + r.width / 2, r.top + r.height / 2];
+  };
+
+  // Saída: espiral até o centro, encolhendo e virando ponto de luz
+  const suckIn = () => {
+    const [cx, cy] = center();
+    const chars = [...button.querySelectorAll(".hero__char")];
+    return Promise.all(chars.map((ch, i) => {
+      const r = ch.getBoundingClientRect();
+      const dx = cx - (r.left + r.width / 2), dy = cy - (r.top + r.height / 2);
+      const spin = (dx >= 0 ? 1 : -1) * (180 + Math.random() * 180);
+      return ch.animate([
+        { transform: "none", opacity: 1, textShadow: "none" },
+        { transform: `translate(${dx * 0.35 - dy * 0.35}px, ${dy * 0.35 + dx * 0.15}px) rotate(${spin * 0.4}deg) scale(0.7)`, opacity: 1, textShadow: glow, offset: 0.45 },
+        { transform: `translate(${dx}px, ${dy}px) rotate(${spin}deg) scale(0)`, opacity: 0, textShadow: glow }
+      ], { duration: 750, delay: i * 14 + Math.random() * 120, easing: "cubic-bezier(0.55, 0, 0.75, 0.2)", fill: "forwards" }).finished;
+    }));
+  };
+
+  // Entrada: cada letra vem de um ponto de luz em volta e se encaixa
+  const burstOut = () => {
+    const chars = [...button.querySelectorAll(".hero__char")];
+    const reach = Math.min(window.innerWidth, 900) * 0.45;
+    return Promise.all(chars.map((ch, i) => {
+      const a = Math.random() * Math.PI * 2, d = reach * (0.6 + Math.random() * 0.6);
+      return ch.animate([
+        { transform: `translate(${Math.cos(a) * d}px, ${Math.sin(a) * d}px) scale(0.1)`, opacity: 0, textShadow: glow },
+        { opacity: 1, offset: 0.35 },
+        { transform: "none", opacity: 1, textShadow: "none" }
+      ], { duration: 950, delay: i * 18 + Math.random() * 160, easing: "cubic-bezier(0.2, 0.8, 0.2, 1)", fill: "backwards" }).finished;
+    }));
+  };
+
+  button.addEventListener("click", async () => {
+    if (busy) return;
+    busy = true;
+    const next = 1 - current;
+    if (reduceMotion) {
+      render(next);
+    } else {
+      hero.dispatchEvent(new CustomEvent("galaxy:pulse"));
+      await suckIn();
+      render(next);
+      await burstOut();
+    }
+    current = next;
+    busy = false;
+  });
 }
 
 /* Dobra sobre o hero ---------------------------------------------------

@@ -469,13 +469,32 @@ body {
 }
 .hero__title {
   font-family: var(--font-display);
-  /* Duas linhas: cada frase numa linha, com o tamanho acompanhando a largura da tela */
-  font-size: clamp(1.5rem, calc((100vw - 48px) / 12.6), 2.5rem);   /* cabe no miolo escuro da galáxia */
   font-weight: 600;
   line-height: 1.15;
   letter-spacing: -0.01em;
 }
+/* Duas linhas: cada parte da frase numa linha, com o tamanho acompanhando a tela */
 .hero__line { display: block; white-space: nowrap; }
+/* Título clicável: troca de frase com o efeito galáxia (js/main.js, setupHeadline).
+   A altura fica fixa nas duas linhas da primeira frase, para nada abaixo pular. */
+.hero__swap {
+  --size: clamp(1.5rem, calc((100vw - 48px) / 12.6), 2.5rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: calc(var(--size) * 1.15 * 2);
+  font: inherit;
+  font-size: var(--size);
+  line-height: inherit;
+  letter-spacing: inherit;
+  color: inherit;
+  cursor: pointer;
+  transition: text-shadow 400ms var(--ease);
+}
+.hero__swap:hover { text-shadow: 0 0 24px rgba(183, 148, 255, 0.55); }
+/* A segunda frase é mais longa: fica um pouco menor para caber no miolo escuro */
+.hero__swap.is-alt { font-size: calc(var(--size) * 0.74); }
+.hero__char { display: inline-block; white-space: pre; will-change: transform, opacity; }
 .hero__lead {
   margin-top: var(--space-4);
   max-width: 500px;

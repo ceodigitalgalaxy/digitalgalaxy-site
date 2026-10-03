@@ -31,10 +31,10 @@
   <link rel="preload" href="fonts/sora-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/orbitron-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
 
-  <link rel="stylesheet" href="css/style.css?v=7">
-  <link rel="stylesheet" href="css/responsive.css?v=7">
-  <script src="js/vendor/lenis.min.js?v=7" defer></script>
-  <script src="js/main.js?v=7" defer></script>
+  <link rel="stylesheet" href="css/style.css?v=8">
+  <link rel="stylesheet" href="css/responsive.css?v=8">
+  <script src="js/vendor/lenis.min.js?v=8" defer></script>
+  <script src="js/main.js?v=8" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
@@ -83,7 +83,9 @@
       <canvas class="blackhole-canvas" aria-hidden="true"></canvas>
       <div class="container hero__content">
         <p class="eyebrow">Marketing para negócios locais</p>
-        <h1 class="hero__title" id="hero-title"><span class="hero__line">Seu negócio no centro.</span> <span class="hero__line">Clientes em órbita.</span></h1>
+        <!-- Clique no título: as letras são sugadas pela galáxia e surge a outra frase (js/main.js, setupHeadline).
+             As frases ficam em data-alt / no próprio botão; separe as linhas com "|". -->
+        <h1 class="hero__title" id="hero-title"><button class="hero__swap" type="button" data-alt="Transformamos presença digital|em força de atração." aria-label="Sua marca no centro do universo. Clique para ver mais."><span class="hero__line">Sua marca no centro</span> <span class="hero__line">do universo</span></button></h1>
         <p class="hero__lead">Estratégia e execução no mesmo lugar para sua marca ser vista, lembrada e escolhida.</p>
         <div class="hero__actions">
           <a class="btn btn--primary" href="https://diagnostico.digitalgalaxy.com.br/?utm_source=site&amp;utm_medium=hero"><span class="btn__text">Decolar minha empresa</span><span class="btn__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M14 6l6 6-6 6"/></svg></span></a>
