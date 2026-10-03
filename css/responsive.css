@@ -26,8 +26,7 @@
   .service { flex-basis: clamp(300px, 46vw, 400px); }
 
 
-  .projects, .faq { grid-template-columns: 1fr; gap: var(--space-6); }
-  .faq__header { position: static; }
+  .projects { grid-template-columns: 1fr; gap: var(--space-6); }
 
 }
 
