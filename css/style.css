@@ -10,6 +10,9 @@
 @font-face { font-family: "Sora"; font-weight: 600; font-style: normal; font-display: swap; src: url("../fonts/sora-latin-600-normal.woff2") format("woff2"); }
 @font-face { font-family: "Sora"; font-weight: 700; font-style: normal; font-display: swap; src: url("../fonts/sora-latin-700-normal.woff2") format("woff2"); }
 @font-face { font-family: "Orbitron"; font-weight: 700; font-style: normal; font-display: swap; src: url("../fonts/orbitron-latin-700-normal.woff2") format("woff2"); }
+/* Títulos: Orbitron, a fonte do logo. As letras com til (ã, õ) ficam de fora: na
+   Orbitron o til parece um acento grave, então essas letras usam a Sora. */
+@font-face { font-family: "Galaxy"; font-weight: 600; font-style: normal; font-display: swap; src: url("../fonts/orbitron-latin-600-normal.woff2") format("woff2"); unicode-range: U+0000-00C2, U+00C4-00D4, U+00D6-00E2, U+00E4-00F4, U+00F6-FFFF; }
 
 /* Variables
    ========================================================================== */
@@ -31,6 +34,7 @@
   /* Tipografia */
   --font-body: "Sora", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --font-brand: "Orbitron", var(--font-body);
+  --font-display: "Galaxy", var(--font-body);   /* títulos */
 
   /* Layout */
   --container-width: 1200px;
@@ -133,10 +137,11 @@ body {
 }
 
 .section__title {
-  font-size: clamp(2rem, 1.4rem + 2vw, 3rem);
+  font-family: var(--font-display);
+  font-size: clamp(1.625rem, 1.2rem + 1.5vw, 2.375rem);
   font-weight: 600;
-  line-height: 1.15;
-  letter-spacing: -0.025em;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
   text-wrap: balance;
 }
 .section__lead {
@@ -459,19 +464,21 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 680px;
+  max-width: 760px;
   text-align: center;
 }
 .hero__title {
-  font-size: clamp(2.25rem, 1.5rem + 2.6vw, 3.5rem);
+  font-family: var(--font-display);
+  /* Duas linhas: cada frase numa linha, com o tamanho acompanhando a largura da tela */
+  font-size: clamp(1.5rem, calc((100vw - 48px) / 12.6), 3.25rem);
   font-weight: 600;
-  line-height: 1.06;
-  letter-spacing: -0.035em;
-  text-wrap: balance;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
 }
+.hero__line { display: block; white-space: nowrap; }
 .hero__lead {
   margin-top: var(--space-4);
-  max-width: 580px;
+  max-width: 560px;
   font-size: 1.1875rem;
   color: var(--color-muted);
   text-wrap: pretty;
@@ -568,10 +575,11 @@ body {
 }
 .manifesto__title {
   margin-top: var(--space-4);
-  font-size: clamp(2.5rem, 1.4rem + 3.6vw, 4.5rem);
-  font-weight: 400;
-  line-height: 1.04;
-  letter-spacing: -0.04em;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 1.2rem + 2.8vw, 3.5rem);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
   text-wrap: balance;
 }
 .manifesto__side { padding-top: calc(var(--space-4) + 1.75rem); }
@@ -974,10 +982,11 @@ body {
 .cta__inner { position: relative; z-index: 1; max-width: 760px; }
 .cta__mark { width: 56px; height: 56px; margin: 0 auto var(--space-5); }
 .cta__title {
-  font-size: clamp(2rem, 1.4rem + 2.4vw, 3.25rem);
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 1.2rem + 2vw, 2.75rem);
   font-weight: 600;
-  line-height: 1.12;
-  letter-spacing: -0.03em;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
   text-wrap: balance;
 }
 .cta__text { margin: var(--space-4) auto 0; max-width: 560px; font-size: 1.125rem; color: var(--color-muted); }
