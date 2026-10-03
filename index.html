@@ -30,24 +30,16 @@
   <link rel="preload" href="fonts/sora-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/sora-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
 
-  <link rel="stylesheet" href="css/style.css?v=4">
-  <link rel="stylesheet" href="css/responsive.css?v=4">
-  <script src="js/vendor/lenis.min.js?v=4" defer></script>
-  <script src="js/main.js?v=4" defer></script>
+  <link rel="stylesheet" href="css/style.css?v=5">
+  <link rel="stylesheet" href="css/responsive.css?v=5">
+  <script src="js/vendor/lenis.min.js?v=5" defer></script>
+  <script src="js/main.js?v=5" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
 
-  <!--
-    LINKS DOS BOTÕES
-    QUIZ       = https://diagnostico.digitalgalaxy.com.br/ (cada botão tem um utm_medium com a seção de origem)
-    WHATSAPP   = montado por js/main.js a partir de CONFIG.whatsapp (links com a classe js-whatsapp)
-    ORÇAMENTO  = https://diagnostico.digitalgalaxy.com.br/?utm_source=site&utm_medium=projetos
-    Rastreamento: atributos data-track / data-origin (js/main.js, setupTracking)
-  -->
-
-  <!-- ============ 1. MENU FIXO ============ -->
-  <header class="header">
+  <!-- ============ HEADER ============ -->
+  <header class="header" id="topo">
     <div class="header__inner">
       <a class="brand brand--mark" href="#topo" aria-label="Digital Galaxy, voltar ao início">
         <svg class="brand__mark" viewBox="92 100 265 265" fill="currentColor" aria-hidden="true">
@@ -57,7 +49,7 @@
       </a>
 
       <div class="header__actions">
-        <a class="btn btn--primary btn--sm header__cta" href="https://diagnostico.digitalgalaxy.com.br/?utm_source=site&amp;utm_medium=header" data-track="cta_quiz" data-origin="menu"><span class="btn__text">Quero meu plano</span><span class="btn__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M14 6l6 6-6 6"/></svg></span></a>
+        <a class="btn btn--primary btn--sm header__cta" href="https://diagnostico.digitalgalaxy.com.br/?utm_source=site&amp;utm_medium=header"><span class="btn__text">Quero meu plano</span><span class="btn__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M14 6l6 6-6 6"/></svg></span></a>
         <button class="menu-toggle" type="button" aria-controls="menu" aria-expanded="false" aria-label="Abrir menu">
           <span class="menu-toggle__bar"></span>
           <span class="menu-toggle__bar"></span>
@@ -73,68 +65,33 @@
     <ul class="nav__list">
       <li><a class="nav__link" href="#metodo">Método</a></li>
       <li><a class="nav__link" href="#servicos">Serviços</a></li>
-      <li data-proof hidden><a class="nav__link" href="#resultados">Resultados</a></li>
       <li><a class="nav__link" href="#projetos">Projetos avulsos</a></li>
       <li><a class="nav__link" href="#faq">Dúvidas</a></li>
     </ul>
     <div class="nav__footer">
-      <a class="btn btn--primary nav__cta" href="https://diagnostico.digitalgalaxy.com.br/?utm_source=site&amp;utm_medium=menu" data-track="cta_quiz" data-origin="menu"><span class="btn__text">Quero meu plano</span><span class="btn__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M14 6l6 6-6 6"/></svg></span></a>
+      <a class="btn btn--primary nav__cta" href="https://diagnostico.digitalgalaxy.com.br/?utm_source=site&amp;utm_medium=menu"><span class="btn__text">Quero meu plano</span><span class="btn__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M14 6l6 6-6 6"/></svg></span></a>
     </div>
   </nav>
 
   <main id="conteudo">
 
-    <!-- ============ 2. HERO (Atenção) ============ -->
-    <section class="hero" id="topo" aria-labelledby="hero-title">
+    <!-- ============ HERO ============ -->
+    <section class="hero" aria-labelledby="hero-title">
       <!-- Galáxia espiral animada (fundo): .blackhole define o centro escuro; o canvas é desenhado por js/main.js -->
       <div class="blackhole" aria-hidden="true"></div>
       <canvas class="blackhole-canvas" aria-hidden="true"></canvas>
       <div class="container hero__content">
-        <p class="eyebrow">Marketing de ponta a ponta</p>
+        <p class="eyebrow">Marketing para negócios locais</p>
         <h1 class="hero__title" id="hero-title">Seu negócio no centro. Clientes em órbita.</h1>
-        <p class="hero__lead">Estratégia e execução lado a lado, para negócios que querem ser vistos, lembrados e escolhidos.</p>
+        <p class="hero__lead">Estratégia e execução no mesmo lugar para sua empresa ser vista no Google, lembrada no Instagram e escolhida no WhatsApp.</p>
         <div class="hero__actions">
-          <a class="btn btn--primary" href="https://diagnostico.digitalgalaxy.com.br/?utm_source=site&amp;utm_medium=hero" data-track="cta_quiz" data-origin="hero"><span class="btn__text">Quero meu plano</span><span class="btn__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M14 6l6 6-6 6"/></svg></span></a>
-          <a class="btn btn--glow js-whatsapp" href="https://wa.me/" target="_blank" rel="noopener" data-track="cta_whatsapp" data-origin="hero" hidden><span class="btn__label">Falar no WhatsApp</span></a>
+          <a class="btn btn--primary" href="https://diagnostico.digitalgalaxy.com.br/?utm_source=site&amp;utm_medium=hero"><span class="btn__text">Quero meu plano</span><span class="btn__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M14 6l6 6-6 6"/></svg></span></a>
+          <a class="btn btn--glow" href="#servicos"><span class="btn__label">Ver serviços</span></a>
         </div>
       </div>
     </section>
 
-    <!-- ============ 3. FAIXA DE PROVA (oculta: SHOW_PROOF em js/main.js) ============ -->
-    <section class="proof" aria-label="Números da Digital Galaxy" data-proof hidden>
-      <div class="container">
-        <ul class="proof__list">
-          <li>+[N] empresas atendidas</li>
-          <li>[N] leads gerados em [período]</li>
-          <li>Nota [4,9] no Google</li>
-        </ul>
-        <!-- Alternativa: linha de logos de clientes
-        <p class="proof__caption">Marcas que já giram com a gente</p>
-        <ul class="proof__logos">
-          <li><img src="images/clientes/cliente-1.svg" alt="[Nome do cliente]" loading="lazy"></li>
-        </ul>
-        -->
-      </div>
-    </section>
-
-    <!-- ============ 4. DOR (Interesse) ============ -->
-    <section class="section pain" id="dor" aria-labelledby="dor-title">
-      <div class="container pain__grid">
-        <header class="section__header pain__header">
-          <p class="eyebrow">Você se reconhece?</p>
-          <h2 class="section__title" id="dor-title">Investe em marketing e não sabe o que voltou?</h2>
-        </header>
-        <ul class="pain__list">
-          <li class="pain__item reveal"><svg class="icon-x" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7l10 10M17 7 7 17"/></svg>Posta todo dia e não vira cliente.</li>
-          <li class="pain__item reveal"><svg class="icon-x" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7l10 10M17 7 7 17"/></svg>Impulsiona post e só ganha curtida.</li>
-          <li class="pain__item reveal"><svg class="icon-x" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7l10 10M17 7 7 17"/></svg>No Google, quem aparece é o concorrente.</li>
-          <li class="pain__item reveal"><svg class="icon-x" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7l10 10M17 7 7 17"/></svg>Os contatos se perdem no WhatsApp.</li>
-          <li class="pain__item reveal"><svg class="icon-x" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7l10 10M17 7 7 17"/></svg>Um fornecedor para cada coisa.</li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- ============ 5. MÉTODO ============ -->
+    <!-- ============ FORMA DE TRABALHAR ============ -->
     <section class="manifesto" id="metodo" aria-labelledby="metodo-title">
       <div class="container manifesto__inner">
         <div class="manifesto__top">
@@ -143,9 +100,9 @@
             <h2 class="manifesto__title" id="metodo-title">Estratégia antes de post.</h2>
           </div>
           <div class="manifesto__side">
-            <p class="manifesto__lead">Três princípios valem para todos os planos, do primeiro ao último mês.</p>
+            <p class="manifesto__lead">Três regras que valem para todo cliente, do primeiro ao último mês.</p>
             <div class="manifesto__actions">
-              <a class="btn btn--primary btn--sm" href="https://diagnostico.digitalgalaxy.com.br/?utm_source=site&amp;utm_medium=metodo" data-track="cta_quiz" data-origin="metodo"><span class="btn__text">Quero meu plano</span><span class="btn__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M14 6l6 6-6 6"/></svg></span></a>
+              <a class="btn btn--primary btn--sm" href="https://diagnostico.digitalgalaxy.com.br/?utm_source=site&amp;utm_medium=metodo"><span class="btn__text">Quero meu plano</span><span class="btn__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M14 6l6 6-6 6"/></svg></span></a>
               <a class="btn btn--glow btn--sm" href="#servicos"><span class="btn__label">Ver serviços</span></a>
             </div>
           </div>
@@ -154,416 +111,294 @@
         <ol class="manifesto__principles">
           <li class="principle reveal">
             <span class="principle__index">01</span>
-            <h3 class="principle__title">Diagnóstico antes de tudo</h3>
-            <p class="principle__text">Todo plano começa com um diagnóstico. É ele que define o que fazer e o peso de cada canal.</p>
+            <h3 class="principle__title">Diagnóstico antes de gastar</h3>
+            <p class="principle__text">Analisamos seu negócio, seus concorrentes e seu público. Você investe só no que faz sentido.</p>
           </li>
           <li class="principle reveal">
             <span class="principle__index">02</span>
-            <h3 class="principle__title">Meta mensurável no 1º mês</h3>
-            <p class="principle__text">Leads, ligações, rotas no Maps ou vendas. Acompanhada em relatório todo mês.</p>
+            <h3 class="principle__title">Uma meta clara desde o início</h3>
+            <p class="principle__text">Leads, ligações, rotas no Maps ou vendas. Você sabe o que esperar e acompanha os números.</p>
           </li>
           <li class="principle reveal">
             <span class="principle__index">03</span>
             <h3 class="principle__title">Sua verba, seu controle</h3>
-            <p class="principle__text">A verba de anúncios é paga por você direto às plataformas. Nunca intermediamos esse dinheiro.</p>
+            <p class="principle__text">A verba dos anúncios vai direto para Meta e Google. Sem taxa escondida, sem intermediário.</p>
           </li>
         </ol>
       </div>
     </section>
 
-    <!-- ============ 7. SERVIÇOS (Desejo) ============ -->
-    <section class="section section--services section--lift" id="servicos" aria-labelledby="servicos-title">
-      <div class="container">
-        <header class="section__header section__header--center">
+    <!-- ============ SERVIÇOS ============ -->
+    <section class="section section--services" id="servicos" aria-labelledby="servicos-title">
+      <div class="services">
+        <header class="services__header">
           <p class="eyebrow">Serviços</p>
-          <h2 class="section__title" id="servicos-title">Tudo o que o seu marketing precisa</h2>
-          <p class="section__lead">8 serviços com uma única equipe, da estratégia até a venda.</p>
+          <h2 class="section__title" id="servicos-title">Uma equipe, três forças de atração</h2>
+          <p class="section__lead">8 serviços integrados para sua empresa ser vista, lembrada e escolhida.</p>
+          <a class="btn btn--glow services__cta" href="#projetos"><span class="btn__label">Ver projetos</span></a>
         </header>
-
-        <!-- As três forças: cada card abaixo leva a etiqueta da força a que pertence -->
-        <ol class="forces">
-          <li class="force force--visto"><span class="force__index">01</span><p class="force__title">Ser visto</p><p class="force__text">Apareça no Google e no Maps.</p></li>
-          <li class="force force--lembrado"><span class="force__index">02</span><p class="force__title">Ser lembrado</p><p class="force__text">Uma marca clara, presente todo dia.</p></li>
-          <li class="force force--escolhido"><span class="force__index">03</span><p class="force__title">Ser escolhido</p><p class="force__text">Atenção que vira contato e venda.</p></li>
-        </ol>
-
-        <ul class="services__grid">
-          <li class="service">
-            <div class="service__inner">
-              <div class="service__face service__face--front">
-                <img class="service__media" src="images/servicos/seo-local.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" style="object-position: 49% 50%">
-                <div class="service__body">
-                  <span class="service__tag service__tag--visto">Ser visto</span>
-                  <h3 class="service__title">SEO local</h3>
-                  <button class="service__link service__flip" type="button" aria-label="Ver o que está incluso em SEO local">Saiba mais<svg class="service__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></button>
+        <div class="services__carousel" role="group" aria-roledescription="carrossel" aria-label="Serviços">
+          <div class="services__bar">
+            <div class="services__nav">
+              <button class="services__arrow services__arrow--prev" type="button" aria-label="Serviços anteriores"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
+              <button class="services__arrow services__arrow--next" type="button" aria-label="Próximos serviços"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+            </div>
+          </div>
+          <ul class="services__track">
+            <li class="service">
+              <div class="service__inner">
+                <div class="service__face service__face--front">
+                  <img class="service__media" src="images/servicos/conteudo.webp" alt="" loading="lazy" decoding="async" style="object-position: 54% 50%">
+                  <div class="service__body">
+                    <span class="service__tag">Ser lembrado</span>
+                    <h3 class="service__title">Conteúdo</h3>
+                    <p class="service__text">Imagens, carrosséis e reels</p>
+                    <button class="service__link service__flip" type="button" aria-label="Saiba mais sobre Conteúdo">Saiba mais<svg class="service__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></button>
+                  </div>
+                </div>
+                <div class="service__face service__face--back" inert>
+                  <button class="service__back service__flip" type="button" aria-label="Voltar para a frente do card"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+                  <span class="service__tag">Ser lembrado</span>
+                  <p class="service__back-title">Conteúdo</p>
+                  <p class="service__desc">Imagens, carrosséis e reels pensados para a sua estratégia. Você só envia as fotos do dia a dia.</p>
+                  <a class="service__cta" href="https://diagnostico.digitalgalaxy.com.br/?utm_source=site&amp;utm_medium=servicos">Quero meu plano<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a>
                 </div>
               </div>
-              <div class="service__face service__face--back" inert>
-                <button class="service__back service__flip" type="button" aria-label="Voltar para a frente do card"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
-                <span class="service__tag service__tag--visto">Ser visto</span>
-                <p class="service__back-title">SEO local</p>
-                <p class="service__desc">Para aparecer antes do concorrente.</p>
-                <ul class="service__list" aria-label="O que está incluso">
-                    <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Google Meu Negócio</li>
-                    <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Avaliações</li>
-                    <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Presença no Maps</li>
-                </ul>
-              </div>
-            </div>
-          </li>
-          <li class="service">
-            <div class="service__inner">
-              <div class="service__face service__face--front">
-                <img class="service__media" src="images/servicos/sites.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" style="object-position: 50% 50%">
-                <div class="service__body">
-                  <span class="service__tag service__tag--visto">Ser visto</span>
-                  <h3 class="service__title">Sites</h3>
-                  <button class="service__link service__flip" type="button" aria-label="Ver o que está incluso em Sites">Saiba mais<svg class="service__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></button>
+            </li>
+            <li class="service">
+              <div class="service__inner">
+                <div class="service__face service__face--front">
+                  <img class="service__media" src="images/servicos/trafego-pago.webp" alt="" loading="lazy" decoding="async" style="object-position: 50% 50%">
+                  <div class="service__body">
+                    <span class="service__tag">Ser escolhido</span>
+                    <h3 class="service__title">Tráfego pago</h3>
+                    <p class="service__text">Meta Ads e Google Ads</p>
+                    <button class="service__link service__flip" type="button" aria-label="Saiba mais sobre Tráfego pago">Saiba mais<svg class="service__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></button>
+                  </div>
+                </div>
+                <div class="service__face service__face--back" inert>
+                  <button class="service__back service__flip" type="button" aria-label="Voltar para a frente do card"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+                  <span class="service__tag">Ser escolhido</span>
+                  <p class="service__back-title">Tráfego pago</p>
+                  <p class="service__desc">Campanhas no Meta Ads, Google Ads, LinkedIn e TikTok, com criativos próprios e otimização contínua.</p>
+                  <a class="service__cta" href="https://diagnostico.digitalgalaxy.com.br/?utm_source=site&amp;utm_medium=servicos">Quero meu plano<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a>
                 </div>
               </div>
-              <div class="service__face service__face--back" inert>
-                <button class="service__back service__flip" type="button" aria-label="Voltar para a frente do card"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
-                <span class="service__tag service__tag--visto">Ser visto</span>
-                <p class="service__back-title">Sites</p>
-                <p class="service__desc">Páginas feitas para converter.</p>
-                <ul class="service__list" aria-label="O que está incluso">
-                    <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>WhatsApp ou formulário</li>
-                    <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Rastreamento dos anúncios</li>
-                </ul>
-              </div>
-            </div>
-          </li>
-          <li class="service">
-            <div class="service__inner">
-              <div class="service__face service__face--front">
-                <img class="service__media" src="images/servicos/estrategia.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" style="object-position: 50% 50%">
-                <div class="service__body">
-                  <span class="service__tag service__tag--lembrado">Ser lembrado</span>
-                  <h3 class="service__title">Posicionamento</h3>
-                  <button class="service__link service__flip" type="button" aria-label="Ver o que está incluso em Posicionamento">Saiba mais<svg class="service__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></button>
+            </li>
+            <li class="service">
+              <div class="service__inner">
+                <div class="service__face service__face--front">
+                  <img class="service__media" src="images/servicos/seo-local.webp" alt="" loading="lazy" decoding="async" style="object-position: 49% 50%">
+                  <div class="service__body">
+                    <span class="service__tag">Ser visto</span>
+                    <h3 class="service__title">SEO local</h3>
+                    <p class="service__text">Google, Maps e avaliações</p>
+                    <button class="service__link service__flip" type="button" aria-label="Saiba mais sobre SEO local">Saiba mais<svg class="service__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></button>
+                  </div>
+                </div>
+                <div class="service__face service__face--back" inert>
+                  <button class="service__back service__flip" type="button" aria-label="Voltar para a frente do card"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+                  <span class="service__tag">Ser visto</span>
+                  <p class="service__back-title">SEO local</p>
+                  <p class="service__desc">Perfil do Google otimizado, avaliações e presença no Maps para você aparecer antes do concorrente.</p>
+                  <a class="service__cta" href="https://diagnostico.digitalgalaxy.com.br/?utm_source=site&amp;utm_medium=servicos">Quero meu plano<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a>
                 </div>
               </div>
-              <div class="service__face service__face--back" inert>
-                <button class="service__back service__flip" type="button" aria-label="Voltar para a frente do card"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
-                <span class="service__tag service__tag--lembrado">Ser lembrado</span>
-                <p class="service__back-title">Posicionamento</p>
-                <p class="service__desc">Para sua marca falar com clareza.</p>
-                <ul class="service__list" aria-label="O que está incluso">
-                    <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Público</li>
-                    <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Tom de voz</li>
-                    <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Oferta principal</li>
-                    <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Linha editorial</li>
-                </ul>
-              </div>
-            </div>
-          </li>
-          <li class="service">
-            <div class="service__inner">
-              <div class="service__face service__face--front">
-                <img class="service__media" src="images/servicos/branding.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" style="object-position: 47% 50%">
-                <div class="service__body">
-                  <span class="service__tag service__tag--lembrado">Ser lembrado</span>
-                  <h3 class="service__title">Branding</h3>
-                  <button class="service__link service__flip" type="button" aria-label="Ver o que está incluso em Branding">Saiba mais<svg class="service__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></button>
+            </li>
+            <li class="service">
+              <div class="service__inner">
+                <div class="service__face service__face--front">
+                  <img class="service__media" src="images/servicos/estrategia.webp" alt="" loading="lazy" decoding="async">
+                  <div class="service__body">
+                    <span class="service__tag">Ser lembrado</span>
+                    <h3 class="service__title">Posicionamento</h3>
+                    <p class="service__text">Público, voz e oferta</p>
+                    <button class="service__link service__flip" type="button" aria-label="Saiba mais sobre Posicionamento">Saiba mais<svg class="service__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></button>
+                  </div>
+                </div>
+                <div class="service__face service__face--back" inert>
+                  <button class="service__back service__flip" type="button" aria-label="Voltar para a frente do card"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+                  <span class="service__tag">Ser lembrado</span>
+                  <p class="service__back-title">Posicionamento</p>
+                  <p class="service__desc">Público, tom de voz, oferta principal e linha editorial para sua marca falar com clareza.</p>
+                  <a class="service__cta" href="https://diagnostico.digitalgalaxy.com.br/?utm_source=site&amp;utm_medium=servicos">Quero meu plano<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a>
                 </div>
               </div>
-              <div class="service__face service__face--back" inert>
-                <button class="service__back service__flip" type="button" aria-label="Voltar para a frente do card"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
-                <span class="service__tag service__tag--lembrado">Ser lembrado</span>
-                <p class="service__back-title">Branding</p>
-                <p class="service__desc">Para ter a mesma cara em todo lugar.</p>
-                <ul class="service__list" aria-label="O que está incluso">
-                    <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Logo</li>
-                    <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Cores e fontes</li>
-                    <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Manual de marca</li>
-                </ul>
-              </div>
-            </div>
-          </li>
-          <li class="service">
-            <div class="service__inner">
-              <div class="service__face service__face--front">
-                <img class="service__media" src="images/servicos/redes-sociais.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" style="object-position: 50% 40%">
-                <div class="service__body">
-                  <span class="service__tag service__tag--lembrado">Ser lembrado</span>
-                  <h3 class="service__title">Redes sociais</h3>
-                  <button class="service__link service__flip" type="button" aria-label="Ver o que está incluso em Redes sociais">Saiba mais<svg class="service__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></button>
+            </li>
+            <li class="service">
+              <div class="service__inner">
+                <div class="service__face service__face--front">
+                  <img class="service__media" src="images/servicos/redes-sociais.webp" alt="" loading="lazy" decoding="async" style="object-position: 50% 40%">
+                  <div class="service__body">
+                    <span class="service__tag">Ser lembrado</span>
+                    <h3 class="service__title">Redes sociais</h3>
+                    <p class="service__text">Calendário, posts e stories</p>
+                    <button class="service__link service__flip" type="button" aria-label="Saiba mais sobre Redes sociais">Saiba mais<svg class="service__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></button>
+                  </div>
+                </div>
+                <div class="service__face service__face--back" inert>
+                  <button class="service__back service__flip" type="button" aria-label="Voltar para a frente do card"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+                  <span class="service__tag">Ser lembrado</span>
+                  <p class="service__back-title">Redes sociais</p>
+                  <p class="service__desc">Calendário, posts com design e legenda e stories semanais para Instagram, Facebook e TikTok.</p>
+                  <a class="service__cta" href="https://diagnostico.digitalgalaxy.com.br/?utm_source=site&amp;utm_medium=servicos">Quero meu plano<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a>
                 </div>
               </div>
-              <div class="service__face service__face--back" inert>
-                <button class="service__back service__flip" type="button" aria-label="Voltar para a frente do card"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
-                <span class="service__tag service__tag--lembrado">Ser lembrado</span>
-                <p class="service__back-title">Redes sociais</p>
-                <p class="service__desc">Para Instagram, Facebook e TikTok.</p>
-                <ul class="service__list" aria-label="O que está incluso">
-                    <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Calendário mensal</li>
-                    <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Posts com design e legenda</li>
-                    <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Stories semanais</li>
-                </ul>
-              </div>
-            </div>
-          </li>
-          <li class="service">
-            <div class="service__inner">
-              <div class="service__face service__face--front">
-                <img class="service__media" src="images/servicos/conteudo.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" style="object-position: 54% 50%">
-                <div class="service__body">
-                  <span class="service__tag service__tag--lembrado">Ser lembrado</span>
-                  <h3 class="service__title">Conteúdo</h3>
-                  <button class="service__link service__flip" type="button" aria-label="Ver o que está incluso em Conteúdo">Saiba mais<svg class="service__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></button>
+            </li>
+            <li class="service">
+              <div class="service__inner">
+                <div class="service__face service__face--front">
+                  <img class="service__media" src="images/servicos/branding.webp" alt="" loading="lazy" decoding="async" style="object-position: 47% 50%">
+                  <div class="service__body">
+                    <span class="service__tag">Ser lembrado</span>
+                    <h3 class="service__title">Branding</h3>
+                    <p class="service__text">Identidade visual e manual</p>
+                    <button class="service__link service__flip" type="button" aria-label="Saiba mais sobre Branding">Saiba mais<svg class="service__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></button>
+                  </div>
+                </div>
+                <div class="service__face service__face--back" inert>
+                  <button class="service__back service__flip" type="button" aria-label="Voltar para a frente do card"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+                  <span class="service__tag">Ser lembrado</span>
+                  <p class="service__back-title">Branding</p>
+                  <p class="service__desc">Logo, cores, fontes e manual de marca para ter a mesma cara em todo lugar.</p>
+                  <a class="service__cta" href="https://diagnostico.digitalgalaxy.com.br/?utm_source=site&amp;utm_medium=servicos">Quero meu plano<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a>
                 </div>
               </div>
-              <div class="service__face service__face--back" inert>
-                <button class="service__back service__flip" type="button" aria-label="Voltar para a frente do card"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
-                <span class="service__tag service__tag--lembrado">Ser lembrado</span>
-                <p class="service__back-title">Conteúdo</p>
-                <p class="service__desc">Você só envia as fotos do dia a dia.</p>
-                <ul class="service__list" aria-label="O que está incluso">
-                    <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Imagens</li>
-                    <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Carrosséis</li>
-                    <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Reels</li>
-                </ul>
-              </div>
-            </div>
-          </li>
-          <li class="service">
-            <div class="service__inner">
-              <div class="service__face service__face--front">
-                <img class="service__media" src="images/servicos/trafego-pago.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" style="object-position: 50% 50%">
-                <div class="service__body">
-                  <span class="service__tag service__tag--escolhido">Ser escolhido</span>
-                  <h3 class="service__title">Tráfego pago</h3>
-                  <button class="service__link service__flip" type="button" aria-label="Ver o que está incluso em Tráfego pago">Saiba mais<svg class="service__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></button>
+            </li>
+            <li class="service">
+              <div class="service__inner">
+                <div class="service__face service__face--front">
+                  <img class="service__media" src="images/servicos/sites.webp" alt="" loading="lazy" decoding="async" style="object-position: 50% 50%">
+                  <div class="service__body">
+                    <span class="service__tag">Ser visto</span>
+                    <h3 class="service__title">Sites</h3>
+                    <p class="service__text">Páginas que convertem</p>
+                    <button class="service__link service__flip" type="button" aria-label="Saiba mais sobre Sites">Saiba mais<svg class="service__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></button>
+                  </div>
+                </div>
+                <div class="service__face service__face--back" inert>
+                  <button class="service__back service__flip" type="button" aria-label="Voltar para a frente do card"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+                  <span class="service__tag">Ser visto</span>
+                  <p class="service__back-title">Sites</p>
+                  <p class="service__desc">Páginas feitas para converter, com botão de WhatsApp ou formulário e rastreamento dos anúncios.</p>
+                  <a class="service__cta" href="https://diagnostico.digitalgalaxy.com.br/?utm_source=site&amp;utm_medium=servicos">Quero meu plano<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a>
                 </div>
               </div>
-              <div class="service__face service__face--back" inert>
-                <button class="service__back service__flip" type="button" aria-label="Voltar para a frente do card"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
-                <span class="service__tag service__tag--escolhido">Ser escolhido</span>
-                <p class="service__back-title">Tráfego pago</p>
-                <p class="service__desc">Com criativos próprios e otimização contínua.</p>
-                <ul class="service__list" aria-label="O que está incluso">
-                    <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Meta Ads</li>
-                    <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Google Ads</li>
-                    <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>LinkedIn</li>
-                    <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>TikTok</li>
-                </ul>
-              </div>
-            </div>
-          </li>
-          <li class="service">
-            <div class="service__inner">
-              <div class="service__face service__face--front">
-                <img class="service__media" src="images/servicos/funil-crm.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" style="object-position: 50% 50%">
-                <div class="service__body">
-                  <span class="service__tag service__tag--escolhido">Ser escolhido</span>
-                  <h3 class="service__title">Funil e CRM</h3>
-                  <button class="service__link service__flip" type="button" aria-label="Ver o que está incluso em Funil e CRM">Saiba mais<svg class="service__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></button>
+            </li>
+            <li class="service">
+              <div class="service__inner">
+                <div class="service__face service__face--front">
+                  <img class="service__media" src="images/servicos/funil-crm.webp" alt="" loading="lazy" decoding="async" style="object-position: 50% 50%">
+                  <div class="service__body">
+                    <span class="service__tag">Ser escolhido</span>
+                    <h3 class="service__title">Funil e CRM</h3>
+                    <p class="service__text">Do contato até a venda</p>
+                    <button class="service__link service__flip" type="button" aria-label="Saiba mais sobre Funil e CRM">Saiba mais<svg class="service__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></button>
+                  </div>
+                </div>
+                <div class="service__face service__face--back" inert>
+                  <button class="service__back service__flip" type="button" aria-label="Voltar para a frente do card"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+                  <span class="service__tag">Ser escolhido</span>
+                  <p class="service__back-title">Funil e CRM</p>
+                  <p class="service__desc">Estrutura de funil, CRM e automação para nenhum contato se perder até virar venda.</p>
+                  <a class="service__cta" href="https://diagnostico.digitalgalaxy.com.br/?utm_source=site&amp;utm_medium=servicos">Quero meu plano<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a>
                 </div>
               </div>
-              <div class="service__face service__face--back" inert>
-                <button class="service__back service__flip" type="button" aria-label="Voltar para a frente do card"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
-                <span class="service__tag service__tag--escolhido">Ser escolhido</span>
-                <p class="service__back-title">Funil e CRM</p>
-                <p class="service__desc">Nenhum contato se perde até a venda.</p>
-                <ul class="service__list" aria-label="O que está incluso">
-                    <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Estrutura de funil</li>
-                    <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>CRM</li>
-                    <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Automação</li>
-                </ul>
-              </div>
-            </div>
-          </li>
-        </ul>
-
-        <div class="section__actions">
-          <a class="btn btn--primary" href="https://diagnostico.digitalgalaxy.com.br/?utm_source=site&amp;utm_medium=servicos" data-track="cta_quiz" data-origin="servicos"><span class="btn__text">Descobrir o que preciso</span><span class="btn__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M14 6l6 6-6 6"/></svg></span></a>
+            </li>
+          </ul>
         </div>
       </div>
     </section>
 
-    <!-- ============ 8. RESULTADOS (oculta: SHOW_PROOF em js/main.js) ============ -->
-    <section class="section section--alt" id="resultados" aria-labelledby="resultados-title" data-proof hidden>
-      <div class="container">
-        <header class="section__header section__header--center">
-          <p class="eyebrow">Resultados</p>
-          <h2 class="section__title" id="resultados-title">Números, não promessas.</h2>
-          <p class="section__lead">Veja o que acontece quando estratégia e execução giram juntas.</p>
-        </header>
-        <ul class="cases">
-          <!-- Copie um <li> por case (2 a 3). Foto em images/clientes/ -->
-          <li class="case reveal">
-            <p class="case__tag">[Segmento] · [Cidade]</p>
-            <h3 class="case__highlight">[+X% de ligações / X leads por mês] em [N] meses</h3>
-            <dl class="case__facts">
-              <div><dt>Antes</dt><dd>[situação inicial em uma frase]</dd></div>
-              <div><dt>O que fizemos</dt><dd>[serviço 1] + [serviço 2]</dd></div>
-            </dl>
-            <figure class="case__quote">
-              <blockquote><p>"[frase real do cliente]"</p></blockquote>
-              <figcaption>
-                <img class="case__photo" src="images/clientes/cliente-1.webp" alt="Foto de [Nome]" width="44" height="44" loading="lazy">
-                <span>[Nome], [cargo], [empresa]</span>
-              </figcaption>
-            </figure>
-          </li>
-          <li class="case reveal">
-            <p class="case__tag">[Segmento] · [Cidade]</p>
-            <h3 class="case__highlight">[+X% de ligações / X leads por mês] em [N] meses</h3>
-            <dl class="case__facts">
-              <div><dt>Antes</dt><dd>[situação inicial em uma frase]</dd></div>
-              <div><dt>O que fizemos</dt><dd>[serviço 1] + [serviço 2]</dd></div>
-            </dl>
-            <figure class="case__quote">
-              <blockquote><p>"[frase real do cliente]"</p></blockquote>
-              <figcaption>
-                <img class="case__photo" src="images/clientes/cliente-2.webp" alt="Foto de [Nome]" width="44" height="44" loading="lazy">
-                <span>[Nome], [cargo], [empresa]</span>
-              </figcaption>
-            </figure>
-          </li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- ============ 10. PARA QUEM É ============ -->
-    <section class="section fit-section" id="para-quem" aria-labelledby="para-quem-title">
-      <div class="container">
-        <h2 class="visually-hidden" id="para-quem-title">Para quem é a Digital Galaxy</h2>
-        <div class="fit">
-          <div class="fit__col fit__col--yes reveal">
-            <h3 class="fit__title">É para você se…</h3>
-            <ul class="checklist">
-              <li><svg class="icon-check" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Tem um negócio local ou uma média empresa.</li>
-              <li><svg class="icon-check" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Quer uma equipe só cuidando de tudo.</li>
-              <li><svg class="icon-check" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Investe a partir de R$ 1.000/mês em anúncios.</li>
-            </ul>
-          </div>
-          <div class="fit__col fit__col--no reveal">
-            <h3 class="fit__title">Não é para você se…</h3>
-            <ul class="checklist checklist--muted">
-              <li><svg class="icon-x" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7l10 10M17 7 7 17"/></svg>Quer só posts bonitos, sem estratégia.</li>
-              <li><svg class="icon-x" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7l10 10M17 7 7 17"/></svg>Espera resultado em uma semana.</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ 11. PROJETOS AVULSOS ============ -->
+    <!-- ============ PROJETOS AVULSOS ============ -->
     <section class="section section--alt" id="projetos" aria-labelledby="projetos-title">
       <div class="container projects">
         <header class="section__header projects__header">
           <p class="eyebrow">Projetos avulsos</p>
-          <h2 class="section__title" id="projetos-title">Prefere um projeto pontual?</h2>
-          <p class="section__lead">Resolva uma necessidade específica com um projeto avulso. Clientes com plano ativo têm <strong class="discount">15% de desconto</strong>.</p>
-          <a class="btn btn--glow" href="https://diagnostico.digitalgalaxy.com.br/?utm_source=site&amp;utm_medium=projetos" data-track="cta_orcamento" data-origin="projetos"><span class="btn__label">Solicitar orçamento</span></a>
+          <h2 class="section__title" id="projetos-title">Prefere começar com um projeto?</h2>
+          <p class="section__lead">Resolva uma necessidade específica. Se depois quiser um plano, o projeto já vira a base dele. Clientes com plano ativo têm <strong class="discount">15% de desconto</strong>.</p>
+          <a class="btn btn--glow" href="https://diagnostico.digitalgalaxy.com.br/?utm_source=site&amp;utm_medium=projetos"><span class="btn__label">Solicitar orçamento</span></a>
         </header>
-        <!-- Preço: troque [valor] pelo número (ex.: "a partir de R$ 900"). Enquanto tiver colchetes ou estiver vazio, não aparece. -->
         <ul class="projects__list">
           <li class="project reveal" tabindex="0">
-            <div class="project__head"><h3 class="project__name">Diagnóstico e posicionamento</h3><span class="project__toggle" aria-hidden="true"></span><span class="project__price" data-fill hidden>a partir de R$ [valor]</span></div>
-            <div class="project__more"><div class="project__more-inner"><p class="project__text">Análise da sua presença digital, dos concorrentes e do público, com os próximos passos em ordem de prioridade.</p></div></div>
+            <div class="project__head"><span class="project__name">Diagnóstico e posicionamento</span></div>
+            <div class="project__more"><div class="project__more-inner"><p class="project__text">Descubra onde seu marketing está perdendo clientes. Analisamos sua presença digital, concorrentes e público, e entregamos os próximos passos em ordem de prioridade.</p></div></div>
           </li>
           <li class="project reveal" tabindex="0">
-            <div class="project__head"><h3 class="project__name">Setup do Google Meu Negócio</h3><span class="project__toggle" aria-hidden="true"></span><span class="project__price" data-fill hidden>a partir de R$ [valor]</span></div>
-            <div class="project__more"><div class="project__more-inner"><p class="project__text">Perfil criado ou otimizado para aparecer nas buscas locais e no Maps.</p></div></div>
+            <div class="project__head"><span class="project__name">Setup do Google Meu Negócio</span></div>
+            <div class="project__more"><div class="project__more-inner"><p class="project__text">Apareça no Maps quando procuram pelo que você vende. Criamos ou otimizamos seu perfil com categorias, serviços, fotos e descrição.</p></div></div>
           </li>
           <li class="project reveal" tabindex="0">
-            <div class="project__head"><h3 class="project__name">Identidade visual</h3><span class="project__toggle" aria-hidden="true"></span><span class="project__price" data-fill hidden>a partir de R$ [valor]</span></div>
-            <div class="project__more"><div class="project__more-inner"><p class="project__text">Logo, cores, tipografia e aplicações para redes e materiais.</p></div></div>
+            <div class="project__head"><span class="project__name">Identidade visual</span></div>
+            <div class="project__more"><div class="project__more-inner"><p class="project__text">Logo, cores, tipografia e aplicações prontas para redes e materiais. Sua marca com a mesma cara em todo lugar.</p></div></div>
           </li>
           <li class="project reveal" tabindex="0">
-            <div class="project__head"><h3 class="project__name">Branding completo</h3><span class="project__toggle" aria-hidden="true"></span><span class="project__price" data-fill hidden>a partir de R$ [valor]</span></div>
-            <div class="project__more"><div class="project__more-inner"><p class="project__text">Estratégia, identidade visual e manual de uso da marca.</p></div></div>
+            <div class="project__head"><span class="project__name">Branding completo</span></div>
+            <div class="project__more"><div class="project__more-inner"><p class="project__text">O que sua marca defende, como ela fala e como ela aparece: estratégia, identidade visual e manual de uso.</p></div></div>
           </li>
           <li class="project reveal" tabindex="0">
-            <div class="project__head"><h3 class="project__name">Landing page</h3><span class="project__toggle" aria-hidden="true"></span><span class="project__price" data-fill hidden>a partir de R$ [valor]</span></div>
-            <div class="project__more"><div class="project__more-inner"><p class="project__text">Uma página com um objetivo: transformar visitas em conversas.</p></div></div>
+            <div class="project__head"><span class="project__name">Landing page</span></div>
+            <div class="project__more"><div class="project__more-inner"><p class="project__text">Uma página com um único objetivo: transformar visitas em conversas no WhatsApp. Texto, design e rastreamento inclusos.</p></div></div>
           </li>
           <li class="project reveal" tabindex="0">
-            <div class="project__head"><h3 class="project__name">Site institucional</h3><span class="project__toggle" aria-hidden="true"></span><span class="project__price" data-fill hidden>a partir de R$ [valor]</span></div>
-            <div class="project__more"><div class="project__more-inner"><p class="project__text">Várias páginas, rápido no celular e preparado para o Google.</p></div></div>
+            <div class="project__head"><span class="project__name">Site institucional</span></div>
+            <div class="project__more"><div class="project__more-inner"><p class="project__text">Várias páginas, rápido no celular e preparado para o Google, apresentando sua empresa, seus serviços e seus contatos.</p></div></div>
           </li>
         </ul>
       </div>
     </section>
 
-    <!-- ============ 12. FAQ ============ -->
-    <!-- Perguntas com [colchetes] ficam ocultas (data-fill). Ao preencher a resposta sem colchetes, elas aparecem sozinhas. -->
+    <!-- ============ FAQ ============ -->
     <section class="section" id="faq" aria-labelledby="faq-title">
       <div class="container faq">
         <header class="section__header section__header--center faq__header">
           <p class="eyebrow">Dúvidas frequentes</p>
-          <h2 class="section__title" id="faq-title">Perguntas que costumamos ouvir</h2>
+          <h2 class="section__title" id="faq-title">Antes de decolar, tire suas dúvidas</h2>
         </header>
         <div class="faq__list">
-          <details class="faq__item" open>
+          <details class="faq__item">
             <summary class="faq__question">Existe fidelidade?</summary>
-            <div class="faq__answer"><p>O primeiro mês é um teste, sem fidelidade. Depois dele, o contrato é de 6 meses, com renovação automática.</p></div>
+            <div class="faq__answer"><p>O primeiro mês é sem fidelidade. No fim dele, apresentamos os resultados e o plano dos próximos 6 meses. Se seguirmos juntos, o contrato passa a ser de 6 meses, com renovação automática.</p></div>
           </details>
-          <details class="faq__item" open>
+          <details class="faq__item">
             <summary class="faq__question">A verba dos anúncios está inclusa?</summary>
-            <div class="faq__answer"><p>Não. Ela é paga por você direto à Meta e ao Google. O recomendado fica entre R$ 1.000 e R$ 5.000 por mês.</p></div>
-          </details>
-          <details class="faq__item" data-fill hidden>
-            <summary class="faq__question">Quanto custa um plano?</summary>
-            <div class="faq__answer"><p>[Planos a partir de R$ X/mês. O valor final é definido após o diagnóstico, conforme os canais que fazem sentido para o seu negócio.]</p></div>
+            <div class="faq__answer"><p>Não, e isso é bom para você. A verba é paga direto às plataformas, como Meta e Google, e você vê cada real investido. O recomendado costuma ficar entre R$ 1.000 e R$ 5.000 por mês.</p></div>
           </details>
           <details class="faq__item">
             <summary class="faq__question">Em quanto tempo vejo resultados?</summary>
-            <div class="faq__answer"><p>A meta é definida no 1º mês e acompanhada todo mês. Tráfego e SEO costumam amadurecer em cerca de 3 meses.</p></div>
+            <div class="faq__answer"><p>Logo no início definimos uma meta, como leads, ligações, rotas no Maps ou vendas, e acompanhamos os números com você. Canais como tráfego e SEO costumam amadurecer em cerca de 3 meses.</p></div>
           </details>
           <details class="faq__item">
             <summary class="faq__question">Vocês atendem o meu segmento?</summary>
-            <div class="faq__answer"><p>Atendemos negócios locais e médias empresas: comércio, serviços, varejo, e-commerce, B2B e indústria.</p></div>
-          </details>
-          <details class="faq__item" data-fill hidden>
-            <summary class="faq__question">Quem vai cuidar da minha conta?</summary>
-            <div class="faq__answer"><p>[Nome/função do responsável, canal de contato e frequência das reuniões.]</p></div>
-          </details>
-          <details class="faq__item" data-fill hidden>
-            <summary class="faq__question">Como é o relatório mensal?</summary>
-            <div class="faq__answer"><p>[O que o relatório mostra: meta do mês, resultados por canal, investimento e próximos passos.]</p></div>
+            <div class="faq__answer"><p>Atendemos negócios locais e médias empresas: comércio de bairro, serviços profissionais, varejo e e-commerce, B2B e indústria. O peso de cada canal muda conforme o diagnóstico.</p></div>
           </details>
           <details class="faq__item">
             <summary class="faq__question">Quem produz as fotos e os vídeos dos stories?</summary>
-            <div class="faq__answer"><p>Você envia as fotos e os vídeos do dia a dia. Nós planejamos, escrevemos os textos e agendamos.</p></div>
+            <div class="faq__answer"><p>Você envia as fotos e os vídeos do dia a dia do negócio. Nós planejamos a sequência, escrevemos os textos e cuidamos do agendamento.</p></div>
           </details>
           <details class="faq__item">
             <summary class="faq__question">Minha empresa já tem equipe de marketing. Faz sentido contratar?</summary>
-            <div class="faq__answer"><p>Sim. O trabalho pode ser consultivo, orientando a sua equipe interna.</p></div>
+            <div class="faq__answer"><p>Sim. O trabalho pode ser consultivo, orientando a sua equipe interna com estratégia, metas e acompanhamento.</p></div>
           </details>
         </div>
       </div>
     </section>
 
-    <!-- ============ 13. CTA FINAL ============ -->
-    <section class="cta" id="comecar" aria-labelledby="cta-title">
+    <!-- ============ CTA FINAL ============ -->
+    <section class="cta" aria-labelledby="cta-title">
       <div class="starfield" aria-hidden="true"></div>
       <div class="container cta__inner reveal">
-        <img class="cta__mark" src="images/logo/logo-digital-galaxy-mark.svg" alt="" aria-hidden="true" width="56" height="56" loading="lazy">
-        <p class="eyebrow">Pronto para entrar em órbita?</p>
-        <h2 class="cta__title" id="cta-title">Vamos entender o seu negócio?</h2>
-        <p class="cta__text">Responda 10 perguntas rápidas, em cerca de 5 minutos. Assim chegamos à conversa já conhecendo o seu cenário.</p>
+        <img class="cta__mark" src="images/logo/logo-digital-galaxy-mark.svg" alt="" width="56" height="56" loading="lazy">
+        <h2 class="cta__title" id="cta-title">Em 5 minutos você descobre o que o seu marketing precisa</h2>
+        <p class="cta__text">Responda 10 perguntas rápidas. Chegamos à conversa já conhecendo o seu cenário, e você sai dela com os próximos passos.</p>
         <div class="cta__actions">
-          <a class="btn btn--primary" href="https://diagnostico.digitalgalaxy.com.br/?utm_source=site&amp;utm_medium=cta-final" data-track="cta_quiz" data-origin="cta-final"><span class="btn__text">Começar agora</span><span class="btn__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M14 6l6 6-6 6"/></svg></span></a>
+          <a class="btn btn--primary" href="https://diagnostico.digitalgalaxy.com.br/?utm_source=site&amp;utm_medium=cta-final"><span class="btn__text">Responder agora</span><span class="btn__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M14 6l6 6-6 6"/></svg></span></a>
+          <!-- WhatsApp: o botão aparece quando o número for configurado em js/main.js -->
+          <a class="btn btn--glow js-whatsapp" href="#" target="_blank" rel="noopener" hidden><span class="btn__label">Falar no WhatsApp</span></a>
         </div>
-        <a class="cta__link js-whatsapp" href="https://wa.me/" target="_blank" rel="noopener" data-track="cta_whatsapp" data-origin="cta-final" hidden>Prefiro falar no WhatsApp</a>
-        <ul class="microcopy cta__microcopy">
-          <li>Grátis</li>
-          <li>Sem compromisso</li>
-        </ul>
-        <!-- Use só se for verdade:
-        <p class="cta__scarcity">Abrimos [N] vagas de diagnóstico por mês para manter a qualidade do atendimento.</p>
-        -->
       </div>
     </section>
   </main>
-
-  <!-- ============ 14. WHATSAPP FLUTUANTE (só celular) ============ -->
-  <a class="wa-float js-whatsapp" href="https://wa.me/" target="_blank" rel="noopener" aria-label="Falar no WhatsApp" data-track="cta_whatsapp" data-origin="flutuante" hidden>
-    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
-  </a>
 
   <!-- ============ NAVE (decorativa): cruza a tela de vez em quando, animada por js/main.js ============ -->
   <div class="ship" aria-hidden="true">
@@ -589,15 +424,15 @@
     </svg>
   </div>
 
-  <!-- ============ 15. RODAPÉ ============ -->
+  <!-- ============ FOOTER ============ -->
   <footer class="footer">
     <div class="container footer__grid">
       <div class="footer__brand">
         <a class="brand" href="#topo" aria-label="Digital Galaxy, voltar ao início">
-          <img class="brand__mark" src="images/logo/logo-digital-galaxy-mark.svg" alt="" aria-hidden="true" width="32" height="32" loading="lazy">
+          <img class="brand__mark" src="images/logo/logo-digital-galaxy-mark.svg" alt="" width="32" height="32" loading="lazy">
           <span class="brand__name">Digital Galaxy</span>
         </a>
-        <p class="footer__tagline">Estratégia e execução de marketing no mesmo lugar.</p>
+        <p class="footer__tagline">Estratégia e execução de marketing para negócios que querem ser vistos, lembrados e escolhidos.</p>
       </div>
 
       <nav class="footer__col" aria-label="Navegação do rodapé">
@@ -605,7 +440,6 @@
         <ul>
           <li><a href="#metodo">Método</a></li>
           <li><a href="#servicos">Serviços</a></li>
-          <li data-proof hidden><a href="#resultados">Resultados</a></li>
           <li><a href="#projetos">Projetos avulsos</a></li>
           <li><a href="#faq">Dúvidas</a></li>
         </ul>
@@ -613,13 +447,12 @@
 
       <div class="footer__col">
         <p class="footer__heading">Contato</p>
-        <!-- WhatsApp e e-mail: preencha em js/main.js (CONFIG). Cidade e CNPJ: troque o texto entre colchetes aqui. -->
         <ul>
-          <li class="js-whatsapp-item" hidden><a class="js-whatsapp js-whatsapp-label" href="https://wa.me/" target="_blank" rel="noopener" data-track="cta_whatsapp" data-origin="rodape">WhatsApp</a></li>
-          <li class="js-email-item" hidden><a class="js-email" href="#">E-mail</a></li>
+          <li><a href="https://diagnostico.digitalgalaxy.com.br/?utm_source=site&amp;utm_medium=footer">Quero meu plano</a></li>
           <li><a href="https://www.instagram.com/digitalgalaxymkt" target="_blank" rel="noopener">Instagram @digitalgalaxymkt</a></li>
-          <li class="footer__info" data-fill hidden>[Cidade/UF]</li>
-          <li class="footer__info" data-fill hidden>CNPJ [número]</li>
+          <!-- Aparecem quando configurados em js/main.js -->
+          <li class="js-whatsapp-item" hidden><a class="js-whatsapp" href="#" target="_blank" rel="noopener">WhatsApp</a></li>
+          <li class="js-email-item" hidden><a class="js-email" href="#">E-mail</a></li>
         </ul>
       </div>
     </div>
