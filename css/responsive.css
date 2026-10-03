@@ -65,6 +65,8 @@
   :root { --container-padding: 20px; --section-padding: var(--space-7); }
 
   .header__actions { gap: var(--space-2); }
+  /* Botão do topo cabe inteiro ao lado da logo e do menu */
+  .header__cta { padding: 0 var(--space-3); font-size: 0.875rem; }
   .brand--mark .brand__mark { width: 36px; height: 36px; }
   /* O painel cobre a tela inteira: a logo escurece para aparecer sobre o fundo claro */
   .header.menu-open .brand--mark { color: var(--color-primary); }
@@ -80,6 +82,12 @@
 
 
   .service__title { font-size: 1.25rem; }
+  /* Verso do card mais compacto para caber o título, o texto e a lista */
+  .service__face--back { padding: var(--space-4); }
+  .service__back-title { margin-top: var(--space-4); font-size: 1.5rem; padding-right: var(--space-6); }
+  .service__desc { font-size: 0.9375rem; }
+  .service__list { margin-top: var(--space-3); padding-top: var(--space-3); gap: 8px; }
+  .service__list li { font-size: 0.875rem; }
   .services__arrow { width: 40px; height: 40px; }
   .card { padding: var(--space-4); }
   .card:hover { transform: none; }
@@ -99,4 +107,21 @@
 
   .footer__grid { grid-template-columns: 1fr; gap: var(--space-5); }
   .footer__bottom { margin-top: var(--space-6); }
+}
+
+/* Celulares estreitos (até 360 px)
+   ========================================================================== */
+@media (max-width: 360px) {
+  :root { --container-padding: 16px; }
+
+  .header__cta { padding: 0 12px; font-size: 0.8125rem; }
+  .header__cta .btn__icon { display: none; }
+  .btn { white-space: normal; text-align: center; line-height: 1.25; }
+
+  .service__face--back { padding: var(--space-3) var(--space-4) var(--space-4); }
+  .service__back-title { margin-top: var(--space-3); font-size: 1.3125rem; }
+  .service__desc { margin-top: var(--space-2); font-size: 0.875rem; line-height: 1.45; }
+  .service__list { gap: 6px; }
+  .service__list li { font-size: 0.8125rem; }
+  .service__cta { padding: 10px 16px; font-size: 0.875rem; }
 }

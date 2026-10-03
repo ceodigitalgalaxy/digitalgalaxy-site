@@ -586,8 +586,8 @@ body {
 }
 .principle { padding-top: var(--space-4); border-top: 1px solid rgba(255, 255, 255, 0.22); }
 .principle__index { font-family: var(--font-brand); font-size: 0.8125rem; letter-spacing: 0.08em; color: var(--color-secondary); }
-.principle__title { margin-top: var(--space-4); font-size: 1.25rem; font-weight: 500; line-height: 1.25; letter-spacing: -0.015em; }
-.principle__text { margin-top: var(--space-2); font-size: 0.9375rem; color: rgba(255, 255, 255, 0.8); }
+.principle__title { margin-top: var(--space-4); font-size: 1.25rem; font-weight: 500; line-height: 1.25; letter-spacing: -0.015em; text-wrap: balance; }
+.principle__text { margin-top: var(--space-2); font-size: 0.9375rem; color: rgba(255, 255, 255, 0.8); text-wrap: pretty; }
 
 /* A seção seguinte sobe com cantos arredondados sobre o fim claro do gradiente */
 .section--services { margin-top: -32px; border-radius: 32px 32px 0 0; }
@@ -830,7 +830,31 @@ body {
   line-height: 1.1;
   letter-spacing: -0.025em;
 }
-.service__desc { margin-top: var(--space-3); font-size: 1rem; line-height: 1.55; color: rgba(255, 255, 255, 0.88); }
+.service__desc { margin-top: var(--space-3); font-size: 1rem; line-height: 1.55; color: rgba(255, 255, 255, 0.88); text-wrap: pretty; }
+/* O que está incluso: lista curta com check, ocupa o meio do verso */
+.service__list {
+  display: grid;
+  gap: 10px;
+  width: 100%;
+  margin-top: var(--space-4);
+  padding-top: var(--space-4);
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+}
+.service__list li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.9375rem; line-height: 1.4; color: var(--color-text); }
+.service__list svg {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  padding: 3px;
+  border-radius: 50%;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  color: var(--color-secondary);
+  background: rgba(183, 148, 255, 0.18);
+}
 .service__cta {
   display: inline-flex;
   align-items: center;
@@ -888,7 +912,19 @@ body {
   border-bottom: 1px solid var(--color-border);
   outline: none;
 }
-.project__head { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); }
+.project__head { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); cursor: pointer; }
+/* "+" que gira ao abrir: indica que o item tem mais informação */
+.project__toggle {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid var(--color-border-strong);
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M12 6v12M6 12h12'/%3E%3C/svg%3E") center / 14px no-repeat;
+  transition: transform 300ms var(--ease), background-color 300ms var(--ease), border-color 300ms var(--ease);
+}
+.project:hover .project__toggle,
+.project:focus .project__toggle { transform: rotate(45deg); background-color: rgba(183, 148, 255, 0.16); border-color: rgba(183, 148, 255, 0.5); }
 .project__name {
   font-size: clamp(1.25rem, 1.1rem + 0.6vw, 1.5rem);
   font-weight: 600;
@@ -907,6 +943,7 @@ body {
   padding-top: var(--space-2);
   font-size: 0.9375rem;
   color: var(--color-muted);
+  text-wrap: pretty;
   opacity: 0;
   transform: translateY(-4px);
   transition: opacity 350ms var(--ease), transform 450ms var(--ease);
@@ -955,7 +992,7 @@ body {
   transition: transform 300ms var(--ease), background-color 300ms var(--ease);
 }
 .faq__item[open] .faq__question::after { transform: rotate(45deg); background-color: rgba(255, 255, 255, 0.08); }
-.faq__answer { padding: 0 var(--space-7) var(--space-4) 0; color: var(--color-muted); }
+.faq__answer { padding: 0 var(--space-7) var(--space-4) 0; color: var(--color-muted); text-wrap: pretty; }
 .faq__item[open] .faq__answer { animation: fade-down 300ms var(--ease); }
 @keyframes fade-down { from { opacity: 0; transform: translateY(-6px); } }
 
@@ -980,7 +1017,7 @@ body {
   letter-spacing: -0.03em;
   text-wrap: balance;
 }
-.cta__text { margin: var(--space-4) auto 0; max-width: 560px; font-size: 1.125rem; color: var(--color-muted); }
+.cta__text { margin: var(--space-4) auto 0; max-width: 560px; font-size: 1.125rem; color: var(--color-muted); text-wrap: pretty; }
 .cta__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-3); margin-top: var(--space-6); }
 
 /* Footer
