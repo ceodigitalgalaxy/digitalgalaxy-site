@@ -82,7 +82,6 @@
 
 
   .service__title { font-size: 1.25rem; }
-  .journey__ship { width: 28px; height: 14px; margin-top: -7px; }
   .services__arrow { width: 40px; height: 40px; }
   .card { padding: var(--space-4); }
   .card:hover { transform: none; }
