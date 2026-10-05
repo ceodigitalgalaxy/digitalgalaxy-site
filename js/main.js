@@ -29,7 +29,6 @@ document.addEventListener("DOMContentLoaded", () => {
   setupHeadline();
   setupServicesCarousel();
   setupServiceFlip();
-  setupJourney();
   setupYear();
 });
 
@@ -416,7 +415,7 @@ function setupGalaxy() {
     const dt = start ? Math.min((now - start) / 1000, 0.05) : 0;
     start = now;
     warp *= Math.exp(-dt * 1.4);
-    time += dt * (1 + warp * 16);
+    time += dt * (1 + warp * 7);
     draw(time);
     frame = requestAnimationFrame(loop);
   };
@@ -438,66 +437,52 @@ function setupGalaxy() {
 }
 
 /* Título do hero que troca de frase ------------------------------------
-   No clique, as letras viram pontos de luz e são sugadas em espiral para o
-   centro da galáxia (que acelera o giro); depois as letras da outra frase
-   surgem das estrelas em volta e se encaixam. Clicando de novo, volta.
+   No clique, a frase é puxada para o centro da galáxia: encolhe, se fecha e
+   some num desfoque, enquanto a galáxia acelera e uma onda de luz sai do
+   miolo escuro. A outra frase surge do desfoque, se abrindo, com um brilho
+   de luz estelar passando pelas letras. Clicando de novo, volta.
 */
 function setupHeadline() {
   const button = document.querySelector(".hero__swap");
   if (!button) return;
   const hero = button.closest(".hero");
+  const pulse = hero.querySelector(".hero__pulse");
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const lines = (text) => text.split("|");
   const phrases = [
     [...button.querySelectorAll(".hero__line")].map((line) => line.textContent),
-    lines(button.dataset.alt)
+    button.dataset.alt.split("|")
   ];
   let current = 0, busy = false;
 
-  // Cada letra num <span>, para animar uma a uma
   const render = (index) => {
     button.classList.toggle("is-alt", index === 1);
-    button.innerHTML = phrases[index].map((line) =>
-      `<span class="hero__line">${[...line].map((ch) => `<span class="hero__char">${ch}</span>`).join("")}</span>`
-    ).join(" ");
+    button.innerHTML = phrases[index].map((line) => `<span class="hero__line">${line}</span>`).join(" ");
     button.setAttribute("aria-label", `${phrases[index].join(" ")}. Clique para ver a outra frase.`);
   };
   render(0);
 
-  const glow = "0 0 10px rgba(236, 228, 255, 0.95), 0 0 24px rgba(143, 91, 255, 0.9)";
-  const center = () => {
-    const r = button.getBoundingClientRect();
-    return [r.left + r.width / 2, r.top + r.height / 2];
-  };
+  const animateLines = (frames, options, step) => Promise.all(
+    [...button.querySelectorAll(".hero__line")].map((line, i) =>
+      line.animate(frames, { ...options, delay: i * step }).finished)
+  );
 
-  // Saída: espiral até o centro, encolhendo e virando ponto de luz
-  const suckIn = () => {
-    const [cx, cy] = center();
-    const chars = [...button.querySelectorAll(".hero__char")];
-    return Promise.all(chars.map((ch, i) => {
-      const r = ch.getBoundingClientRect();
-      const dx = cx - (r.left + r.width / 2), dy = cy - (r.top + r.height / 2);
-      const spin = (dx >= 0 ? 1 : -1) * (180 + Math.random() * 180);
-      return ch.animate([
-        { transform: "none", opacity: 1, textShadow: "none" },
-        { transform: `translate(${dx * 0.35 - dy * 0.35}px, ${dy * 0.35 + dx * 0.15}px) rotate(${spin * 0.4}deg) scale(0.7)`, opacity: 1, textShadow: glow, offset: 0.45 },
-        { transform: `translate(${dx}px, ${dy}px) rotate(${spin}deg) scale(0)`, opacity: 0, textShadow: glow }
-      ], { duration: 750, delay: i * 14 + Math.random() * 120, easing: "cubic-bezier(0.55, 0, 0.75, 0.2)", fill: "forwards" }).finished;
-    }));
-  };
+  // Saída: puxada para o centro (encolhe, se fecha e desfoca)
+  const pullIn = () => animateLines([
+    { opacity: 1, filter: "blur(0)", transform: "none", letterSpacing: "-0.01em" },
+    { opacity: 0, filter: "blur(10px)", transform: "scale(0.86)", letterSpacing: "-0.08em" }
+  ], { duration: 520, easing: "cubic-bezier(0.55, 0, 0.8, 0.25)", fill: "forwards" }, 70);
 
-  // Entrada: cada letra vem de um ponto de luz em volta e se encaixa
-  const burstOut = () => {
-    const chars = [...button.querySelectorAll(".hero__char")];
-    const reach = Math.min(window.innerWidth, 900) * 0.45;
-    return Promise.all(chars.map((ch, i) => {
-      const a = Math.random() * Math.PI * 2, d = reach * (0.6 + Math.random() * 0.6);
-      return ch.animate([
-        { transform: `translate(${Math.cos(a) * d}px, ${Math.sin(a) * d}px) scale(0.1)`, opacity: 0, textShadow: glow },
-        { opacity: 1, offset: 0.35 },
-        { transform: "none", opacity: 1, textShadow: "none" }
-      ], { duration: 950, delay: i * 18 + Math.random() * 160, easing: "cubic-bezier(0.2, 0.8, 0.2, 1)", fill: "backwards" }).finished;
-    }));
+  // Entrada: surge do desfoque, se abrindo até o espaçamento normal
+  const emerge = () => animateLines([
+    { opacity: 0, filter: "blur(14px)", transform: "scale(1.06)", letterSpacing: "0.14em" },
+    { opacity: 1, filter: "blur(0)", transform: "none", letterSpacing: "-0.01em" }
+  ], { duration: 950, easing: "cubic-bezier(0.16, 1, 0.3, 1)", fill: "backwards" }, 110);
+
+  const ripple = () => {
+    if (!pulse) return;
+    pulse.classList.remove("is-active");
+    void pulse.offsetWidth;            // reinicia a animação
+    pulse.classList.add("is-active");
   };
 
   button.addEventListener("click", async () => {
@@ -508,9 +493,12 @@ function setupHeadline() {
       render(next);
     } else {
       hero.dispatchEvent(new CustomEvent("galaxy:pulse"));
-      await suckIn();
+      await pullIn();
+      ripple();
       render(next);
-      await burstOut();
+      button.classList.add("is-shimmer");
+      await emerge();
+      setTimeout(() => button.classList.remove("is-shimmer"), 700);
     }
     current = next;
     busy = false;
@@ -649,43 +637,6 @@ function setupServiceFlip() {
       });
     });
   });
-}
-
-/* Jornada --------------------------------------------------------------
-   A nave da marca percorre a borda do menu conforme a página rola, como um
-   indicador de progresso: no topo ela está à esquerda, no fim da página, à
-   direita. Rolando para cima, ela vira. O motor acende com a velocidade e
-   apaga quando a página para.
-*/
-function setupJourney() {
-  const journey = document.querySelector(".journey");
-  if (!journey) return;
-  const ship = journey.querySelector(".journey__ship");
-  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  let lastScroll = window.scrollY, thrust = 0, facing = 1, running = false;
-
-  const tick = () => {
-    const scroll = window.scrollY;
-    const max = document.documentElement.scrollHeight - window.innerHeight;
-    const progress = max > 0 ? Math.min(Math.max(scroll / max, 0), 1) : 0;
-    const delta = scroll - lastScroll;
-    lastScroll = scroll;
-    if (Math.abs(delta) > 0.5) facing = delta > 0 ? 1 : -1;
-    if (!reduceMotion) thrust += (Math.min(Math.abs(delta) / 20, 1) - thrust) * 0.15;
-
-    const travel = journey.clientWidth - ship.offsetWidth;
-    ship.style.transform = `translateX(${(progress * travel).toFixed(1)}px) scaleX(${facing})`;
-    journey.style.setProperty("--progress", progress.toFixed(4));
-    journey.style.setProperty("--thrust", thrust.toFixed(3));
-
-    // Continua só enquanto o motor ainda está apagando; parada, a nave dorme
-    if (thrust > 0.01 || Math.abs(delta) > 0) requestAnimationFrame(tick);
-    else { thrust = 0; journey.style.setProperty("--thrust", "0"); running = false; }
-  };
-  const wake = () => { if (!running) { running = true; requestAnimationFrame(tick); } };
-  wake();
-  window.addEventListener("scroll", wake, { passive: true });
-  window.addEventListener("resize", wake);
 }
 
 /* Ano atual no rodapé ------------------------------------------------- */
