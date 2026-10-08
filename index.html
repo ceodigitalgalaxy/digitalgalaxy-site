@@ -81,13 +81,9 @@
       <!-- Galáxia espiral animada (fundo): .blackhole define o centro escuro; o canvas é desenhado por js/main.js -->
       <div class="blackhole" aria-hidden="true"></div>
       <canvas class="blackhole-canvas" aria-hidden="true"></canvas>
-      <!-- Onda de luz que sai do centro quando o título troca de frase -->
-      <span class="hero__pulse" aria-hidden="true"></span>
       <div class="container hero__content">
         <p class="eyebrow">Estratégia, marca e performance</p>
-        <!-- Clique no título: a frase é puxada para o centro da galáxia e surge a outra (js/main.js, setupHeadline).
-             As frases ficam em data-alt / no próprio botão; separe as linhas com "|". -->
-        <h1 class="hero__title" id="hero-title"><button class="hero__swap" type="button" data-alt="Transformamos presença digital|em força de atração." aria-label="Sua marca no centro do universo. Clique para ver mais."><span class="hero__line">Sua marca no centro</span> <span class="hero__line">do universo</span></button></h1>
+        <h1 class="hero__title" id="hero-title"><span class="hero__line">Sua marca no centro</span> <span class="hero__line">do universo</span></h1>
         <p class="hero__lead">Estratégia e execução no mesmo lugar para sua marca ser vista, lembrada e escolhida.</p>
         <div class="hero__actions">
           <a class="btn btn--primary" href="https://diagnostico.digitalgalaxy.com.br/?utm_source=site&amp;utm_medium=hero"><span class="btn__text">Decolar minha empresa</span><span class="btn__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M14 6l6 6-6 6"/></svg></span></a>
@@ -393,14 +389,13 @@
     <section class="cta" aria-labelledby="cta-title">
       <div class="starfield" aria-hidden="true"></div>
       <div class="container cta__inner reveal">
-        <img class="cta__mark" src="images/logo/logo-digital-galaxy-mark.svg" alt="" width="56" height="56" loading="lazy">
-        <h2 class="cta__title" id="cta-title">Pronto para decolar?</h2>
-        <p class="cta__text">Responda 10 perguntas rápidas, em cerca de 5 minutos. Chegamos à conversa já conhecendo o seu cenário.</p>
-        <div class="cta__actions">
-          <a class="btn btn--primary" href="https://diagnostico.digitalgalaxy.com.br/?utm_source=site&amp;utm_medium=cta-final"><span class="btn__text">Iniciar decolagem</span><span class="btn__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M14 6l6 6-6 6"/></svg></span></a>
-          <!-- WhatsApp: o botão aparece quando o número for configurado em js/main.js -->
-          <a class="btn btn--glow js-whatsapp" href="#" target="_blank" rel="noopener" hidden><span class="btn__label">Falar no WhatsApp</span></a>
+        <div class="cta__content">
+          <!-- Uma estrela atravessa a frase e as letras surgem no rastro dela (js/main.js, setupStarWrite) -->
+          <p class="eyebrow cta__eyebrow"><span class="cta__eyebrow-text" data-star-write>O próximo passo começa aqui</span></p>
+          <h2 class="cta__title" id="cta-title">Pronto para levar sua marca <em>mais longe?</em></h2>
+          <p class="cta__text">Responda algumas perguntas rápidas, leva só alguns minutos. Assim chegamos à conversa já conhecendo o seu cenário.</p>
         </div>
+        <a class="cta__button" href="https://diagnostico.digitalgalaxy.com.br/?utm_source=site&amp;utm_medium=cta-final">Iniciar decolagem<span class="cta__button-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
       </div>
     </section>
   </main>
@@ -415,6 +410,11 @@
           <span class="brand__name">Digital Galaxy</span>
         </a>
         <p class="footer__tagline">Estratégia e execução de marketing para negócios que querem ser vistos, lembrados e escolhidos.</p>
+        <!-- Redes: no hover, um relance de luz roxa atravessa o ícone (css/style.css, .social) -->
+        <ul class="social" aria-label="Redes sociais">
+          <li class="js-whatsapp-item" hidden><a class="social__link js-whatsapp" href="#" target="_blank" rel="noopener" aria-label="WhatsApp"><span class="social__icon social__icon--whatsapp" aria-hidden="true"></span></a></li>
+          <li><a class="social__link" href="https://www.instagram.com/digitalgalaxymkt" target="_blank" rel="noopener" aria-label="Instagram @digitalgalaxymkt"><span class="social__icon social__icon--instagram" aria-hidden="true"></span></a></li>
+        </ul>
       </div>
 
       <nav class="footer__col" aria-label="Navegação do rodapé">
@@ -431,9 +431,7 @@
         <p class="footer__heading">Contato</p>
         <ul>
           <li><a href="https://diagnostico.digitalgalaxy.com.br/?utm_source=site&amp;utm_medium=footer">Decolar agora</a></li>
-          <li><a href="https://www.instagram.com/digitalgalaxymkt" target="_blank" rel="noopener">Instagram @digitalgalaxymkt</a></li>
-          <!-- Aparecem quando configurados em js/main.js -->
-          <li class="js-whatsapp-item" hidden><a class="js-whatsapp" href="#" target="_blank" rel="noopener">WhatsApp</a></li>
+          <!-- Aparece quando configurado em js/main.js -->
           <li class="js-email-item" hidden><a class="js-email" href="#">E-mail</a></li>
         </ul>
       </div>

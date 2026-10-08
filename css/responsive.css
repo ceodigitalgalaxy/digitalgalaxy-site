@@ -16,6 +16,7 @@
 
 
 
+  .manifesto__title { font-size: 48px; }
   .manifesto__top { grid-template-columns: 1fr; gap: var(--space-5); }
   .manifesto__side { padding-top: 0; }
   .manifesto__principles { margin-top: var(--space-8); gap: var(--space-5); }
@@ -23,34 +24,55 @@
   .services { grid-template-columns: 1fr; gap: var(--space-6); padding-left: var(--container-padding); }
   .services__header { padding: 0 var(--container-padding) 0 0; }
   .services__cta { margin-top: var(--space-5); }
-  .service { flex-basis: clamp(300px, 46vw, 400px); }
+  .service { flex-basis: clamp(304px, 46vw, 400px); }
 
 
   .projects { grid-template-columns: 1fr; gap: var(--space-6); }
+
+  /* CTA final: texto em cima, botão embaixo */
+  .cta__inner { flex-direction: column; align-items: flex-start; gap: var(--space-6); }
 
 }
 
 /* Tablet vertical
    ========================================================================== */
 @media (max-width: 768px) {
-  :root { --container-padding: 24px; --section-padding: var(--space-8); --header-height: 68px; }
+  :root { --container-padding: 24px; --section-padding: var(--space-8); --header-height: 64px; }
 
   /* Hero: círculo escuro maior que a tela, envolvendo todo o texto; botões iguais */
   .hero { --bh: clamp(560px, 130vw, 780px); }
-  .hero__actions { flex-direction: column; align-items: stretch; width: 100%; max-width: 340px; }
+  .hero__actions { flex-direction: column; align-items: stretch; width: 100%; max-width: 336px; }
   .hero__actions .btn { width: 100%; }
 
   /* Cards de serviço maiores: um por vez, com o próximo aparecendo na borda */
-  .service { flex-basis: min(84vw, 420px); }
+  .service { flex-basis: min(84vw, 416px); }
+
+  /* Método: topo centralizado e os dois botões do mesmo tamanho */
+  .manifesto__top { text-align: center; }
+  .manifesto__lead { margin-inline: auto; }
+  .manifesto__actions { flex-direction: column; align-items: stretch; width: 100%; max-width: 336px; margin-inline: auto; }
+  .manifesto__actions .btn { width: 100%; }
+
+  /* Carrossel: sem setas, a pessoa arrasta; o degradê lateral indica que há mais */
+  .services__bar { display: none; }
+  .services__track.has-next { --fade-right: 48px; }
+  .services__track.has-prev { --fade-left: 32px; }
+
+  /* Dúvidas: tamanho de celular */
+  .faq__question { padding: var(--space-4) var(--space-7) var(--space-4) 0; font-size: 16px; line-height: 1.45; }
+  .faq__question::after { width: 32px; height: 32px; margin-top: -16px; }
+  .faq__answer { padding: 0 var(--space-7) var(--space-4) 0; }
 
   /* Princípios empilhados: número ao lado do texto */
   .manifesto__principles { grid-template-columns: 1fr; gap: 0; margin-top: var(--space-7); }
-  .principle { display: grid; grid-template-columns: 44px 1fr; column-gap: var(--space-3); padding: var(--space-5) 0; }
-  .principle__index { grid-row: span 2; padding-top: 6px; }
+  .principle { display: grid; grid-template-columns: 48px 1fr; column-gap: var(--space-3); padding: var(--space-5) 0; }
+  .principle__index { grid-row: span 2; padding-top: var(--space-2); }
   .principle__title { margin-top: 0; }
 
+  .hero__title { font-size: 40px; }
+  .manifesto__title { font-size: 40px; }
+  .cta__title { font-size: 40px; }
   .section__header { margin-bottom: var(--space-6); }
-  .section__lead { font-size: 1.0625rem; }
 
   .cards--3 { grid-template-columns: 1fr; }
   .card__index { margin-bottom: var(--space-3); }
@@ -62,42 +84,43 @@
 /* Celular
    ========================================================================== */
 @media (max-width: 480px) {
-  :root { --container-padding: 20px; --section-padding: var(--space-7); }
+  :root { --container-padding: 24px; --section-padding: var(--space-7); }
 
   .header__actions { gap: var(--space-2); }
-  .brand--mark .brand__mark { width: 36px; height: 36px; }
+  .brand--mark .brand__mark { width: 40px; height: 40px; }
   /* O painel cobre a tela inteira: a logo escurece para aparecer sobre o fundo claro */
   .header.menu-open .brand--mark { color: var(--color-primary); }
 
-  .hero__title { line-height: 1.2; }
-  .hero .eyebrow { display: block; font-size: 0.6875rem; letter-spacing: 0.1em; text-align: center; }
-  .hero .eyebrow::before { display: inline-block; width: 10px; height: 10px; margin-right: 6px; vertical-align: -1px; }
-  .hero__lead { font-size: 1.0625rem; }
+  .hero__title { font-size: 32px; line-height: 1.2; }
+  .hero__line { display: inline; white-space: normal; }
+  .manifesto__title { font-size: 32px; }
+  .cta__title { font-size: 32px; }
+  .nav__link { font-size: 40px; }
+  .service__back-title { font-size: 24px; }
+  .hero .eyebrow { display: block; letter-spacing: 0.04em; text-align: center; }
+  .hero .eyebrow::before { display: inline-block; width: 10px; height: 10px; margin-right: var(--space-2); vertical-align: -1px; }
   .hero__actions { margin-top: var(--space-5); }
 
 
   .manifesto__inner { padding-top: var(--space-8); padding-bottom: calc(var(--space-9) + 32px); }
 
-  .section__title { font-size: clamp(1.375rem, 6.2vw, 1.625rem); }
+  .section__title { font-size: 32px; }
 
 
-  .service__title { font-size: 1.25rem; }
   .services__arrow { width: 40px; height: 40px; }
   .card { padding: var(--space-4); }
   .card:hover { transform: none; }
 
 
   .project__head { align-items: flex-start; }
-  .project__name { font-size: 1.125rem; }
 
 
 
-  .faq__question { font-size: 1rem; padding-right: var(--space-6); }
+  .faq__question { padding-right: var(--space-6); }
   .faq__answer { padding-right: 0; }
 
   .cta { padding: var(--space-8) 0; }
-  .cta__actions { flex-direction: column; }
-  .cta__actions .btn { width: 100%; }
+  .cta__button { width: 100%; justify-content: space-between; }
 
   .footer__grid { grid-template-columns: 1fr; gap: var(--space-5); }
   .footer__bottom { margin-top: var(--space-6); }
@@ -105,7 +128,7 @@
 
 /* Celulares estreitos (até 360 px): o botão do topo cabe ao lado da logo e do menu */
 @media (max-width: 360px) {
-  .header__cta { padding: 0 12px; font-size: 0.8125rem; }
+  .header__cta { padding: 0 var(--space-3); }
   .header__cta .btn__icon { display: none; }
   .btn { white-space: normal; text-align: center; line-height: 1.25; }
 }

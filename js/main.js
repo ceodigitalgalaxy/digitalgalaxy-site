@@ -26,9 +26,10 @@ document.addEventListener("DOMContentLoaded", () => {
   setupStarfields();
   setupGalaxy();
   setupHeroFold();
-  setupHeadline();
   setupServicesCarousel();
   setupServiceFlip();
+  setupFaq();
+  setupStarWrite();
   setupYear();
 });
 
@@ -409,18 +410,14 @@ function setupGalaxy() {
     ctx.fillRect(cx - R * 1.2, cy - R * 1.2, R * 2.4, R * 2.4);
   };
 
-  // warp: aceleração temporária do giro (clique no título, "galaxy:pulse")
-  let warp = 0;
   const loop = (now) => {
     const dt = start ? Math.min((now - start) / 1000, 0.05) : 0;
     start = now;
-    warp *= Math.exp(-dt * 1.4);
-    time += dt * (1 + warp * 7);
+    time += dt;
     draw(time);
     frame = requestAnimationFrame(loop);
   };
   const play = () => { if (!running) { running = true; start = 0; frame = requestAnimationFrame(loop); } };
-  hero.addEventListener("galaxy:pulse", () => { warp = 1; });
   const pause = () => { running = false; cancelAnimationFrame(frame); };
 
   measure();
@@ -434,75 +431,6 @@ function setupGalaxy() {
   hero.addEventListener("hero:covered", (event) => { covered = event.detail; sync(); });
   // Com o menu aberto a página fica desfocada: pausar deixa a animação do menu mais leve
   document.addEventListener("menu:toggle", (event) => { menuOpen = event.detail; sync(); });
-}
-
-/* Título do hero que troca de frase ------------------------------------
-   No clique, a frase é puxada para o centro da galáxia: encolhe, se fecha e
-   some num desfoque, enquanto a galáxia acelera e uma onda de luz sai do
-   miolo escuro. A outra frase surge do desfoque, se abrindo, com um brilho
-   de luz estelar passando pelas letras. Clicando de novo, volta.
-*/
-function setupHeadline() {
-  const button = document.querySelector(".hero__swap");
-  if (!button) return;
-  const hero = button.closest(".hero");
-  const pulse = hero.querySelector(".hero__pulse");
-  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const phrases = [
-    [...button.querySelectorAll(".hero__line")].map((line) => line.textContent),
-    button.dataset.alt.split("|")
-  ];
-  let current = 0, busy = false;
-
-  const render = (index) => {
-    button.classList.toggle("is-alt", index === 1);
-    button.innerHTML = phrases[index].map((line) => `<span class="hero__line">${line}</span>`).join(" ");
-    button.setAttribute("aria-label", `${phrases[index].join(" ")}. Clique para ver a outra frase.`);
-  };
-  render(0);
-
-  const animateLines = (frames, options, step) => Promise.all(
-    [...button.querySelectorAll(".hero__line")].map((line, i) =>
-      line.animate(frames, { ...options, delay: i * step }).finished)
-  );
-
-  // Saída: puxada para o centro (encolhe, se fecha e desfoca)
-  const pullIn = () => animateLines([
-    { opacity: 1, filter: "blur(0)", transform: "none", letterSpacing: "-0.01em" },
-    { opacity: 0, filter: "blur(10px)", transform: "scale(0.86)", letterSpacing: "-0.08em" }
-  ], { duration: 520, easing: "cubic-bezier(0.55, 0, 0.8, 0.25)", fill: "forwards" }, 70);
-
-  // Entrada: surge do desfoque, se abrindo até o espaçamento normal
-  const emerge = () => animateLines([
-    { opacity: 0, filter: "blur(14px)", transform: "scale(1.06)", letterSpacing: "0.14em" },
-    { opacity: 1, filter: "blur(0)", transform: "none", letterSpacing: "-0.01em" }
-  ], { duration: 950, easing: "cubic-bezier(0.16, 1, 0.3, 1)", fill: "backwards" }, 110);
-
-  const ripple = () => {
-    if (!pulse) return;
-    pulse.classList.remove("is-active");
-    void pulse.offsetWidth;            // reinicia a animação
-    pulse.classList.add("is-active");
-  };
-
-  button.addEventListener("click", async () => {
-    if (busy) return;
-    busy = true;
-    const next = 1 - current;
-    if (reduceMotion) {
-      render(next);
-    } else {
-      hero.dispatchEvent(new CustomEvent("galaxy:pulse"));
-      await pullIn();
-      ripple();
-      render(next);
-      button.classList.add("is-shimmer");
-      await emerge();
-      setTimeout(() => button.classList.remove("is-shimmer"), 700);
-    }
-    current = next;
-    busy = false;
-  });
 }
 
 /* Dobra sobre o hero ---------------------------------------------------
@@ -598,12 +526,237 @@ function setupServicesCarousel() {
   ["pointerdown", "wheel", "touchstart"].forEach((type) => track.addEventListener(type, stopAnimation, { passive: true }));
 
   const update = () => {
-    prev.disabled = track.scrollLeft <= 2;
-    next.disabled = track.scrollLeft >= maxScroll() - 2;
+    const atStart = track.scrollLeft <= 2;
+    const atEnd = track.scrollLeft >= maxScroll() - 2;
+    prev.disabled = atStart;
+    next.disabled = atEnd;
+    track.classList.toggle("has-prev", !atStart);
+    track.classList.toggle("has-next", !atEnd);
   };
   track.addEventListener("scroll", update, { passive: true });
   window.addEventListener("resize", update);
   update();
+}
+
+/* Dúvidas frequentes ---------------------------------------------------
+   Abrir: a altura se expande com uma desaceleração longa e a resposta surge
+   do desfoque, subindo de leve. Fechar: a resposta some primeiro e a altura
+   recolhe em seguida. Sem JS (ou com movimento reduzido) o <details> abre
+   normalmente.
+*/
+function setupFaq() {
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const items = Array.from(document.querySelectorAll(".faq__item"));
+  const animations = new Map();
+
+  const toggle = (item, opening) => {
+    const question = item.querySelector(".faq__question");
+    const answer = item.querySelector(".faq__answer");
+    item.classList.toggle("is-open", opening);
+    if (reduceMotion) { item.open = opening; return; }
+
+    const from = item.offsetHeight;
+    animations.get(item)?.cancel();
+    answer.getAnimations().forEach((a) => a.cancel());
+    item.open = true;                              // mede a altura com a resposta visível
+    const to = opening ? item.offsetHeight : question.offsetHeight + 1;
+
+    // O corte só vale durante a animação, para o brilho do ícone não ficar cortado
+    item.style.overflow = "hidden";
+    const animation = item.animate(
+      { height: [`${from}px`, `${to}px`] },
+      opening
+        ? { duration: 700, easing: "cubic-bezier(0.16, 1, 0.3, 1)" }
+        : { duration: 450, delay: 60, easing: "cubic-bezier(0.4, 0, 0.2, 1)" }
+    );
+    animations.set(item, animation);
+    answer.animate(
+      opening
+        ? [{ opacity: 0, transform: "translateY(16px)", filter: "blur(6px)" }, { opacity: 1, transform: "none", filter: "blur(0)" }]
+        : [{ opacity: 1, transform: "none", filter: "blur(0)" }, { opacity: 0, transform: "translateY(-8px)", filter: "blur(4px)" }],
+      opening
+        ? { duration: 650, delay: 120, easing: "cubic-bezier(0.16, 1, 0.3, 1)", fill: "backwards" }
+        : { duration: 250, easing: "ease-in", fill: "forwards" }
+    );
+
+    animation.onfinish = () => {
+      if (animations.get(item) !== animation) return;
+      animations.delete(item);
+      item.open = opening;
+      item.style.overflow = "";
+      answer.getAnimations().forEach((a) => a.cancel());
+    };
+  };
+
+  items.forEach((item) => {
+    item.querySelector(".faq__question").addEventListener("click", (event) => {
+      event.preventDefault();
+      const opening = !item.classList.contains("is-open");
+      // Só uma pergunta aberta por vez: abrir uma fecha a que estava aberta
+      if (opening) items.forEach((other) => { if (other !== item && other.classList.contains("is-open")) toggle(other, false); });
+      toggle(item, opening);
+    });
+  });
+}
+
+/* Frase escrita por uma estrela ------------------------------------------
+   Quando a frase entra na tela, a estrela fixa do selo se solta, desliza
+   pela frase em linha reta, com aceleração e frenagem suaves, e as
+   letras surgem do desfoque no rastro dela. No fim, ela faz um arco de
+   volta e pousa no lugar da estrela fixa, que dá um pequeno pulso.
+   Sem JS ou com movimento reduzido, a frase aparece normalmente.
+*/
+function setupStarWrite() {
+  const phrase = document.querySelector("[data-star-write]");
+  if (!phrase || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const holder = phrase.closest(".eyebrow") || phrase;   // onde fica a estrela fixa (::before)
+
+  // Separa o texto em palavras (que não quebram no meio) e letras
+  const text = phrase.textContent.replace(/\s+/g, " ").trim();
+  const split = (node) => {
+    [...node.childNodes].forEach((child) => {
+      if (child.nodeType === Node.ELEMENT_NODE) { split(child); return; }
+      const fragment = document.createDocumentFragment();
+      child.textContent.split(/(\s+)/).forEach((part) => {
+        if (!part) return;
+        if (/^\s+$/.test(part)) { fragment.appendChild(document.createTextNode(" ")); return; }
+        const word = document.createElement("span");
+        word.className = "sw-word";
+        word.setAttribute("aria-hidden", "true");
+        [...part].forEach((letter) => {
+          const char = document.createElement("span");
+          char.className = "sw-char";
+          char.textContent = letter;
+          word.appendChild(char);
+        });
+        fragment.appendChild(word);
+      });
+      child.replaceWith(fragment);
+    });
+  };
+  split(phrase);
+  // A frase inteira para leitores de tela (as letras separadas ficam ocultas)
+  const label = document.createElement("span");
+  label.className = "sw-sr";
+  label.textContent = text;
+  phrase.appendChild(label);
+  phrase.classList.add("is-waiting");
+
+  const star = document.createElement("span");
+  star.className = "star-writer";
+  star.setAttribute("aria-hidden", "true");
+  phrase.appendChild(star);
+
+  const SPEED = 0.32;          // velocidade média na frase (px por ms)
+  const RETURN = 1100;         // duração da volta (ms)
+  const easeInOut = (t) => 0.5 - Math.cos(Math.PI * t) / 2;               // seno: começa e termina devagar
+  const easeReturn = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+
+  const play = () => {
+    const box = phrase.getBoundingClientRect();
+    const holderBox = holder.getBoundingClientRect();
+    // Centro da estrela fixa (12 px, primeiro item do selo), nas coordenadas da frase
+    const home = { x: holderBox.left + 6 - box.left, y: holderBox.top + holderBox.height / 2 - box.top };
+
+    // Agrupa as letras por linha
+    const lines = [];
+    phrase.querySelectorAll(".sw-char").forEach((char) => {
+      const r = char.getBoundingClientRect();
+      const item = { char, x: r.left + r.width / 2 - box.left, mid: r.top - box.top + r.height * 0.55, shown: false };
+      const line = lines.find((l) => Math.abs(l.mid - item.mid) < r.height / 2);
+      if (line) line.items.push(item); else lines.push({ mid: item.mid, items: [item] });
+    });
+
+    // Trajeto: sai da estrela fixa, percorre cada linha e termina logo após a última letra
+    const segments = lines.map((line, index) => {
+      const xs = line.items.map((i) => i.x);
+      return { x0: index === 0 ? home.x : Math.min(...xs) - 12, x1: Math.max(...xs) + 12, y: index === 0 ? null : line.mid, line };
+    });
+    segments[0].y = lines[0].mid;
+    segments.forEach((s) => { s.length = s.x1 - s.x0; });
+    const length = segments.reduce((sum, s) => sum + s.length, 0);
+    const travel = Math.max(1100, length / SPEED);
+
+    // Antes de começar: letras escondidas e a estrela no lugar da fixa
+    phrase.classList.remove("is-waiting");
+    lines.forEach((line) => line.items.forEach((i) => { i.char.style.opacity = "0"; }));
+    holder.classList.add("is-launched");
+
+    const reveal = (item) => {
+      item.shown = true;
+      item.char.style.opacity = "";
+      item.char.animate(
+        [{ opacity: 0, filter: "blur(6px)", transform: "translateY(6px)" }, { opacity: 1, filter: "blur(0)", transform: "none" }],
+        { duration: 700, easing: "cubic-bezier(0.22, 1, 0.36, 1)" }
+      );
+    };
+    // O giro vale só para o corpo da estrela (::before); o rastro fica sempre na horizontal
+    const place = (x, y, scale, opacity, spin) => {
+      star.style.opacity = opacity;
+      star.style.transform = `translate(${x}px, ${y}px) scale(${scale})`;
+      star.style.setProperty("--spin", `${spin}deg`);
+    };
+
+    let start = 0, end = { x: 0, y: 0 };
+    const frame = (now) => {
+      if (!start) start = now;
+      const elapsed = now - start;
+
+      if (elapsed < travel) {
+        // Ida: posição ao longo do trajeto com aceleração e frenagem suaves
+        let s = easeInOut(elapsed / travel) * length;
+        let seg = segments[0];
+        for (const candidate of segments) { seg = candidate; if (s <= candidate.length) break; s -= candidate.length; }
+        const x = seg.x0 + Math.min(s, seg.length);
+        // Troca de linha: some no fim de uma e reaparece no começo da outra
+        const edge = segments.length > 1 ? Math.min(1, (seg === segments[0] ? 1 : s / 16), (seg === segments[segments.length - 1] ? 1 : (seg.length - s) / 16)) : 1;
+        const grow = Math.min(1, elapsed / 250);              // cresce ao se soltar da estrela fixa
+        // Linha reta: na primeira linha, na mesma altura da estrela fixa
+        const y = seg === segments[0] ? home.y : seg.y;
+        place(x, y, 0.75 + 0.25 * grow, Math.max(0, edge), x * 0.5);
+        end = { x, y };
+        star.classList.remove("is-returning");
+        // Letras: aparecem quando a estrela passa por elas
+        segments.forEach((sg) => {
+          const passed = sg === seg ? x : (segments.indexOf(sg) < segments.indexOf(seg) ? Infinity : -Infinity);
+          sg.line.items.forEach((item) => { if (!item.shown && item.x <= passed + 4) reveal(item); });
+        });
+        requestAnimationFrame(frame);
+        return;
+      }
+
+      // Garante que nenhuma letra ficou para trás
+      segments.forEach((sg) => sg.line.items.forEach((item) => { if (!item.shown) reveal(item); }));
+
+      const back = Math.min(1, (elapsed - travel) / RETURN);
+      if (back < 1) {
+        // Volta: arco por cima da frase até a estrela fixa, encolhendo para o tamanho dela
+        star.classList.add("is-returning");
+        const t = easeReturn(back);
+        const lift = Math.min(48, Math.abs(end.x - home.x) * 0.25 + 16);
+        const cx = (end.x + home.x) / 2, cy = Math.min(end.y, home.y) - lift;   // ponto de controle da curva
+        const x = (1 - t) * (1 - t) * end.x + 2 * (1 - t) * t * cx + t * t * home.x;
+        const y = (1 - t) * (1 - t) * end.y + 2 * (1 - t) * t * cy + t * t * home.y;
+        place(x, y, 1 - 0.25 * t, 1, end.x * 0.5 + 360 * t);
+        requestAnimationFrame(frame);
+        return;
+      }
+
+      // Pousou: a estrela fixa volta com um pulso de luz
+      star.style.opacity = "0";
+      holder.classList.remove("is-launched");
+      holder.classList.add("is-landed");
+    };
+    requestAnimationFrame(frame);
+  };
+
+  const observer = new IntersectionObserver(([entry]) => {
+    // Toca ao entrar na tela, ou de imediato se a pessoa já rolou para além dela
+    if (!entry.isIntersecting && entry.boundingClientRect.top > 0) return;
+    observer.disconnect();
+    (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => setTimeout(play, 300));
+  }, { threshold: 0.4 });
+  observer.observe(phrase);
 }
 
 /* Cards de serviço que viram --------------------------------------------
