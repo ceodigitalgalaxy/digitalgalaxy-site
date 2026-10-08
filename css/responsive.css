@@ -74,8 +74,6 @@
   .cta__title { font-size: 40px; }
   .section__header { margin-bottom: var(--space-6); }
 
-  .cards--3 { grid-template-columns: 1fr; }
-  .card__index { margin-bottom: var(--space-3); }
 
   .footer__grid { grid-template-columns: 1fr 1fr; }
   .footer__brand { grid-column: 1 / -1; }
@@ -108,8 +106,6 @@
 
 
   .services__arrow { width: 40px; height: 40px; }
-  .card { padding: var(--space-4); }
-  .card:hover { transform: none; }
 
 
   .project__head { align-items: flex-start; }

@@ -3,6 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <!-- Segurança: o GitHub Pages não permite cabeçalhos HTTP próprios, então a política vai aqui.
+       Só recursos do próprio domínio; nenhum script, estilo ou fonte de terceiros.
+       (frame-ancestors não vale em <meta>: a proteção contra iframe depende do servidor) -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-src 'none'; upgrade-insecure-requests">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <title>Digital Galaxy | Marketing para negócios locais</title>
   <meta name="description" content="Consultoria de marketing para negócios locais e médias empresas: Google, Instagram, anúncios e sites, com estratégia e execução no mesmo lugar.">
   <meta name="theme-color" content="#07010F">
@@ -31,10 +36,10 @@
   <link rel="preload" href="fonts/sora-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/orbitron-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
 
-  <link rel="stylesheet" href="css/style.css?v=10">
-  <link rel="stylesheet" href="css/responsive.css?v=10">
-  <script src="js/vendor/lenis.min.js?v=10" defer></script>
-  <script src="js/main.js?v=10" defer></script>
+  <link rel="stylesheet" href="css/style.css?v=11">
+  <link rel="stylesheet" href="css/responsive.css?v=11">
+  <script src="js/vendor/lenis.min.js?v=11" defer></script>
+  <script src="js/main.js?v=11" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
@@ -149,7 +154,7 @@
             <li class="service">
               <div class="service__inner">
                 <div class="service__face service__face--front">
-                  <img class="service__media" src="images/servicos/conteudo.webp" alt="" loading="lazy" decoding="async" style="object-position: 54% 50%">
+                  <img class="service__media service__media--conteudo" src="images/servicos/conteudo.webp" alt="" loading="lazy" decoding="async">
                   <div class="service__body">
                     <span class="service__tag">Ser lembrado</span>
                     <h3 class="service__title">Conteúdo</h3>
@@ -169,7 +174,7 @@
             <li class="service">
               <div class="service__inner">
                 <div class="service__face service__face--front">
-                  <img class="service__media" src="images/servicos/trafego-pago.webp" alt="" loading="lazy" decoding="async" style="object-position: 50% 50%">
+                  <img class="service__media" src="images/servicos/trafego-pago.webp" alt="" loading="lazy" decoding="async">
                   <div class="service__body">
                     <span class="service__tag">Ser escolhido</span>
                     <h3 class="service__title">Tráfego pago</h3>
@@ -189,7 +194,7 @@
             <li class="service">
               <div class="service__inner">
                 <div class="service__face service__face--front">
-                  <img class="service__media" src="images/servicos/seo-local.webp" alt="" loading="lazy" decoding="async" style="object-position: 49% 50%">
+                  <img class="service__media service__media--seo-local" src="images/servicos/seo-local.webp" alt="" loading="lazy" decoding="async">
                   <div class="service__body">
                     <span class="service__tag">Ser visto</span>
                     <h3 class="service__title">SEO local</h3>
@@ -229,7 +234,7 @@
             <li class="service">
               <div class="service__inner">
                 <div class="service__face service__face--front">
-                  <img class="service__media" src="images/servicos/redes-sociais.webp" alt="" loading="lazy" decoding="async" style="object-position: 50% 40%">
+                  <img class="service__media service__media--redes-sociais" src="images/servicos/redes-sociais.webp" alt="" loading="lazy" decoding="async">
                   <div class="service__body">
                     <span class="service__tag">Ser lembrado</span>
                     <h3 class="service__title">Redes sociais</h3>
@@ -249,7 +254,7 @@
             <li class="service">
               <div class="service__inner">
                 <div class="service__face service__face--front">
-                  <img class="service__media" src="images/servicos/branding.webp" alt="" loading="lazy" decoding="async" style="object-position: 47% 50%">
+                  <img class="service__media service__media--branding" src="images/servicos/branding.webp" alt="" loading="lazy" decoding="async">
                   <div class="service__body">
                     <span class="service__tag">Ser lembrado</span>
                     <h3 class="service__title">Branding</h3>
@@ -269,7 +274,7 @@
             <li class="service">
               <div class="service__inner">
                 <div class="service__face service__face--front">
-                  <img class="service__media" src="images/servicos/sites.webp" alt="" loading="lazy" decoding="async" style="object-position: 50% 50%">
+                  <img class="service__media" src="images/servicos/sites.webp" alt="" loading="lazy" decoding="async">
                   <div class="service__body">
                     <span class="service__tag">Ser visto</span>
                     <h3 class="service__title">Sites</h3>
@@ -289,7 +294,7 @@
             <li class="service">
               <div class="service__inner">
                 <div class="service__face service__face--front">
-                  <img class="service__media" src="images/servicos/funil-crm.webp" alt="" loading="lazy" decoding="async" style="object-position: 50% 50%">
+                  <img class="service__media" src="images/servicos/funil-crm.webp" alt="" loading="lazy" decoding="async">
                   <div class="service__body">
                     <span class="service__tag">Ser escolhido</span>
                     <h3 class="service__title">Funil e CRM</h3>

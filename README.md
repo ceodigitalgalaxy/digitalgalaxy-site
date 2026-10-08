@@ -43,15 +43,15 @@ Também dá para abrir o `index.html` direto no navegador, mas um servidor local
 
 ## Deploy
 
-- **Prévia (GitHub Pages):** a cada push na branch `main`, o workflow `.github/workflows/pages.yml` publica o site em `https://ceodigitalgalaxy.github.io/digitalgalaxy-site/`.
-- **Domínio principal (HostGator):** envie o conteúdo do projeto (`index.html`, `css/`, `js/`, `images/`, `fonts/`) para a pasta `public_html` do cPanel, pelo Gerenciador de Arquivos. Faça backup da `public_html` antes.
+- **GitHub Pages:** a cada push na branch `main`, o workflow `.github/workflows/pages.yml` publica o site em `https://digitalgalaxy.com.br/` (o endereço `ceodigitalgalaxy.github.io/digitalgalaxy-site/` redireciona para ele). Só `index.html`, `css/`, `js/`, `images/` e `fonts/` vão para o ar.
+- **Cache:** o GitHub Pages guarda os arquivos por 10 minutos. Ao mudar CSS ou JS, aumente o número em `?v=` nos links do `<head>` do `index.html`.
+- **Segurança:** a política de conteúdo (CSP) fica numa `<meta>` no `<head>`. Ela só permite arquivos do próprio site: para usar um script, fonte ou imagem de outro domínio, inclua o domínio nela. Evite `style="..."` no HTML (a CSP bloqueia); use classes no CSS.
 
 ## Onde alterar
 
 | O quê | Onde |
 |---|---|
-| **Textos** | `index.html`. Cada seção está marcada com um comentário (`<!-- ============ PLANOS ============ -->` etc.) |
-| **Preços e itens dos planos** | `index.html`, seção `PLANOS` |
+| **Textos** | `index.html`. Cada seção está marcada com um comentário (`<!-- ============ SERVIÇOS ============ -->` etc.) |
 | **Perguntas frequentes** | `index.html`, seção `FAQ` (cada pergunta é um `<details>`) |
 | **Cores** | `css/style.css`, bloco `:root` (`--color-primary`, `--color-secondary`, `--color-background`…) |
 | **Espaçamentos e largura** | `css/style.css`, bloco `:root` (`--container-width`, `--space-*`) |
@@ -67,9 +67,7 @@ Também dá para abrir o `index.html` direto no navegador, mas um servidor local
 
 Estes itens não constam no documento de origem e estão marcados no código:
 
-- **WhatsApp e e-mail:** `js/main.js` → `CONFIG`
-- **Fotos da equipe:** `index.html`, seção `QUEM SOMOS`. Hoje aparecem monogramas (V e F). Salve as fotos em `images/photos/` (ex.: `team-vitor.webp`)
-- **Depoimentos, cases e logos de clientes:** `index.html`, comentário `PROVA SOCIAL` antes do FAQ
+- **E-mail:** `js/main.js` → `CONFIG` (o WhatsApp já está preenchido)
 - **Política de privacidade:** `index.html`, rodapé
 
 ## Qualidade
