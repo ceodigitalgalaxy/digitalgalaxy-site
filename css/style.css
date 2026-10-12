@@ -896,9 +896,6 @@ body {
 .project:focus .project__name { color: var(--color-secondary); }
 .project:focus-visible .project__head { outline: 2px solid var(--color-secondary); outline-offset: 6px; border-radius: 6px; }
 
-/* Destaque do desconto no texto da seção */
-.discount { font-weight: 600; white-space: nowrap; color: var(--color-secondary); }
-
 /* FAQ
    ========================================================================== */
 .faq { max-width: 1024px; }
