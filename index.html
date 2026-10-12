@@ -6,7 +6,7 @@
   <!-- Segurança: o GitHub Pages não permite cabeçalhos HTTP próprios, então a política vai aqui.
        Só recursos do próprio domínio; o formulário envia para o Google Apps Script (connect-src).
        (frame-ancestors não vale em <meta>: a proteção contra iframe depende do servidor) -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://script.google.com https://script.googleusercontent.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-src 'none'; upgrade-insecure-requests">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.googletagmanager.com; style-src 'self'; img-src 'self' data: https://*.google-analytics.com https://*.googletagmanager.com; font-src 'self'; connect-src 'self' https://script.google.com https://script.googleusercontent.com https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-src 'none'; upgrade-insecure-requests">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <title>Digital Galaxy | Marketing para negócios locais</title>
   <meta name="description" content="Consultoria de marketing para negócios locais e médias empresas: Google, Instagram, anúncios e sites, com estratégia e execução no mesmo lugar.">
@@ -36,10 +36,13 @@
   <link rel="preload" href="fonts/sora-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/orbitron-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
 
-  <link rel="stylesheet" href="css/style.css?v=13">
-  <link rel="stylesheet" href="css/responsive.css?v=13">
-  <script src="js/vendor/lenis.min.js?v=13" defer></script>
-  <script src="js/main.js?v=13" defer></script>
+  <link rel="stylesheet" href="css/style.css?v=14">
+  <link rel="stylesheet" href="css/responsive.css?v=14">
+  <!-- Google Analytics 4 (configuração e eventos em js/analytics.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-95ECW98DXY"></script>
+  <script src="js/analytics.js?v=14"></script>
+  <script src="js/vendor/lenis.min.js?v=14" defer></script>
+  <script src="js/main.js?v=14" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>

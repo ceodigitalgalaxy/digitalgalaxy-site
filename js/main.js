@@ -901,6 +901,14 @@ function setupLeadForm() {
 
     post(data.toString(), 1)
       .then(() => {
+        // Conversão no Google Analytics (js/analytics.js), sem dados pessoais
+        if (window.dgTrack) {
+          window.dgTrack("generate_lead", {
+            cta_origem: origin || "direto",
+            objetivo: form.elements.objetivo_6_meses.value,
+            investimento: form.elements.investimento_mensal.value
+          });
+        }
         form.hidden = true;
         success.hidden = false;
         success.focus();
