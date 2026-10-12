@@ -1,6 +1,6 @@
 # Digital Galaxy — Landing page
 
-Landing page institucional da **Digital Galaxy**, consultoria de marketing para negócios locais e médias empresas. Apresenta a proposta de valor, os serviços, os planos mensais, os projetos avulsos, o modelo de trabalho e a equipe, e leva o visitante ao formulário pré-reunião em [diagnostico.digitalgalaxy.com.br](https://diagnostico.digitalgalaxy.com.br).
+Landing page institucional da **Digital Galaxy**, consultoria de marketing para negócios locais e médias empresas. Apresenta o método de trabalho, os serviços, os projetos avulsos e as dúvidas frequentes, e termina num formulário de contato que grava os leads na mesma planilha do formulário de diagnóstico.
 
 O conteúdo foi extraído do documento *Estratégia e Planos da Consultoria de Marketing*. Informações internas do documento (faturamento, capacidade financeira, preços de referência de módulos e projetos, pesquisa de mercado e próximos passos) **não** foram publicadas.
 

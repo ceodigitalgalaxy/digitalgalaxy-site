@@ -23,7 +23,6 @@
   --color-secondary: #B794FF;        /* lilás de destaque */
   --color-background: #07010F;
   --color-surface: #0E0620;
-  --color-surface-2: #140A2B;
   --color-border: rgba(255, 255, 255, 0.1);
   --color-border-strong: rgba(255, 255, 255, 0.2);
   --color-text: #FFFFFF;
@@ -40,7 +39,7 @@
   --container-width: 1200px;
   --container-padding: 32px;
   --header-height: 80px;
-  --border-radius: 16px;
+  --border-radius: 14px;             /* todos os cards (padrão: cards de serviço) */
   --border-radius-sm: 10px;
 
   /* Espaçamentos (sempre múltiplos de 8) */
@@ -57,7 +56,6 @@
 
   /* Movimento */
   --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
-  --duration: 400ms;
 }
 
 /* Reset
@@ -659,7 +657,7 @@ body {
   position: absolute;
   inset: 0;
   overflow: hidden;
-  border-radius: 14px;
+  border-radius: var(--border-radius);
   isolation: isolate;
   -webkit-backface-visibility: hidden;
           backface-visibility: hidden;
@@ -1057,7 +1055,7 @@ html:not(.js) .faq__item[open] .faq__question::after {
    ========================================================================== */
 .lead {
   padding: var(--space-6) var(--space-6) var(--space-5);
-  border-radius: 24px;
+  border-radius: var(--border-radius);
   color: #140A2B;
   background: #fff;
   box-shadow: 0 40px 80px -32px rgba(7, 1, 15, 0.7);
