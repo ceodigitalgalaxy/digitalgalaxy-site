@@ -8,8 +8,8 @@
        (frame-ancestors não vale em <meta>: a proteção contra iframe depende do servidor) -->
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.googletagmanager.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com https://connect.facebook.net; style-src 'self'; img-src 'self' data: https://*.google-analytics.com https://*.googletagmanager.com https://googleads.g.doubleclick.net https://www.google.com https://www.google.com.br https://www.facebook.com; font-src 'self'; connect-src 'self' https://script.google.com https://script.googleusercontent.com https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://*.doubleclick.net https://www.google.com https://www.google.com.br https://www.googleadservices.com https://pagead2.googlesyndication.com https://www.facebook.com https://connect.facebook.net; object-src 'none'; base-uri 'self'; form-action 'self'; frame-src https://td.doubleclick.net https://www.googletagmanager.com; upgrade-insecure-requests">
   <meta name="referrer" content="strict-origin-when-cross-origin">
-  <title>Digital Galaxy | Marketing para negócios locais</title>
-  <meta name="description" content="Consultoria de marketing para negócios locais e médias empresas: Google, Instagram, anúncios e sites, com estratégia e execução no mesmo lugar.">
+  <title>Digital Galaxy | Agência de Marketing Digital</title>
+  <meta name="description" content="Agência de marketing digital com estratégia e execução no mesmo lugar: redes sociais, tráfego pago, Google Meu Negócio, sites e branding para sua marca crescer.">
   <meta name="theme-color" content="#07010F">
   <link rel="canonical" href="https://digitalgalaxy.com.br/">
 
@@ -17,8 +17,8 @@
   <meta property="og:type" content="website">
   <meta property="og:locale" content="pt_BR">
   <meta property="og:site_name" content="Digital Galaxy">
-  <meta property="og:title" content="Digital Galaxy | Marketing para negócios locais">
-  <meta property="og:description" content="Consultoria de marketing para negócios locais e médias empresas: Google, Instagram, anúncios e sites, com estratégia e execução no mesmo lugar.">
+  <meta property="og:title" content="Digital Galaxy | Agência de Marketing Digital">
+  <meta property="og:description" content="Agência de marketing digital com estratégia e execução no mesmo lugar: redes sociais, tráfego pago, Google Meu Negócio, sites e branding para sua marca crescer.">
   <meta property="og:url" content="https://digitalgalaxy.com.br/">
   <meta property="og:image" content="https://digitalgalaxy.com.br/images/og/og-digital-galaxy.jpg">
   <meta property="og:image:width" content="1200">
@@ -27,22 +27,61 @@
   <meta name="twitter:card" content="summary_large_image">
 
   <!-- Ícones -->
+  <!-- O Google usa ícones em múltiplos de 48 px e procura /favicon.ico na raiz -->
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
   <link rel="icon" href="images/logo/favicon.svg" type="image/svg+xml">
-  <link rel="icon" href="images/logo/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="icon" href="images/logo/icon-96.png" sizes="96x96" type="image/png">
+  <link rel="icon" href="images/logo/icon-192.png" sizes="192x192" type="image/png">
   <link rel="apple-touch-icon" href="images/logo/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+
+  <!-- Dados estruturados: nome, logo e redes da empresa para o Google -->
+  <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Digital Galaxy",
+    "description": "Agência de marketing digital com estratégia e execução no mesmo lugar: redes sociais, tráfego pago, Google Meu Negócio, sites e branding para sua marca crescer.",
+    "url": "https://digitalgalaxy.com.br/",
+    "logo": "https://digitalgalaxy.com.br/images/logo/icon-512.png",
+    "image": "https://digitalgalaxy.com.br/images/og/og-digital-galaxy.jpg",
+    "telephone": "+55 51 98997-0010",
+    "areaServed": {
+      "@type": "Country",
+      "name": "Brasil"
+    },
+    "sameAs": [
+      "https://www.instagram.com/digitalgalaxymkt"
+    ],
+    "knowsAbout": [
+      "Marketing digital",
+      "Gestão de redes sociais",
+      "Tráfego pago",
+      "Google Ads",
+      "Meta Ads",
+      "SEO local",
+      "Google Meu Negócio",
+      "Criação de sites",
+      "Landing pages",
+      "Branding",
+      "Produção de conteúdo",
+      "Funil de vendas e CRM"
+    ]
+  }
+  </script>
 
   <!-- Fontes locais (apenas os pesos usados) -->
   <link rel="preload" href="fonts/sora-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/sora-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/orbitron-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
 
-  <link rel="stylesheet" href="css/style.css?v=16">
-  <link rel="stylesheet" href="css/responsive.css?v=16">
+  <link rel="stylesheet" href="css/style.css?v=17">
+  <link rel="stylesheet" href="css/responsive.css?v=17">
   <!-- Google Analytics 4, Google Ads e Pixel da Meta (configuração e eventos em js/analytics.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-95ECW98DXY"></script>
-  <script src="js/analytics.js?v=16"></script>
-  <script src="js/vendor/lenis.min.js?v=16" defer></script>
-  <script src="js/main.js?v=16" defer></script>
+  <script src="js/analytics.js?v=17"></script>
+  <script src="js/vendor/lenis.min.js?v=17" defer></script>
+  <script src="js/main.js?v=17" defer></script>
 </head>
 <body>
   <noscript><img height="1" width="1" hidden alt="" src="https://www.facebook.com/tr?id=1663876148441409&amp;ev=PageView&amp;noscript=1"></noscript>
