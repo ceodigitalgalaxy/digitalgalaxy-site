@@ -30,6 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setupServiceFlip();
   setupFaq();
   setupStarWrite();
+  setupLeadForm();
   setupYear();
 });
 
@@ -600,7 +601,7 @@ function setupFaq() {
 }
 
 /* Frase escrita por uma estrela ------------------------------------------
-   Quando a frase entra na tela, a estrela fixa do selo se solta, desliza
+   Quando a pessoa chega a 60% da seção, a estrela fixa do selo se solta, desliza
    pela frase em linha reta, com aceleração e frenagem suaves, e as
    letras surgem do desfoque no rastro dela. No fim, ela faz um arco de
    volta e pousa no lugar da estrela fixa, que dá um pequeno pulso.
@@ -750,13 +751,170 @@ function setupStarWrite() {
     requestAnimationFrame(frame);
   };
 
-  const observer = new IntersectionObserver(([entry]) => {
-    // Toca ao entrar na tela, ou de imediato se a pessoa já rolou para além dela
-    if (!entry.isIntersecting && entry.boundingClientRect.top > 0) return;
+  // Só toca quando a parte de baixo da tela passa de 60% da seção. Com o
+  // formulário embaixo do texto (tablet e celular), a seção fica muito alta e a
+  // frase sairia da tela antes disso: aí vale 60% do bloco de texto.
+  const section = phrase.closest("section") || phrase;
+  const content = phrase.closest(".cta__content") || section;
+  const stacked = window.matchMedia("(max-width: 1024px)");
+  const START_AT = 0.6;     // fração da seção que precisa ter aparecido
+  let started = false, ticking = false;
+  const check = () => {
+    ticking = false;
+    if (started) return;
+    const box = (stacked.matches ? content : section).getBoundingClientRect();
+    if (window.innerHeight < box.top + box.height * START_AT) return;
+    started = true;
+    window.removeEventListener("scroll", request);
+    window.removeEventListener("resize", request);
+    (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => setTimeout(play, 150));
+  };
+  const request = () => { if (!ticking) { ticking = true; requestAnimationFrame(check); } };
+  window.addEventListener("scroll", request, { passive: true });
+  window.addEventListener("resize", request);
+  check();   // se a página já abrir rolada além desse ponto, toca de imediato
+}
+
+/* Formulário de contato ---------------------------------------------------
+   Envia para a mesma planilha do formulário de diagnóstico (Google Apps
+   Script), no mesmo formato: campos com o nome da coluna, origem do lead
+   (UTM), página, campo anti-robô e a lista de colunas em _fields.
+   Os botões do site que levam até aqui ficam registrados em "botao_origem".
+*/
+function setupLeadForm() {
+  const form = document.getElementById("lead-form");
+  if (!form) return;
+  const endpoint = form.dataset.endpoint;
+  const success = document.getElementById("lead-success");
+  const errorBox = form.querySelector(".lead__error");
+  const button = form.querySelector(".lead__submit");
+  const buttonText = button.querySelector(".lead__submit-text");
+  const phone = form.elements.whatsapp;
+  const UTM_KEYS = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content", "gclid", "fbclid"];
+
+  // Origem: UTMs da visita (guardadas na sessão) e o último botão clicado no site
+  const utm = {};
+  try { Object.assign(utm, JSON.parse(sessionStorage.getItem("lead_utm") || "{}")); } catch (_) {}
+  const params = new URLSearchParams(location.search);
+  UTM_KEYS.forEach((key) => { if (params.get(key)) utm[key] = params.get(key).slice(0, 200); });
+  try { sessionStorage.setItem("lead_utm", JSON.stringify(utm)); } catch (_) {}
+  let origin = "";
+  document.querySelectorAll("a[data-cta]").forEach((link) => {
+    link.addEventListener("click", () => { origin = link.dataset.cta; });
+  });
+
+  // Máscara do WhatsApp: (00) 00000-0000
+  phone.addEventListener("input", () => {
+    const d = phone.value.replace(/\D/g, "").slice(0, 11);
+    phone.value = d.length > 6 ? `(${d.slice(0, 2)}) ${d.slice(2, d.length - 4)}-${d.slice(-4)}`
+      : d.length > 2 ? `(${d.slice(0, 2)}) ${d.slice(2)}` : d.length ? `(${d}` : "";
+  });
+
+  // Validação com mensagens próprias, mostradas embaixo de cada campo
+  const messages = {
+    nome: "Informe seu nome.",
+    empresa: "Informe o nome da empresa.",
+    whatsapp: "Informe um WhatsApp com DDD.",
+    email: "Informe um e-mail válido.",
+    objetivo_6_meses: "Escolha o seu objetivo.",
+    investimento_mensal: "Escolha uma faixa de investimento."
+  };
+  const isValid = (field) => {
+    const value = field.value.trim();
+    if (field.name === "whatsapp") return value.replace(/\D/g, "").length >= 10;
+    if (field.name === "email") return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value);
+    return !field.required || value.length > 0;
+  };
+  const showError = (field, invalid) => {
+    const hintId = `${field.id}-erro`;
+    let hint = document.getElementById(hintId);
+    field.setAttribute("aria-invalid", String(invalid));
+    if (invalid && !hint) {
+      hint = document.createElement("p");
+      hint.className = "field__hint";
+      hint.id = hintId;
+      hint.textContent = messages[field.name] || "Preencha este campo.";
+      field.after(hint);
+      field.setAttribute("aria-describedby", hintId);
+    } else if (!invalid && hint) {
+      hint.remove();
+      field.removeAttribute("aria-describedby");
+    }
+  };
+  const fields = Array.from(form.querySelectorAll(".field__input"));
+  fields.forEach((field) => {
+    field.addEventListener("blur", () => { if (field.value) showError(field, !isValid(field)); });
+    field.addEventListener("input", () => { if (field.getAttribute("aria-invalid") === "true") showError(field, !isValid(field)); });
+    field.addEventListener("change", () => { if (field.getAttribute("aria-invalid") === "true") showError(field, !isValid(field)); });
+  });
+
+  // Acorda o Apps Script quando o formulário aparece, para o envio ser mais rápido
+  new IntersectionObserver(([entry], observer) => {
+    if (!entry.isIntersecting) return;
     observer.disconnect();
-    (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => setTimeout(play, 300));
-  }, { threshold: 0.4 });
-  observer.observe(phrase);
+    fetch(endpoint, { method: "GET", mode: "no-cors", cache: "no-store" }).catch(() => {});
+  }, { rootMargin: "400px 0px" }).observe(form);
+
+  const post = (body, retries) => {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 20000);
+    // application/x-www-form-urlencoded é uma "simple request": sem preflight CORS
+    return fetch(endpoint, {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" },
+      body,
+      keepalive: true,
+      signal: controller.signal
+    })
+      .then((response) => response.json())
+      .then((result) => { if (!result || result.ok !== true) throw new Error((result && result.error) || "erro"); })
+      .catch((error) => (retries > 0 ? post(body, retries - 1) : Promise.reject(error)))
+      .finally(() => clearTimeout(timer));
+  };
+
+  let sending = false;
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    if (sending) return;                                  // evita envio duplicado
+
+    const invalid = fields.filter((field) => !isValid(field));
+    fields.forEach((field) => showError(field, invalid.includes(field)));
+    if (invalid.length) { invalid[0].focus(); return; }
+
+    // Mesmo formato do formulário de diagnóstico
+    const data = new URLSearchParams();
+    const columns = ["nome", "empresa", "whatsapp", "email", "objetivo_6_meses", "investimento_mensal", "mensagem", "botao_origem"];
+    columns.forEach((name) => {
+      const value = name === "botao_origem" ? origin : form.elements[name].value;
+      data.append(name, value.trim().slice(0, 1000));
+    });
+    Object.keys(utm).forEach((key) => data.append(key, utm[key]));
+    data.append("pagina", location.href.split(/[?#]/)[0]);
+    data.append("referencia", document.referrer || "");
+    data.append("_hp", form.elements._hp.value);
+    data.append("_fields", columns.join(","));
+
+    sending = true;
+    button.disabled = true;
+    buttonText.textContent = "Enviando…";
+    errorBox.hidden = true;
+
+    post(data.toString(), 1)
+      .then(() => {
+        form.hidden = true;
+        success.hidden = false;
+        success.focus();
+      })
+      .catch(() => {
+        errorBox.textContent = "Não foi possível enviar agora. Verifique sua conexão e tente novamente.";
+        errorBox.hidden = false;
+      })
+      .finally(() => {
+        sending = false;
+        button.disabled = false;
+        buttonText.textContent = "Enviar e agendar conversa";
+      });
+  });
 }
 
 /* Cards de serviço que viram --------------------------------------------

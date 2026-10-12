@@ -30,7 +30,8 @@
   .projects { grid-template-columns: 1fr; gap: var(--space-6); }
 
   /* CTA final: texto em cima, botão embaixo */
-  .cta__inner { flex-direction: column; align-items: flex-start; gap: var(--space-6); }
+  .cta__inner { grid-template-columns: minmax(0, 1fr); gap: var(--space-6); }
+  .cta__content { max-width: 640px; }
 
 }
 
@@ -116,7 +117,8 @@
   .faq__answer { padding-right: 0; }
 
   .cta { padding: var(--space-8) 0; }
-  .cta__button { width: 100%; justify-content: space-between; }
+  .lead { padding: var(--space-5) var(--space-4) var(--space-4); }
+  .lead__grid { grid-template-columns: minmax(0, 1fr); }
 
   .footer__grid { grid-template-columns: 1fr; gap: var(--space-5); }
   .footer__bottom { margin-top: var(--space-6); }

@@ -57,7 +57,7 @@ Também dá para abrir o `index.html` direto no navegador, mas um servidor local
 | **Espaçamentos e largura** | `css/style.css`, bloco `:root` (`--container-width`, `--space-*`) |
 | **Layout no celular/tablet** | `css/responsive.css` |
 | **WhatsApp e e-mail** | `js/main.js`, objeto `CONFIG` no topo. Enquanto estiverem vazios, os botões ficam ocultos |
-| **Links do formulário** | `index.html`: busque por `diagnostico.digitalgalaxy.com.br` (cada link tem um `utm_medium` diferente para medir a origem) |
+| **Formulário de contato** | `index.html`, seção `CONTATO`. Os botões do site levam até ele (`href="#contato"`) e o `data-cta` de cada um é gravado na coluna `botao_origem`. Os envios vão para a mesma planilha do formulário de diagnóstico (Google Apps Script, URL em `data-endpoint` no `<form>`). Para trocar a planilha, troque essa URL e a do `connect-src` da CSP |
 | **Instagram** | `index.html`, rodapé |
 | **Logo e favicon** | `images/logo/` |
 | **Imagem de compartilhamento** | `images/og/og-digital-galaxy.jpg` (1200×630) |
