@@ -73,3 +73,10 @@ Estes itens não constam no documento de origem e estão marcados no código:
 ## Qualidade
 
 Testado em 375, 390, 430, 768, 1024, 1280, 1440 e 1920 px: sem rolagem horizontal, console sem erros, links internos válidos, um único H1, todas as imagens com `alt` e animações desativadas para quem usa "reduzir movimento".
+
+## Google Analytics 4
+
+- **ID de medição:** `G-95ECW98DXY`, em `js/analytics.js` (`GA_ID`) e na tag `gtag.js` do `<head>` do `index.html`.
+- A configuração fica em `js/analytics.js` porque a política de segurança (CSP) do site não permite script escrito direto no HTML. A CSP libera só os domínios do Google Analytics (`googletagmanager.com`, `google-analytics.com`, `analytics.google.com`).
+- **Eventos:** `cta_click` (botões "Decolar…" e "Solicitar orçamento", com `cta_origem`), `whatsapp_click` e `generate_lead` (formulário enviado com sucesso, com `cta_origem`, `objetivo` e `investimento`). Nome, e-mail e telefone nunca são enviados.
+- Para outras ferramentas (Pixel da Meta, Google Ads), adicione os domínios delas na CSP do `index.html`.
