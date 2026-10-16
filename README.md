@@ -57,7 +57,7 @@ Também dá para abrir o `site/index.html` direto no navegador, mas um servidor 
 ## Deploy
 
 - **GitHub Pages:** a cada push na branch `main`, o workflow `.github/workflows/pages.yml` publica o site em `https://digitalgalaxy.com.br/` (o endereço `ceodigitalgalaxy.github.io/digitalgalaxy-site/` redireciona para ele). Só o conteúdo da pasta `site/` vai para o ar; um arquivo novo colocado nela é publicado automaticamente.
-- **Domínio (DNS na HostGator):** `digitalgalaxy.com.br` com 4 registros A para o GitHub Pages (`185.199.108.153`, `.109.153`, `.110.153`, `.111.153`); `www` e `diagnostico` com CNAME para `ceodigitalgalaxy.github.io`. Os registros de e-mail (MX, `mail`, SPF, DKIM, DMARC) continuam na HostGator. Mudanças de plano na HostGator podem trocar esses registros: se o site sair do ar, confira o Editor de Zona do cPanel.
+- **Domínio (DNS na HostGator):** `digitalgalaxy.com.br` com 4 registros A para o GitHub Pages (`185.199.108.153`, `.109.153`, `.110.153`, `.111.153`); `www`, `diagnostico` (repositório `Forms`) e `portfolio` (repositório `portfolio`) com CNAME para `ceodigitalgalaxy.github.io`. Os registros de e-mail (MX, `mail`, SPF, DKIM, DMARC) continuam na HostGator. Mudanças de plano na HostGator podem trocar esses registros: se o site sair do ar, confira o Editor de Zona do cPanel.
 - **Cache:** o GitHub Pages guarda os arquivos por 10 minutos. Ao mudar CSS ou JS, aumente o número em `?v=` nos links do `<head>` do `site/index.html`.
 - **Segurança:** a política de conteúdo (CSP) fica numa `<meta>` no `<head>`. Ela só permite arquivos do próprio site: para usar um script, fonte ou imagem de outro domínio, inclua o domínio nela. Evite `style="..."` no HTML (a CSP bloqueia); use classes no CSS.
 
